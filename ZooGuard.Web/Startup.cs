@@ -51,7 +51,7 @@ namespace ZooGuard.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //Конвеер промежуточного ПО, он контролирует то, как приложение отвечает на запросы
         {
-            //app.UseStatusCodePagesWithReExecute("{controller=Home}/{action=Index}/{id?}"); //обработка ошибок 404 и 500
+            app.UseStatusCodePagesWithReExecute("{controller=Home}/{action=Index}/{id?}"); //обработка ошибок 404 и 500
             
             //Все используемые методы, являются методами расширения их классы реализуют интерфейсы типа параметров, под коотом у этих методов еще один метод расширения для передачи HTTPContext
             //Важен порядок регистрации middleware+ так как команды вызываются последовательно
