@@ -11,16 +11,25 @@ namespace ZooGuard.Web.Controllers
 {
     public class HomeController : Controller
     {
+    //Генерация ответа на запрос:
+    //данные в модели привязки действительны для запроса,
+    //вызов соответствующих действий в модели приложения с помощью сервисов,
+    //выбрать соответствующий ответ на основании ответа от модели приложения
+        
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger) //Сервис Logger предоставляется с помощью внедрения зависимости
         {
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //Здесь может быть вызов контретного сервиса (метода сервиса) из бизнес логики
+            // передача данных в модель предстапвления
+
+            // не выполняет бизнес-логики напрямую.
+
+            return View(); //указывает представлению, что оно должно вернуть пользователю
         }
 
         public IActionResult Privacy()

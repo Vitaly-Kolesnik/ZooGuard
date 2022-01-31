@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220130175334_NewStruct")]
+    partial class NewStruct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,11 +31,6 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -179,12 +176,23 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasDiscriminator().HasValue("FormOfOccurence");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.OwnerPosition", b =>
                 {
                     b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("OwnerPosition_Name");
 
                     b.HasDiscriminator().HasValue("OwnerPosition");
                 });
@@ -193,12 +201,24 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("StatusLabelPos_Name");
+
                     b.HasDiscriminator().HasValue("StatusLabelPos");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.Storage", b =>
                 {
                     b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Storage_Name");
 
                     b.HasDiscriminator().HasValue("Storage");
                 });

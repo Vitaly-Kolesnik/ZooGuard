@@ -5,13 +5,6 @@
   </PropertyGroup> 
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <Content Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
-  </ItemGroup> 
-
-  <ItemGroup>
     <Content Remove="bundleconfig.json" />
   </ItemGroup>
 

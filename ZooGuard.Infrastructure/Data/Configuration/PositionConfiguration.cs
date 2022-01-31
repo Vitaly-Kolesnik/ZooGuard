@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ZooGuard.Core.Entits;
+using ZooGuard.Core.Entites;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
@@ -39,41 +39,6 @@ namespace ZooGuard.Infrastructure.Data.Configuration
             builder
                 .Property(x => x.Information)
                 .HasMaxLength(256)
-                .IsRequired();
-
-            builder
-                .Property(x => x.IdOwnerPosition)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.NameOwnerPosition)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.IdFormOfOccurence)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.NameFormOfOccurence)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.IdUser)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.IdStatusLabel)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder
-                .Property(x => x.NameStatusLabel)
-                .HasMaxLength(50)
                 .IsRequired();
         }
     }

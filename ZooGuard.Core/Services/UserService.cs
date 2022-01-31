@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZooGuard.Core.Entits;
+using ZooGuard.Core.Entites;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
 
@@ -16,8 +16,8 @@ namespace ZooGuard.Core.Services
 
         public UserService(IRepository<User> userRepository, IRepository<Role> roleRepository)
         {
-            this.userRepository = userRepository;
-            this.roleRepository = roleRepository;
+            this.userRepository = userRepository; //получение доступа к репозиторию в базе данных
+            this.roleRepository = roleRepository; //получение доступа к репозиторию в базе данных
         }
 
         public int Add(User user) //бизнес логика - добавление Пользователя

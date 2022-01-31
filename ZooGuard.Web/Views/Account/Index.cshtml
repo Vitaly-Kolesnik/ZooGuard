@@ -1,0 +1,25 @@
+﻿@model SingInViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LayoutStart";
+}
+<div>
+    <div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Login"></label>
+                <input asp-for="Login"/>
+                <span asp-validation-for="Login"></span>
+            </div>
+            <div>
+                <label asp-for="Password"></label>
+                <input asp-for="Password"/>
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <input type="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
+</div>

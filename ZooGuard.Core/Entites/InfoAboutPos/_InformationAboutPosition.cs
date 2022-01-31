@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZooGuard.Core.Entits.StatusLabel
+namespace ZooGuard.Core.Entites.InfoAboutPos
 {
-    public class Storage
+    public abstract class _InformationAboutPosition
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public StatusLabel StatusLabel { get; set; }
+        public ICollection<Position> Positions { get; set; }
     }
 }
+

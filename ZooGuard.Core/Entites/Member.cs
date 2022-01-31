@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZooGuard.Core.Entits
+namespace ZooGuard.Core.Entites
 {
     public class Member
     {
