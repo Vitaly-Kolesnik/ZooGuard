@@ -8,20 +8,20 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class UserByLoginSpecification : ISpecification<User>
+    internal class UserWithRolesSpecification : ISpecification<User>
     {
-        private string login;
+        private int id;
         public IList<string> Includes =>
-            new List<string> { $"{nameof(User.Members)}.{nameof(Member.Role)}" }; //более актуальная версия
+            new List<string> { $"{nameof(User.Members)}.{nameof(Member.Role)}" };
 
-        public UserByLoginSpecification(string login)
+        public UserWithRolesSpecification(int id)
         {
-            this.login = login;
+            this.id = id;
         }
 
         public IQueryable<User> Apply(IQueryable<User> query)
         {
-            return query.Where(i => i.Login == login);
+            return query.Where(i => i.Id == id);
         }
     }
 }

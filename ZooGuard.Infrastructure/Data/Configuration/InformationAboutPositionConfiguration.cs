@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ZooGuard.Core.Entites.InfoAboutPos;
+using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
-    public class InformationAboutPositionConfiguration : IEntityTypeConfiguration<_InformationAboutPosition>
+    public class InformationAboutPositionConfiguration : IEntityTypeConfiguration<InformationAboutPosition>
     {
-        public void Configure(EntityTypeBuilder<_InformationAboutPosition> builder)
+        public void Configure(EntityTypeBuilder<InformationAboutPosition> builder)
         {
             builder
                 .HasKey(x => x.Id);

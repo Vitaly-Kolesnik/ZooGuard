@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
-using ZooGuard.Core.Entites;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ZooGuard.Core.Entites;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications

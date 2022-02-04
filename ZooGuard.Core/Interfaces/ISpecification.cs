@@ -8,6 +8,6 @@ namespace ZooGuard.Core.Interfaces
     {
         IList<string> Includes { get; } //коллекция строк из базы
 
-        IQueryable<TEntity> Apply (IQueryable<TEntity> query);
+        IQueryable<TEntity> Apply(IQueryable<TEntity> query);
     }
 }

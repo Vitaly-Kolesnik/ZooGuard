@@ -1,4 +1,4 @@
-﻿using ZooGuard.Core.Entites;
+﻿using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Core.Interfaces
 {

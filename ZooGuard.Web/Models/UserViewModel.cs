@@ -25,7 +25,7 @@ namespace ZooGuard.Web.Models
 
         [Display(Name = "Roles")]
         [Required, MinLength(1)]
-        public int[] RoleIds { get; set; } //размер массива данных ролей
+        public int[] RoleIds { get; set; } //размер массива данных ролей к которым относится пользователь
         public IEnumerable<SelectListItem> Roles { get; set; } //доступ к массиву ролей
 
         [Display(Name = "Positions")]

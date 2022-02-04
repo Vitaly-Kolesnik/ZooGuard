@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220131174140_FullCore")]
+    partial class FullCore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace ZooGuard.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +44,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("InformationAboutPosition");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Member", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Member", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -57,7 +59,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Position", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,16 +134,12 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Role", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -153,7 +151,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,9 +159,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -171,62 +167,53 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nchar(128)")
-                        .IsFixedLength(true);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nchar(128)")
-                        .IsFixedLength(true);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Login")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.FormOfOccurence", b =>
                 {
-                    b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
+                    b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
                     b.HasDiscriminator().HasValue("FormOfOccurence");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.OwnerPosition", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.OwnerPosition", b =>
                 {
-                    b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
+                    b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
                     b.HasDiscriminator().HasValue("OwnerPosition");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.StatusLabelPos", b =>
                 {
-                    b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
+                    b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
                     b.HasDiscriminator().HasValue("StatusLabelPos");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.Storage", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.Storage", b =>
                 {
-                    b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
+                    b.HasBaseType("ZooGuard.Core.Entites.InfoAboutPos.InformationAboutPosition");
 
                     b.HasDiscriminator().HasValue("Storage");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Member", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Member", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Role", "Role")
+                    b.HasOne("ZooGuard.Core.Entites.Role", "Role")
                         .WithMany("Members")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.User", "User")
+                    b.HasOne("ZooGuard.Core.Entites.User", "User")
                         .WithMany("Members")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -237,29 +224,29 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Position", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", "FormOfOccurence")
+                    b.HasOne("ZooGuard.Core.Entites.InfoAboutPos.FormOfOccurence", "FormOfOccurence")
                         .WithMany("Positions")
                         .HasForeignKey("FormOfOccurenceId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.OwnerPosition", "OwnerPosition")
+                    b.HasOne("ZooGuard.Core.Entites.InfoAboutPos.OwnerPosition", "OwnerPosition")
                         .WithMany("Positions")
                         .HasForeignKey("OwnerPositionId");
 
-                    b.HasOne("ZooGuard.Core.Entities.Position", null)
+                    b.HasOne("ZooGuard.Core.Entites.Position", null)
                         .WithMany("Positions")
                         .HasForeignKey("PositionId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", "StatusLabel")
+                    b.HasOne("ZooGuard.Core.Entites.InfoAboutPos.StatusLabelPos", "StatusLabel")
                         .WithMany("Positions")
                         .HasForeignKey("StatusLabelId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.Storage", "Storage")
+                    b.HasOne("ZooGuard.Core.Entites.InfoAboutPos.Storage", "Storage")
                         .WithMany("Positions")
                         .HasForeignKey("StorageId");
 
-                    b.HasOne("ZooGuard.Core.Entities.User", "User")
+                    b.HasOne("ZooGuard.Core.Entites.User", "User")
                         .WithMany("Positions")
                         .HasForeignKey("UserId");
 
@@ -274,39 +261,39 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Position", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Role", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.Role", b =>
                 {
                     b.Navigation("Members");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.User", b =>
                 {
                     b.Navigation("Members");
 
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.FormOfOccurence", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.OwnerPosition", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.OwnerPosition", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.StatusLabelPos", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.Storage", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entites.InfoAboutPos.Storage", b =>
                 {
                     b.Navigation("Positions");
                 });

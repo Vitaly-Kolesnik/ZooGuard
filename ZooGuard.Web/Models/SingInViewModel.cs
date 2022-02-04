@@ -11,7 +11,7 @@ namespace ZooGuard.Web.Models
 
        [Required, DataType(DataType.Password)]
             //Для свойства с атрибутом DataType.Password HTML-хелперы создают элемент ввода, у которого атрибут type имеет значение "password".
-            //Тогда в браузере вы при вводе данных вы не увидите вводимые символы
+            //Тогда в браузере вы при вводе данных не увидите вводимые символы
        public string Password { get; set; }
     }
     

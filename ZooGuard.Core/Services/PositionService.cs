@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZooGuard.Core.Entites;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ZooGuard.Core.Entites;
-using ZooGuard.Core.Entites.InfoAboutPos;
+using ZooGuard.Core.Entities;
+using ZooGuard.Core.Entities.InfoAboutPos;
 using ZooGuard.Infrastructure.Data.Configuration;
 
 namespace ZooGuard.Infrastructure
@@ -11,7 +11,6 @@ namespace ZooGuard.Infrastructure
         public DbSet<User> Users { get; set; } //DbContext для юзеров
         public DbSet<Member> Members { get; set; } //класс связывающий Roles and User
         public DbSet<Position> Positions { get; set; } //Entity позиции
-        public DbSet<_InformationAboutPosition> InformationAboutPositions { get; set;}
         public DbSet<OwnerPosition> OwnerPositions { get; set; } 
         public DbSet<Storage> Storages { get; set; } 
         public DbSet<StatusLabelPos> StatusLabels { get; set; }
@@ -28,7 +27,7 @@ namespace ZooGuard.Infrastructure
             new RoleConfiguration().Configure(modelBuilder.Entity<Role>());
             new MemberConfiguration().Configure(modelBuilder.Entity<Member>());
             new PositionConfiguration().Configure(modelBuilder.Entity<Position>());
-            new InformationAboutPositionConfiguration().Configure(modelBuilder.Entity<_InformationAboutPosition>());
+            new InformationAboutPositionConfiguration().Configure(modelBuilder.Entity<InformationAboutPosition>());
             new OwnerPositionConfiguration().Configure(modelBuilder.Entity<OwnerPosition>());
             new StorageConfiguration().Configure(modelBuilder.Entity<Storage>());
             new StatusLabelConfigurationcs().Configure(modelBuilder.Entity<StatusLabelPos>());
