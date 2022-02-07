@@ -11,13 +11,13 @@ namespace ZooGuard.Web.Services
     public class UserViewModelService : IUserViewModelService
     {
         private readonly IUserService userService;
-        private readonly IPasswordHasher passwordHasher;
+        //private readonly IPasswordHasher passwordHasher;
         private readonly IRepository<Role> roleRepository;
 
         public UserViewModelService(IUserService userService, IPasswordHasher passwordHasher, IRepository<Role> roleRepository)
         {
             this.userService = userService;
-            this.passwordHasher = passwordHasher;
+            //this.passwordHasher = passwordHasher;
             this.roleRepository = roleRepository;
         }
 
@@ -44,15 +44,15 @@ namespace ZooGuard.Web.Services
 
         private User ConvertToModel(UserViewModel userViewModel)
         {
-            var salt = passwordHasher.GenerateSalt();
+            //var salt = passwordHasher.GenerateSalt();
 
             return new User
             {
                 Id = userViewModel.Id.HasValue ? userViewModel.Id.Value : 0,
                 Name = userViewModel.Name,
                 Login = userViewModel.Login,
-                Password = passwordHasher.Hash(userViewModel.Password, salt),
-                Salt = salt,
+                Password = userViewModel.Password,     //passwordHasher.Hash(userViewModel.Password, salt),
+                //Salt = salt,
                 Members = userViewModel.RoleIds.Select(id => new Member { RoleId = id }).ToList()
             };
         }

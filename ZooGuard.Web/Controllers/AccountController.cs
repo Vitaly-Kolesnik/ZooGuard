@@ -15,13 +15,13 @@ namespace ZooGuard.Web.Controllers
     {
         private readonly IUserViewModelService userViewModelService;
         private readonly IUserService userService;
-        private readonly IPasswordHasher passwordHasher;
+        //private readonly IPasswordHasher passwordHasher;
 
         public AccountController(IUserViewModelService userViewModelService, IUserService userService, IPasswordHasher passwordHasher)
         {
             this.userViewModelService = userViewModelService;
             this.userService = userService;
-            this.passwordHasher = passwordHasher;
+            //this.passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -40,11 +40,11 @@ namespace ZooGuard.Web.Controllers
             }
 
             var user = userService.Get(signIn.Login);
-            if (user == null || !passwordHasher.IsValid(signIn.Password, user.Password, user.Salt))
+            /*if (user == null || !passwordHasher.IsValid(signIn.Password, user.Password, user.Salt))
             {
                 ModelState.AddModelError(string.Empty, "Invalid login or password");
                 return View(signIn);
-            }
+            }*/
 
             var claims = new List<Claim>();
 
@@ -57,7 +57,7 @@ namespace ZooGuard.Web.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
             return string.IsNullOrEmpty(returnUrl)
-                ? RedirectToAction(nameof(Index), "Home")
+                ? RedirectToAction(nameof(PositionController.GetAllPositionsInDataBase), "Position") //При входе, редиректим на страницу со всеми позициями (стартовая страница для всех прошедших авторизацию), 
                 : Redirect(returnUrl);
         }
 

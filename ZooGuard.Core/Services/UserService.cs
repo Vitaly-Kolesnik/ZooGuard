@@ -1,8 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
@@ -35,6 +33,11 @@ namespace ZooGuard.Core.Services
         public User Get(string login)
         {
             return userRepository.Get(new UserByLoginSpecification(login));
+        }
+
+        public IList<User> GetAll()
+        {
+            return userRepository.List();
         }
     }
 }

@@ -2,11 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup> 
-
-  <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-  </ItemGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
@@ -18,10 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ZooGuard.Core\ZooGuard.Core.csproj" />
     <ProjectReference Include="..\ZooGuard.Infrastructure\ZooGuard.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bundleconfig.json" />
   </ItemGroup>
 
   <ItemGroup>

@@ -35,9 +35,9 @@ namespace ZooGuard.Core.Services
             return informationPositionRepository.Get(id);
         }
 
-        public List<TInformation> GetAll()
+        public IList<TInformation> GetAll()
         {
-            return informationPositionRepository.List().ToList();
+            return informationPositionRepository.List();
         }
 
         public IList<TInformation> List(string name)

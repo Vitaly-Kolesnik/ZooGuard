@@ -1,0 +1,50 @@
+﻿@model IList<ZooGuard.Core.Entities.User>
+@{
+    ViewData["Title"] = "GetAllUsersInDataBase"; @*Установление ключа Title для контроллера*@
+}
+
+<div class="text-center">
+    <h3>User</h3>
+</div>
+ 
+<div class="form-group">
+    <input type="submit" value="Add" class="btn btn-primary" />
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Project</th>
+            <th>Role</th>
+            <th>Edit user</th>
+            <th>Delete user</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (ZooGuard.Core.Entities.User allUsers  in Model) {
+        <tr>
+			<td>@allUsers.Name</td>
+			<td>@allUsers.LastName</td>
+			<td>@allUsers.Email</td>
+			<td>@allUsers.Phone</td>
+			<td>@allUsers.Project</td>
+            <td>
+                <div class="dropdown">
+                    <p class="dropbtn"> Roles User </p>
+                        <div class="dropdown-content">
+                            <p>Role 1</p>
+                            <p>Role 2</p>
+                            <p>Role 3</p>
+                        </div>
+                </div>
+           </td>
+          <td><input type="submit" value="Edit" class="btn btn-primary" /></td>
+          <td><input type="submit" value="Delete" class="btn btn-primary" /></td>
+		</tr>
+        }
+	</tbody>
+</table>
+        

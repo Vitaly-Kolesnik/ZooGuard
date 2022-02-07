@@ -11,6 +11,6 @@ namespace ZooGuard.Core.Interfaces
         void Delete(int id); //Удаление информационной позиции id
         IList<TInformation> List(string name); //поиск по строке
         int Update(TInformation informationAboutPosition); //изменение информационной позиции
-        List<TInformation> GetAll(); //возврат всех информационных позиций
+        IList<TInformation> GetAll(); //возврат всех информационных позиций
     }
 }

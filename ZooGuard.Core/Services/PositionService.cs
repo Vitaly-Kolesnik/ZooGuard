@@ -34,13 +34,13 @@ namespace ZooGuard.Core.Services
             return positionRepository.Get(id); //Вызываем соответствующий метод из EfRepository
         }
 
-        public List<Position> List(string name) //возврат коллекции по строке
+        public IList<Position> List(string name) //возврат коллекции по строке
         {
-            return positionRepository.List(new PositionSpecification(name)).ToList(); //создание и передача объекта спецификации, филд - строка
+            return positionRepository.List(new PositionSpecification(name)); //создание и передача объекта спецификации, филд - строка
         }
-        public List<Position> GetAll()
+        public IList<Position> GetAll()
         {
-            return positionRepository.List().ToList(); //Возвращает коллекцию позиций
+            return positionRepository.List(); //Возвращает коллекцию позиций
         }
 
         public int Update(Position position)

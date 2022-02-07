@@ -15,6 +15,22 @@ namespace ZooGuard.Infrastructure.Data.Configuration
                 .Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+            
+            builder
+                .Property(x => x.LastName)
+                .HasMaxLength(50)
+                .IsRequired();
+            
+            builder
+                .Property(x => x.Phone)
+                .HasMaxLength(10)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Project)
+                .HasMaxLength(50)
+                .IsRequired();
+
             builder
                 .Property(p => p.Login)
                 .HasMaxLength(50)
