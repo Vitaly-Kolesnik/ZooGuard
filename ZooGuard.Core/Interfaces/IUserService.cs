@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Core.Interfaces

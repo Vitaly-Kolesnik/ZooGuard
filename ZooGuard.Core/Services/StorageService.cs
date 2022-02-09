@@ -36,11 +36,6 @@ namespace ZooGuard.Core.Services
 
         public IList<Storage> GetAll()
         {
-            return storageRepository.List();
-        }
-
-        public IList<Storage> List(string name)
-        {
             return storageRepository.List(new StorageSpecification());
         }
 

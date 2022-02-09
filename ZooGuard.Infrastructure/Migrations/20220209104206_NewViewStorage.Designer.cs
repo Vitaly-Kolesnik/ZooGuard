@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220209104206_NewViewStorage")]
+    partial class NewViewStorage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,9 +198,6 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdStorage")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -236,15 +235,10 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nchar(128)")
                         .IsFixedLength(true);
 
-                    b.Property<int?>("StorageId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Login")
                         .IsUnique();
-
-                    b.HasIndex("StorageId");
 
                     b.ToTable("Users");
                 });
@@ -356,15 +350,6 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Vender");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>
-                {
-                    b.HasOne("ZooGuard.Core.Entities.Storage", "Storage")
-                        .WithMany("Users")
-                        .HasForeignKey("StorageId");
-
-                    b.Navigation("Storage");
-                });
-
             modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
                 {
                     b.Navigation("Positions");
@@ -378,8 +363,6 @@ namespace ZooGuard.Infrastructure.Migrations
             modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
                 {
                     b.Navigation("Positions");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ZooGuard.Core.Entities;
-using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
@@ -19,6 +18,11 @@ namespace ZooGuard.Infrastructure.Data.Configuration
 
             builder
                 .Property(x => x.ActualAddress)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Characteristic)
                 .HasMaxLength(50)
                 .IsRequired();
         }
