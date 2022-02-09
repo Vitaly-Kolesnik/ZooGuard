@@ -39,6 +39,7 @@ namespace ZooGuard.Web
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IVenderService, VenderService>();
             services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
 
             // регистрация зависимостей ViewModelServices

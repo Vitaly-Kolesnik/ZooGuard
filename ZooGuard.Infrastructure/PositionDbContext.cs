@@ -11,7 +11,7 @@ namespace ZooGuard.Infrastructure
         public DbSet<User> Users { get; set; } //DbContext для юзеров
         public DbSet<Member> Members { get; set; } //класс связывающий Roles and User
         public DbSet<Position> Positions { get; set; } //Entity позиции
-        public DbSet<OwnerPosition> OwnerPositions { get; set; } 
+        public DbSet<Vender> Venders { get; set; } //Entity поставщика
         public DbSet<Storage> Storages { get; set; } 
         public DbSet<StatusLabelPos> StatusLabels { get; set; }
         public DbSet<FormOfOccurence> FormOfOccurences { get; set; }
@@ -28,7 +28,7 @@ namespace ZooGuard.Infrastructure
             new MemberConfiguration().Configure(modelBuilder.Entity<Member>());
             new PositionConfiguration().Configure(modelBuilder.Entity<Position>());
             new InformationAboutPositionConfiguration().Configure(modelBuilder.Entity<InformationAboutPosition>());
-            new OwnerPositionConfiguration().Configure(modelBuilder.Entity<OwnerPosition>());
+            new VenderConfiguration().Configure(modelBuilder.Entity<Vender>());
             new StorageConfiguration().Configure(modelBuilder.Entity<Storage>());
             new StatusLabelConfigurationcs().Configure(modelBuilder.Entity<StatusLabelPos>());
             new FormOfOccurenceConfiguration().Configure(modelBuilder.Entity<FormOfOccurence>());

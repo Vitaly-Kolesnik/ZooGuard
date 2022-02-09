@@ -4,11 +4,11 @@
 }
 
 <div class="text-center">
-    <h3>User</h3>
+    <h3>Users</h3>
 </div>
  
 <div class="form-group">
-    <input type="submit" value="Add" class="btn btn-primary" />
+    <input type="submit" value="Add User" class="btn btn-primary" />
 </div>
 <table class="table">
 	<thead>
@@ -31,15 +31,19 @@
 			<td>@allUsers.Email</td>
 			<td>@allUsers.Phone</td>
 			<td>@allUsers.Project</td>
-            <td>
-                <div class="dropdown">
-                    <p class="dropbtn"> Roles User </p>
+                <td> @if(allUsers.Members.Count() > 1 )
+                    {
+                        <div class="dropdown">
+                        <p class="dropbtn"> Roles </p>
                         <div class="dropdown-content">
-                            <p>Role 1</p>
-                            <p>Role 2</p>
-                            <p>Role 3</p>
+                            @foreach(string r in @allUsers.Members.Select(p => p.Role.Name) ) {
+                                <p>@r</p> 
+                                }
                         </div>
-                </div>
+                        </div>
+                    } else{
+                        <p>@allUsers.Members.Single().Role.Name</p>
+                    }
            </td>
           <td><input type="submit" value="Edit" class="btn btn-primary" /></td>
           <td><input type="submit" value="Delete" class="btn btn-primary" /></td>

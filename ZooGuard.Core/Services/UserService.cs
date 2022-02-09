@@ -37,7 +37,7 @@ namespace ZooGuard.Core.Services
 
         public IList<User> GetAll()
         {
-            return userRepository.List();
+            return userRepository.List(new AllUserAndRoleSpecification());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ZooGuard.Core.Specifications
         public IList<string> Includes => new List<string> //Мы создаем коллекцию адресов.   //Выражение nameof создает имя, тип или элемент переменной в качестве строковой константы                                 
         {                                                                                                       
           $"{nameof(Position.FormOfOccurence)}",
-          $"{nameof(Position.OwnerPosition)}",
+          $"{nameof(Position.Vender)}",
           $"{nameof(Position.StatusLabel)}",
           $"{nameof(Position.Storage)}",
         };

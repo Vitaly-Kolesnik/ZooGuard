@@ -13,20 +13,20 @@ namespace ZooGuard.Core.Entities
         public int AccountingNumber { get; set; } //инвертарный номер
         public bool RealityFlag { get; set; } //фланг действительности
         public string Information { get; set; }
-
-        //One-to-Many Relationship (Position-OwnerPosition)
+        //One-to-Many Relationship (Position-Vender)
         //One-to-Many Relationship (Position-FromOfOccurence)
         //One-to-Many Relationship (Position - StatusLabel)
+        //One-to-Many Relationship (Position - Storage)
+        public int IdVender { get; set; }
+        public Vender Vender { get; set; } //Поставщик
+        public int IdStorage { get; set; }
+        public Storage Storage { get; set; } //место хранения
         public int IdInformationAboutPosition { get; set; }
-        public OwnerPosition OwnerPosition { get; set; } //Поставщик
         public FormOfOccurence FormOfOccurence { get; set; } //форма собственности
         public StatusLabelPos StatusLabel { get; set; } //статус
-        public Storage Storage { get; set; } //место хранения
-
         //One-to-Many Relationship (Positions - User)
         public int IdUser { get; set; }
         public User User { get; set; }
-
         //One-to-Many Relationship (Position - Positions)
         public ICollection<Position> Positions { get; set; } //array old position, notReality (after upgrade or modernization) (учетки товаров до изменения, с недействительными флагами действительности)
     }
