@@ -47,7 +47,7 @@ namespace ZooGuard.Web.Services
                 PhoneRepresentative = vender.PhoneRepresentative,
                 EmailRepresentative = vender.EmailRepresentative,
                 MailingAddress = vender.MailingAddress,
-                Сomment = vender.Сomment
+                Сomment = vender.Comment
             };
         }
 
@@ -62,7 +62,7 @@ namespace ZooGuard.Web.Services
                 PhoneRepresentative= venderViewModel.PhoneRepresentative,
                 EmailRepresentative= venderViewModel.EmailRepresentative,
                 MailingAddress= venderViewModel.MailingAddress,
-                Сomment = venderViewModel.Сomment
+                Comment = venderViewModel.Сomment
             };
         }
     }

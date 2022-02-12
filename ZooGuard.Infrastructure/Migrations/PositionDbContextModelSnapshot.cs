@@ -194,10 +194,9 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdStorage")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -222,13 +221,13 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Project")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Salt")
                         .IsRequired()
@@ -236,15 +235,10 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nchar(128)")
                         .IsFixedLength(true);
 
-                    b.Property<int?>("StorageId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Login")
                         .IsUnique();
-
-                    b.HasIndex("StorageId");
 
                     b.ToTable("Users");
                 });
@@ -255,6 +249,11 @@ namespace ZooGuard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("EmailRepresentative")
                         .IsRequired()
@@ -267,6 +266,11 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastNameRepresentative")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MailingAddress")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -356,15 +360,6 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Vender");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>
-                {
-                    b.HasOne("ZooGuard.Core.Entities.Storage", "Storage")
-                        .WithMany("Users")
-                        .HasForeignKey("StorageId");
-
-                    b.Navigation("Storage");
-                });
-
             modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
                 {
                     b.Navigation("Positions");
@@ -378,8 +373,6 @@ namespace ZooGuard.Infrastructure.Migrations
             modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
                 {
                     b.Navigation("Positions");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.User", b =>

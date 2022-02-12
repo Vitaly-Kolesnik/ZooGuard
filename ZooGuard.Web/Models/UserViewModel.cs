@@ -13,6 +13,18 @@ namespace ZooGuard.Web.Models
         [Required, MaxLength(100)] //Обязательное поле для заполнения, длинной не более 100 символов
         public string Name { get; set; }
 
+        [Required, MaxLength(100)] //Обязательное поле для заполнения, длинной не более 100 символов
+        public string LastName { get; set; }
+
+        [Required, MaxLength(15)] //Обязательное поле для заполнения, длинной не более 100 символов
+        public string Phone { get; set; }
+
+        [Required, MaxLength(10)] //Обязательное поле для заполнения, длинной не более 100 символов
+        public string Project { get; set; }
+
+        [Required, MaxLength(20)] //Обязательное поле для заполнения, длинной не более 100 символов
+        public string Email { get; set; }
+
         [Required, MaxLength(50)] //Обязательное поле для заполнения, длинной не более 50 символов
         public string Login { get; set; }
 
@@ -23,10 +35,8 @@ namespace ZooGuard.Web.Models
         [Required, DataType(DataType.Password), Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Roles")]
-        [Required, MinLength(1)]
         public int[] RoleIds { get; set; } //размер массива данных ролей к которым относится пользователь
-        public IEnumerable<SelectListItem> Roles { get; set; } //доступ к массиву ролей
+        public IList<string> Roles { get; set; } //доступ к массиву ролей
 
         [Display(Name = "Positions")]
         [Required, MinLength(1)]

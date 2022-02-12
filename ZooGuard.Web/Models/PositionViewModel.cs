@@ -30,28 +30,28 @@ namespace ZooGuard.Web.Models
         public string Information { get; set; }
 
         [HiddenInput]
-        public int IdOwnerPosition { get; set; }
+        public int IdVender { get; set; }
 
         [Required, MaxLength(200)]
-        public string NameOwnerPosition { get; set; }
+        public string Vender { get; set; }
 
         [HiddenInput]
         public int IdFormOfOccurence { get; set; }
 
         [Required, MaxLength(200)]
-        public string NameFormOfOccurence { get; set; }
+        public string FormOfOccurence { get; set; }
 
         [HiddenInput]
         public int IdUser { get; set; }
 
         [Required, MaxLength(200)]
-        public string NameUser { get; set; }
+        public string User { get; set; }
 
         [HiddenInput]
         public int IdStatusLabel { get; set; }
 
         [Required, MaxLength(200)]
-        public int NameStatusLabel { get; set; }
+        public string StatusLabel { get; set; }
 
         [Display(Name = "oldPositions")]
         [Required, MinLength(1)]

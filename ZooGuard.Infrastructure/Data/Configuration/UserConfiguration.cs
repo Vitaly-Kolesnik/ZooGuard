@@ -23,11 +23,16 @@ namespace ZooGuard.Infrastructure.Data.Configuration
             
             builder
                 .Property(x => x.Phone)
-                .HasMaxLength(10)
+                .HasMaxLength(15)
                 .IsRequired();
 
             builder
                 .Property(x => x.Project)
+                .HasMaxLength(10)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Email)
                 .HasMaxLength(50)
                 .IsRequired();
 

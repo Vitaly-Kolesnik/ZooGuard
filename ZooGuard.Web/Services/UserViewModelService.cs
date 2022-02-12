@@ -63,9 +63,12 @@ namespace ZooGuard.Web.Services
             {
                 Id = user.Id,
                 Name = user.Name,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
                 Login = user.Login,
                 Password = user.Password,
-                Roles = roleRepository.List().Select(r => new SelectListItem(r.Name, r.Id.ToString(), user.Members?.Any(m => m.RoleId == r.Id) ?? false)).ToList()
+                Roles = user.Members.Select(r => r.Role.Name).ToList()
             };
         }
     }

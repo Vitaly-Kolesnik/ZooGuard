@@ -41,6 +41,16 @@ namespace ZooGuard.Infrastructure.Data.Configuration
                 .Property(x => x.EmailRepresentative)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder
+               .Property(x => x.MailingAddress)
+               .HasMaxLength(50)
+               .IsRequired();
+
+            builder
+               .Property(x => x.Comment)
+               .HasMaxLength(500)
+               .IsRequired();
         }
     }
 }
