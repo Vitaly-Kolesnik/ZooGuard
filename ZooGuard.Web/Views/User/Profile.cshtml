@@ -1,0 +1,50 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "GetProfileUserById";
+}
+
+<div class="text-center">
+    <h3>@Model.Name @Model.LastName</h3>
+</div>
+
+<div class="form-group">
+    <input type="submit" value="Edit User" class="btn btn-primary" /> <input type="submit" value="Delete User" class="btn btn-primary" />
+</div>
+<table class="table">
+	<thead>
+		<tr>
+		<th>First Name:</th><td>@Model.Name</td>
+		</tr>
+		<tr>
+		<th>Last Name:</th><td>@Model.LastName</td>
+		</tr>
+		<tr>
+		@if(@Model.Roles.Count()>1)
+		{
+			<th>Roles</th>
+			<td><div class="dropdown">
+                        <p class="dropbtn"> Roles </p>
+                        <div class="dropdown-content">
+                            @foreach(string r in @Model.Roles) {
+                                <p>@r</p> 
+                                }
+                        </div>
+                        </div></td>
+		} 
+		else 
+		{
+			<th>Role</th>
+			<td>@Model.Roles.Single()</td>
+		}
+		</tr>
+		<tr>
+		<th>Project:</th><td>@Model.Project</td>
+		</tr>
+		<tr>
+		<th>Phone:</th><td>@Model.Phone</td>
+		</tr>
+		<tr>
+		<th>Email:</th><td>@Model.Email</td>
+		</tr>
+	</thead>	
+</table>
