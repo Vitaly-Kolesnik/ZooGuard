@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZooGuard.Core.Entits;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
@@ -12,7 +12,7 @@ namespace ZooGuard.Core.Specifications
     {
         private string login;
         public IList<string> Includes =>
-            new List<string> { $"{nameof(User.Members)}.{nameof(Member.Role)}" };
+            new List<string> { $"{nameof(User.Members)}.{nameof(Member.Role)}" }; //более актуальная версия
 
         public UserByLoginSpecification(string login)
         {

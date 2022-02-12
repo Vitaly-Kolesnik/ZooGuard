@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ZooGuard.Core.Entits.StatusLabel;
+using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
@@ -9,11 +9,21 @@ namespace ZooGuard.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Storage> builder)
         {
             builder
-                .HasKey(x => x.Id);
+              .HasKey(x => x.Id);
 
             builder
                 .Property(x => x.Name)
-                .HasMaxLength(100)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .Property(x => x.ActualAddress)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Characteristic)
+                .HasMaxLength(50)
                 .IsRequired();
         }
     }

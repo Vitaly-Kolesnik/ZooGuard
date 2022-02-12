@@ -1,4 +1,5 @@
-﻿using ZooGuard.Core.Entits;
+﻿using System.Collections.Generic;
+using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Core.Interfaces
 {
@@ -7,5 +8,6 @@ namespace ZooGuard.Core.Interfaces
         int Add(User user);
         User Get(int id);
         User Get(string login);
+        IList<User> GetAll();
     }
 }

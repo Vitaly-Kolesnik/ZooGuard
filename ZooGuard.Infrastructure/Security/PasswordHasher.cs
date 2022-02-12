@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Text;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Infrastructure.Security

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZooGuard.Core.Interfaces
 {
     public interface ISpecification<TEntity> 
         where TEntity : class
     {
-        IQueryable<TEntity> Apply (IQueryable<TEntity> query);
+        IList<string> Includes { get; } //коллекция строк из базы
+
+        IQueryable<TEntity> Apply(IQueryable<TEntity> query);
     }
 }

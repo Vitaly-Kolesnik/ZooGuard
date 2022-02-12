@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using ZooGuard.Core.Entits;
+using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ZooGuard.Core.Entits;
+using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
@@ -14,7 +14,48 @@ namespace ZooGuard.Infrastructure.Data.Configuration
             builder
                 .Property(x => x.Name)
                 .HasMaxLength(50)
-                .IsRequired();        
+                .IsRequired();
+            
+            builder
+                .Property(x => x.LastName)
+                .HasMaxLength(50)
+                .IsRequired();
+            
+            builder
+                .Property(x => x.Phone)
+                .HasMaxLength(15)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Project)
+                .HasMaxLength(10)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Email)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .Property(p => p.Login)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .HasIndex(u => u.Login)
+                .IsUnique();
+
+            builder
+                .Property(p => p.Password)
+                .HasMaxLength(128)
+                .IsFixedLength()
+                .IsRequired();
+
+            builder
+                .Property(p => p.Salt)
+                .HasMaxLength(128)
+                .IsFixedLength()
+                .IsRequired();
         }
     }
 }
