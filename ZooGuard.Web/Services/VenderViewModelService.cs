@@ -14,14 +14,14 @@ namespace ZooGuard.Web.Services
             this.venderService = venderService;
         }
 
-        public int Add(VenderViewModel venderViewModel)
+        public int Add(VenderViewModel vender)
         {
-            return venderService.Add(ConvertToModel(venderViewModel));
+            return venderService.Add(ConvertToModel(vender));
         }
 
         public void Edit(VenderViewModel vender)
         {
-            throw new System.NotImplementedException();
+            venderService.Update(ConvertToModel(vender));
         }
 
         public VenderViewModel GetById(int id)

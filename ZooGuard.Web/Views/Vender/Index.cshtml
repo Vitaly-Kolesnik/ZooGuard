@@ -8,7 +8,7 @@
 </div>
  
 <div class="form-group">
-    <input type="submit" value="Add Vender" class="btn btn-primary" />
+     <a class="nav-link text-dark" asp-area="" asp-controller="Vender" asp-action="GetFormAddVender"><input type="submit" value="Add Vender" class="btn btn-primary" /></a>
 </div>
 <table class="table">
 	<thead>
@@ -24,16 +24,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (ZooGuard.Core.Entities.Vender allVenders  in Model) {
+		@foreach (ZooGuard.Core.Entities.Vender Vender  in Model) {
         <tr>
-			<td>@allVenders.Name</td>
-			<td>@allVenders.FirstNameRepresentative</td>
-			<td>@allVenders.LastNameRepresentative</td>
-			<td>@allVenders.PhoneRepresentative</td>
-			<td>@allVenders.EmailRepresentative</td>
+			<td><a href="~/Vender/Profile/@Vender.Id"/> <input type="submit" value="@Vender.Name" class="btn btn-primary" /></td>
+			<td>@Vender.FirstNameRepresentative</td>
+			<td>@Vender.LastNameRepresentative</td>
+			<td>@Vender.PhoneRepresentative</td>
+			<td>@Vender.EmailRepresentative</td>
 			<td><input type="submit" value="all Positions" class="btn btn-primary" /></td>
-			<td><input type="submit" value="Edit" class="btn btn-primary" /></td>
-			<td><input type="submit" value="Delete" class="btn btn-primary" /></td>
+			<td><a href="~/Vender/Edit/@Vender.Id"/><input type="submit" value="Edit" class="btn btn-primary"/></td>
+			<td><a href="~/Vender/Delete/@Vender.Id"/><input type="submit" value="Delete" class="btn btn-primary" /></td>
 		</tr>
         }
 	</tbody>

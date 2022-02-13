@@ -45,6 +45,7 @@ namespace ZooGuard.Web
 
             // регистрация зависимостей ViewModelServices
             services.AddScoped<IUserViewModelService, UserViewModelService>();
+            services.AddScoped<IVenderViewModelService, VenderViewModelService>();
 
             // ModelServices
             services.AddScoped<IRoleModelService, RoleModelService>();
