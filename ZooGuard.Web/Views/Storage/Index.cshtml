@@ -8,7 +8,7 @@
 </div>
  
 <div class="form-group">
-    <input type="submit" value="Add User" class="btn btn-primary" />
+    <a class="nav-link text-dark" asp-area="" asp-controller="Storage" asp-action="GetFormAddStorage"><input type="submit" value="Add Storage" class="btn btn-primary" /></a>
 </div>
 <table class="table">
 	<thead>
@@ -16,18 +16,20 @@
 			<th>Name</th>
 			<th>Adress</th>
             <th>Category</th>
+			<th>Positions</th>
 			<th>Edit storage</th>
             <th>Delete storage</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (ZooGuard.Core.Entities.Storage allStorages  in Model) {
+		@foreach (ZooGuard.Core.Entities.Storage Storage  in Model) {
         <tr>
-			<td>@allStorages.Name</td>
-			<td>@allStorages.ActualAddress</td>
-            <td>@allStorages.Characteristic</td>
-          <td><input type="submit" value="Edit" class="btn btn-primary" /></td>
-          <td><input type="submit" value="Delete" class="btn btn-primary" /></td>
+			<td><a href="~/Storage/Profile/@Storage.Id"/><input type="submit" value="@Storage.Name" class="btn btn-primary" /></td>
+			<td>@Storage.ActualAddress</td>
+            <td>@Storage.Characteristic</td>
+		    <td><input type="submit" value="all Positions" class="btn btn-primary"/></td>
+			<td><a href="~/Storage/Edit/@Storage.Id"/><input type="submit" value="Edit" class="btn btn-primary"/></td>
+			<td><a href="~/Storage/Delete/@Storage.Id"/><input type="submit" value="Delete" class="btn btn-primary" /></td>
 		</tr>
         }
 	</tbody>

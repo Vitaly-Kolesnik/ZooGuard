@@ -1,0 +1,30 @@
+﻿@model StorageViewModel
+@{
+     ViewData["Title"] = "GetFormAddStorage";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Storage" asp-action="addStorage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualAddress" class="control-label"></label>
+                <input asp-for="ActualAddress" class="form-control" />
+                <span asp-validation-for="ActualAddress" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Characteristic" class="control-label"></label>
+                <input asp-for="Characteristic" class="form-control" />
+                <span asp-validation-for="Characteristic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Storage" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

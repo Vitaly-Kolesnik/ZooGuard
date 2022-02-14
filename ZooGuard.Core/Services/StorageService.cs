@@ -39,10 +39,10 @@ namespace ZooGuard.Core.Services
             return storageRepository.List(new StorageSpecification());
         }
 
-        public int Update(Storage strorage)
+        public int Update(Storage storage)
         {
-            storageRepository.Update(strorage);
-            return strorage.Id;
+            storageRepository.Update(storage);
+            return storage.Id;
         }
     }
 }

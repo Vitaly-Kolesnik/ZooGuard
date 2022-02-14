@@ -13,6 +13,7 @@ using ZooGuard.Core.Services;
 using Microsoft.AspNetCore.Http;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Services;
+using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Web
 {
@@ -41,11 +42,13 @@ namespace ZooGuard.Web
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IVenderService, VenderService>();
             services.AddScoped<IStorageService, StorageService>();
-            services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
+            services.AddScoped(typeof(IPositionInformationService<StatusLabelPos>), typeof(PositionInformationService<StatusLabelPos>));
 
             // регистрация зависимостей ViewModelServices
             services.AddScoped<IUserViewModelService, UserViewModelService>();
             services.AddScoped<IVenderViewModelService, VenderViewModelService>();
+            services.AddScoped<IStorageViewModelService, StorageViewModelService>();
+            services.AddScoped<IStatusViewModelService, StatusViewModelService> ();
 
             // ModelServices
             services.AddScoped<IRoleModelService, RoleModelService>();
