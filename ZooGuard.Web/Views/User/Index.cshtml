@@ -24,25 +24,25 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (ZooGuard.Core.Entities.User allUsers  in Model) {
+		@foreach (ZooGuard.Core.Entities.User User  in Model) {
         <tr>
-			<td>@allUsers.Name</td>
-			<td>@allUsers.LastName</td>
-			<td>@allUsers.Email</td>
-			<td>@allUsers.Phone</td>
-			<td>@allUsers.Project</td>
-                <td> @if(allUsers.Members.Count() > 1 )
+			<td>@User.Name</td>
+			<td>@User.LastName</td>
+			<td>@User.Email</td>
+			<td>@User.Phone</td>
+			<td>@User.Project</td>
+                <td> @if(User.Members.Count() > 1 )
                     {
                         <div class="dropdown">
                         <p class="dropbtn"> Roles </p>
                         <div class="dropdown-content">
-                            @foreach(string r in @allUsers.Members.Select(p => p.Role.Name) ) {
+                            @foreach(string r in @User.Members.Select(p => p.Role.Name) ) {
                                 <p>@r</p> 
                                 }
                         </div>
                         </div>
                     } else{
-                        <p>@allUsers.Members.Single().Role.Name</p>
+                        <p>@User.Members.Single().Role.Name</p>
                     }
            </td>
           <td><input type="submit" value="Edit" class="btn btn-primary" /></td>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214204052_NewPosition")]
+    partial class NewPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,22 +66,24 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountingNumber")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<int>("AccountingNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasMaxLength(10)
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FormOfOccurenceId")
+                    b.Property<int?>("FormOfOccurenceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Information")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("InformationAboutPositionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -91,7 +95,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("StatusLabelId")
+                    b.Property<int?>("StatusLabelId")
                         .HasColumnType("int");
 
                     b.Property<int>("StorageId")
@@ -277,11 +281,11 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("FormOfOccurence");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
                 {
                     b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
 
-                    b.HasDiscriminator().HasValue("StatusLabel");
+                    b.HasDiscriminator().HasValue("StatusLabelPos");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.Member", b =>
@@ -307,15 +311,11 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", "FormOfOccurence")
                         .WithMany("Positions")
-                        .HasForeignKey("FormOfOccurenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FormOfOccurenceId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", "StatusLabel")
+                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", "StatusLabel")
                         .WithMany("Positions")
-                        .HasForeignKey("StatusLabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatusLabelId");
 
                     b.HasOne("ZooGuard.Core.Entities.Storage", "Storage")
                         .WithMany("Positions")
@@ -373,7 +373,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
                 {
                     b.Navigation("Positions");
                 });

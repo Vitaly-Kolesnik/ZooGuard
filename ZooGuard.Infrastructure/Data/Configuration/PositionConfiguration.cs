@@ -28,12 +28,7 @@ namespace ZooGuard.Infrastructure.Data.Configuration
 
             builder
                 .Property(x => x.AccountingNumber)
-                .HasMaxLength(10)
-                .IsRequired();
-
-            builder
-                .Property(x => x.RealityFlag)
-                .HasMaxLength(1)
+                .HasMaxLength(30)
                 .IsRequired();
 
             builder

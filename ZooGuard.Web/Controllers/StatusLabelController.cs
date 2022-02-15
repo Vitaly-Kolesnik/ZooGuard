@@ -9,10 +9,10 @@ namespace ZooGuard.Web.Controllers
 {
     public class StatusLabelController : Controller
     {
-        private readonly IPositionInformationService<StatusLabelPos> positionInformationService;
+        private readonly IPositionInformationService<StatusLabel> positionInformationService;
         private readonly IStatusViewModelService statusViewModelServise;
 
-        public StatusLabelController(IStatusViewModelService statusViewModelServise, IPositionInformationService<StatusLabelPos> positionInformationService)
+        public StatusLabelController(IStatusViewModelService statusViewModelServise, IPositionInformationService<StatusLabel> positionInformationService)
         {
             this.positionInformationService = positionInformationService;
             this.statusViewModelServise = statusViewModelServise;
@@ -23,7 +23,7 @@ namespace ZooGuard.Web.Controllers
             return View();
         }
 
-        [HttpGet("StatusLabel")]
+        [HttpGet("StatusLabel/All")]
         public IActionResult GetAllLabelInDataBase()
         {
             var statusLabel = positionInformationService.GetAll();
@@ -69,7 +69,7 @@ namespace ZooGuard.Web.Controllers
             return View("Delete", status);
         }
 
-        [HttpPost(("Status/DeleteStatus"))]
+        [HttpPost("Status/DeleteStatus")]
         public IActionResult DeleteStatus(int id)
         {
             positionInformationService.Delete(id);

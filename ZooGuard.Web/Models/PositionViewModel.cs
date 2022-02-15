@@ -3,59 +3,55 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Web.Models
 {
     public class PositionViewModel
     {
-        [HiddenInput] //Генерирование скрытого поля ввода
+        [HiddenInput]
         public int? Id { get; set; }
 
         [Required, MaxLength(200)]
         public string Name { get; set; }
 
-        [Required]
+        
+        [Required, DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{dd.MM.yyyy}")]
         public DateTime Date { get; set; }
 
         [Required]
         public string RegistrationDocument { get; set; }
 
-        [Required, MinLength(1)]
-        public int AccountingNumber { get; set; }
-
-        [HiddenInput]
-        public bool RealityFlag { get; set; }
+        [Required, MaxLength(10)]
+        public string AccountingNumber { get; set; }
 
         [Required, MaxLength(500)]
         public string Information { get; set; }
 
-        [HiddenInput]
-        public int IdVender { get; set; }
+        [Display(Name = "Venders")]
+        [Required]
+        public int VenderId { get; set; }
+        public IEnumerable<SelectListItem> Venders { get; set; }
 
-        [Required, MaxLength(200)]
-        public string Vender { get; set; }
+        [Display(Name = "Storages")]
+        [Required]
+        public int StorageId { get; set; }
+        public IEnumerable<SelectListItem> Storages { get; set; }
 
-        [HiddenInput]
-        public int IdFormOfOccurence { get; set; }
+        [Display(Name = "Property")]
+        [Required]
+        public int FormOfOccurenceId { get; set; }
+        public IEnumerable<SelectListItem> FormOfOccurences { get; set; }
 
-        [Required, MaxLength(200)]
-        public string FormOfOccurence { get; set; }
+        [Display(Name = "Status label")]
+        [Required]
+        public int StatusLabelId { get; set; }
+        public IEnumerable<SelectListItem> StatusLabels { get; set; }
 
-        [HiddenInput]
-        public int IdUser { get; set; }
-
-        [Required, MaxLength(200)]
-        public string User { get; set; }
-
-        [HiddenInput]
-        public int IdStatusLabel { get; set; }
-
-        [Required, MaxLength(200)]
-        public string StatusLabel { get; set; }
-
-        [Display(Name = "oldPositions")]
-        [Required, MinLength(1)]
-        public int[] OldPositionsIds { get; set; }
-        public IEnumerable<SelectListItem> OldPositions { get; set; }
+        [Display(Name = "User")]
+        [Required]
+        public int UserId { get; set; }
+        public IEnumerable<SelectListItem> Users { get; set; }
     }
 }

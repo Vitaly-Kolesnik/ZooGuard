@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 
@@ -23,6 +20,7 @@ namespace ZooGuard.Core.Specifications
           $"{nameof(Position.Vender)}",
           $"{nameof(Position.StatusLabel)}",
           $"{nameof(Position.Storage)}",
+          $"{nameof(Position.User)}",
         };
 
         public IQueryable<Position> Apply(IQueryable<Position> query)

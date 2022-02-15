@@ -1,5 +1,5 @@
 ﻿namespace ZooGuard.Core.Entities.InfoAboutPos
 {
-    public class StatusLabelPos : InformationAboutPosition
+    public class StatusLabel : InformationAboutPosition
     { }
 }

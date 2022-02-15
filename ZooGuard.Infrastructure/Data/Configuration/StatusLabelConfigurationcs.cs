@@ -4,9 +4,9 @@ using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
-    public class StatusLabelConfigurationcs : IEntityTypeConfiguration<StatusLabelPos>
+    public class StatusLabelConfigurationcs : IEntityTypeConfiguration<StatusLabel>
     {
-        public void Configure(EntityTypeBuilder<StatusLabelPos> builder)
+        public void Configure(EntityTypeBuilder<StatusLabel> builder)
         {
         }
     }

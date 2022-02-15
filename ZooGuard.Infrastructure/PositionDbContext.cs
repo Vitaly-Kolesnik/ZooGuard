@@ -13,7 +13,7 @@ namespace ZooGuard.Infrastructure
         public DbSet<Position> Positions { get; set; } //Entity позиции
         public DbSet<Vender> Venders { get; set; } //Entity поставщика
         public DbSet<Storage> Storages { get; set; } 
-        public DbSet<StatusLabelPos> StatusLabels { get; set; }
+        public DbSet<StatusLabel> StatusLabels { get; set; }
         public DbSet<FormOfOccurence> FormOfOccurences { get; set; }
 
         public PositionDbContext(DbContextOptions<PositionDbContext> options) : base(options)
@@ -30,7 +30,7 @@ namespace ZooGuard.Infrastructure
             new InformationAboutPositionConfiguration().Configure(modelBuilder.Entity<InformationAboutPosition>());
             new VenderConfiguration().Configure(modelBuilder.Entity<Vender>());
             new StorageConfiguration().Configure(modelBuilder.Entity<Storage>());
-            new StatusLabelConfigurationcs().Configure(modelBuilder.Entity<StatusLabelPos>());
+            new StatusLabelConfigurationcs().Configure(modelBuilder.Entity<StatusLabel>());
             new FormOfOccurenceConfiguration().Configure(modelBuilder.Entity<FormOfOccurence>());
         }
     }

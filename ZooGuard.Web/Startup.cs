@@ -13,7 +13,6 @@ using ZooGuard.Core.Services;
 using Microsoft.AspNetCore.Http;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Services;
-using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Web
 {
@@ -42,16 +41,20 @@ namespace ZooGuard.Web
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IVenderService, VenderService>();
             services.AddScoped<IStorageService, StorageService>();
-            services.AddScoped(typeof(IPositionInformationService<StatusLabelPos>), typeof(PositionInformationService<StatusLabelPos>));
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
 
             // регистрация зависимостей ViewModelServices
             services.AddScoped<IUserViewModelService, UserViewModelService>();
             services.AddScoped<IVenderViewModelService, VenderViewModelService>();
             services.AddScoped<IStorageViewModelService, StorageViewModelService>();
             services.AddScoped<IStatusViewModelService, StatusViewModelService> ();
+            services.AddScoped<IOccurenceViewModelService, OccurenceViewModelService>();
+            services.AddScoped<IRoleViewModelService, RoleViewModelService>();
+            services.AddScoped<IPositionViewModelService, PositionViewModelService>();
 
             // ModelServices
-            services.AddScoped<IRoleModelService, RoleModelService>();
+
 
             // MVC services
             services.AddControllersWithViews(); //Поддержка контроллеров и представлений
@@ -96,7 +99,7 @@ namespace ZooGuard.Web
             {
                 endpoints.MapControllerRoute( //По факту когда мы получаем запрос он проходил по всему конвееру промежуточного ПО и вызывает контроллер, контроллер на основании модели возвращает вьюшку (выбор конечной точки)
                     name: "default", 
-                    pattern: "{controller=Position}/{action=Index}/{id?}"); //В корне сайта будет использоваться Home контроллер метод Index, регистрация списка паттернов для вызова контролеера и представлений
+                    pattern: "{controller=Home}/{action=Index}/{id?}"); //В корне сайта будет использоваться Home контроллер метод Index, регистрация списка паттернов для вызова контролеера и представлений
                                                                         //После выбора обработчика (контроллера) => создание контроллера. Привязка модели с помощью атрибутов!
                                                                         //Регистрация конечных точек
                 //ASP.NET Core может привязывать в Razor Pages:

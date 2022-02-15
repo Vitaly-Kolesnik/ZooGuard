@@ -31,7 +31,8 @@ namespace ZooGuard.Core.Services
 
         public Position Get(int id) //поиск по id
         {
-            return positionRepository.Get(id); //Вызываем соответствующий метод из EfRepository
+            
+            return positionRepository.Get(new GetPositionSpecification(id)); //Вызываем соответствующий метод из EfRepository
         }
 
         public IList<Position> List(string name) //возврат коллекции по строке
@@ -40,7 +41,7 @@ namespace ZooGuard.Core.Services
         }
         public IList<Position> GetAll()
         {
-            return positionRepository.List(); //Возвращает коллекцию позиций
+            return positionRepository.List(new AllPositionInformationSpecification()); //Возвращает коллекцию позиций
         }
 
         public int Update(Position position)

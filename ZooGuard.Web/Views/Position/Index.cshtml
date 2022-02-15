@@ -16,34 +16,32 @@
 			<th>Name</th>
 			<th>Received</th>
 			<th>Invoce</th>
-			<th>ID number</th>
+			<th>ID</th>
 			<th>Vender</th>
             <th>Freehold</th>
-            <th>Responsible person</th>
-            <th>Status Label</th>
+            <th>Person</th>
+            <th>Label</th>
 			<th>Storage</th>
-			<th>Modifi position</th>
 			<th>Edit position</th>
             <th>Delete position</th>
 		</tr>
 	</thead>
 	<tbody>
-	@* @foreach (ZooGuard.Core.Entities.Position allPositions  in Model) {
+	@foreach (ZooGuard.Core.Entities.Position Position  in Model) {
         <tr>
-			<td>@allPositions.Name</td>
-			<td>@allPositions.Date</td>
-			<td>@allPositions.RegistrationDocument</td>
-			<td>@allPositions.AccountingNumber</td>
-			<td>@allPositions.Vender.Name</td>
-			<td>@allPositions.FormOfOccurence.Name</td>
-			<td><p>@allPositions.User.Name</p> <p>@allPositions.User.LastName</p></td>
-			<td>@allPositions.StatusLabel.Name</td>
-			<td>@allPositions.Storage.Name</td>
-			<td><input type="submit" value="Modifi" class="btn btn-primary" /></td>
-          <td><input type="submit" value="Edit" class="btn btn-primary" /></td>
-          <td><input type="submit" value="Delete" class="btn btn-primary" /></td>
+			<td><a href="~/Position/Profile/@Position.Id"/><input type="submit" value="@Position.Name" class="btn btn-primary" /></td>
+			<td>@Position.Date</td>
+			<td>@Position.RegistrationDocument</td>
+			<td>@Position.AccountingNumber</td>
+			<td>@Position.Vender.Name</td>
+			<td>@Position.FormOfOccurence.Name</td>
+			<td><p>@Position.User.Name @Position.User.LastName</p></td>
+			<td>@Position.StatusLabel.Name</td>
+			<td>@Position.Storage.Name</td>
+			<td><a href="~/Position/Edit/@Position.Id"/><input type="submit" value="Edit" class="btn btn-primary" /></td>
+			<td><a href="~/Position/Delete/@Position.Id"/><input type="submit" value="Delete" class="btn btn-primary" /></td>
 		</tr>
         }
-	</tbody>*@
+	</tbody>
 </table>
   

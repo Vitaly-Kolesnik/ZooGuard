@@ -2,7 +2,7 @@
 
 namespace ZooGuard.Web.Models
 {
-    public class RoleModel
+    public class RoleViewModel
     {
         public int? Id { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model IList<ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos> 
+﻿@model IList<ZooGuard.Core.Entities.InfoAboutPos.StatusLabel>
 @{
     ViewData["Title"] = "GetAllLabelInDataBase";
 }
@@ -18,7 +18,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos label in Model) {
+		@foreach (ZooGuard.Core.Entities.InfoAboutPos.StatusLabel label in Model) {
         <tr>
 			<td>@label.Name</td>
 			<td><a href="~/Status/Delete/@label.Id"/><input type="submit" value="Delete" class="btn btn-primary" /></td>

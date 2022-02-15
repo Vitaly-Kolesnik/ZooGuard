@@ -7,9 +7,9 @@ namespace ZooGuard.Web.Services
 {
     public class StatusViewModelService : IStatusViewModelService
     {
-        private readonly IPositionInformationService<StatusLabelPos> positionInformationService;
+        private readonly IPositionInformationService<StatusLabel> positionInformationService;
 
-        public StatusViewModelService(IPositionInformationService<StatusLabelPos> positionInformationService)
+        public StatusViewModelService(IPositionInformationService<StatusLabel> positionInformationService)
         {
             this.positionInformationService = positionInformationService;
         }
@@ -35,16 +35,16 @@ namespace ZooGuard.Web.Services
             throw new System.NotImplementedException();
         }
 
-        private StatusLabelPos ConvertToModel(StatusViewModel statusViewModel)
+        private StatusLabel ConvertToModel(StatusViewModel statusViewModel)
         {
-            return new StatusLabelPos
+            return new StatusLabel
             {
                 Id = statusViewModel.Id.HasValue ? statusViewModel.Id.Value : 0,
                 Name = statusViewModel.Name,
             };
         }
 
-        private StatusViewModel ConvertToViewModel(StatusLabelPos statusLabelPos)
+        private StatusViewModel ConvertToViewModel(StatusLabel statusLabelPos)
         {
             return new StatusViewModel
             {

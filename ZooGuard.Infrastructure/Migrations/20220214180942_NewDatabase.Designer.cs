@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214180942_NewDatabase")]
+    partial class NewDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,16 +66,27 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountingNumber")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<int>("AccountingNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasMaxLength(10)
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FormOfOccurenceId")
+                    b.Property<int?>("FormOfOccurenceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdInformationAboutPosition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdStorage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVender")
                         .HasColumnType("int");
 
                     b.Property<string>("Information")
@@ -86,26 +99,35 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RealityFlag")
+                        .HasMaxLength(1)
+                        .HasColumnType("bit");
+
                     b.Property<string>("RegistrationDocument")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("StatusLabelId")
+                    b.Property<int?>("StatusLabelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StorageId")
+                    b.Property<int?>("StorageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VenderId")
+                    b.Property<int?>("VenderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FormOfOccurenceId");
+
+                    b.HasIndex("PositionId");
 
                     b.HasIndex("StatusLabelId");
 
@@ -277,11 +299,11 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("FormOfOccurence");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
                 {
                     b.HasBaseType("ZooGuard.Core.Entities.InfoAboutPos.InformationAboutPosition");
 
-                    b.HasDiscriminator().HasValue("StatusLabel");
+                    b.HasDiscriminator().HasValue("StatusLabelPos");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.Member", b =>
@@ -307,33 +329,27 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", "FormOfOccurence")
                         .WithMany("Positions")
-                        .HasForeignKey("FormOfOccurenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FormOfOccurenceId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", "StatusLabel")
+                    b.HasOne("ZooGuard.Core.Entities.Position", null)
                         .WithMany("Positions")
-                        .HasForeignKey("StatusLabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PositionId");
+
+                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", "StatusLabel")
+                        .WithMany("Positions")
+                        .HasForeignKey("StatusLabelId");
 
                     b.HasOne("ZooGuard.Core.Entities.Storage", "Storage")
                         .WithMany("Positions")
-                        .HasForeignKey("StorageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StorageId");
 
                     b.HasOne("ZooGuard.Core.Entities.User", "User")
                         .WithMany("Positions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.HasOne("ZooGuard.Core.Entities.Vender", "Vender")
                         .WithMany("Positions")
-                        .HasForeignKey("VenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VenderId");
 
                     b.Navigation("FormOfOccurence");
 
@@ -344,6 +360,11 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("User");
 
                     b.Navigation("Vender");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+                {
+                    b.Navigation("Positions");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.Role", b =>
@@ -373,7 +394,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabel", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.StatusLabelPos", b =>
                 {
                     b.Navigation("Positions");
                 });
