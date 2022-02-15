@@ -15,17 +15,17 @@ namespace ZooGuard.Web.Controllers
             this.positionService = positionService;
             this.positionViewModelService = positionViewModelService;
         }
-        
+
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
-        public IActionResult GetAllPositionsInDataBase () //наименование метода должно совыпадать с Title во View
+        [HttpGet("Position/All")]
+        public IActionResult GetAllPositionsInDataBase() //наименование метода должно совыпадать с Title во View
         {
             var allPositions = positionService.GetAll();
-            
+
             return View("Index", allPositions); //Возвращает View c наименование Index и Title - GetAllPositionInDataBase
         }
 
@@ -37,7 +37,7 @@ namespace ZooGuard.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult addPosition(PositionViewModel position)
+        public IActionResult AddPosition(PositionViewModel position)
         {
             if (!ModelState.IsValid)
             {
@@ -92,11 +92,38 @@ namespace ZooGuard.Web.Controllers
             return View("Delete", position);
         }
 
+        [HttpPost("Position/Delete")]
         public IActionResult DeletePosition(int id)
         {
             positionService.Delete(id);
 
             return RedirectToAction("GetAllPositionsInDataBase");
         }
+
+        [HttpGet("Position/By/Storage/{id}")] 
+        public IActionResult GetPositionsAtStorageById (int id)
+        {
+            var positions = positionService.GetPosAtStorage(id);
+            
+            return View("Index", positions); 
+        }
+
+        [HttpGet("Position/By/Vender/{id}")]
+        public IActionResult GetPositionsAtVenderById(int id)
+        {
+            var positions = positionService.GetPosAtVender(id);
+
+            return View("Index", positions);
+        }
+
+        [HttpGet("Position/By/User/{id}")]
+        public IActionResult GetPositionsAtUserById(int id)
+        {
+            var positions = positionService.GetPosAtUser(id);
+
+            return View("Index", positions);
+        }
     }
+
+    
 }

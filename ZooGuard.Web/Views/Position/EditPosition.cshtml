@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-route-id="@Model.Id" asp-controller="Position" asp-action="addPosition">
+        <form method="post" asp-route-id="@Model.Id" asp-controller="Position" asp-action="AddPosition">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label> 
@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" type="text" asp-format="{0:dd.MM.yyyy}" class="form-control" />
+                <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
              <div class="form-group">
@@ -34,7 +34,7 @@
             </div>
               <div class="form-group">
                 <label asp-for="VenderId" class="control-label"></label><br/>
-                <select asp-for="VenderId"  asp-items="Model.Venders" class="fform-select form-select-lg mb-3"><</select>
+                <select asp-for="VenderId" asp-items="Model.Venders" class="fform-select form-select-lg mb-3"></select>
                 <span asp-validation-for="VenderId" class="text-danger"></span>
             </div>
              <div class="form-group">

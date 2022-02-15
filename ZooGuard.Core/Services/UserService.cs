@@ -25,7 +25,7 @@ namespace ZooGuard.Core.Services
 
         public User Get(int id) //вернуть пользователя по id
         {
-            return userRepository.Get(id);
+            return userRepository.Get(new UserWithRolesSpecification(id));
         }
 
         public User Get(string login)
@@ -36,6 +36,17 @@ namespace ZooGuard.Core.Services
         public IList<User> GetAll()
         {
             return userRepository.List(new AllUserAndRoleSpecification());
+        }
+
+        public int Update(User user)
+        {
+            userRepository.Update(user);
+            return user.Id;
+        }
+
+        public void Delete(int id) //Удаление из базы данных
+        {
+            userRepository.Delete(new User { Id = id }); 
         }
     }
 }

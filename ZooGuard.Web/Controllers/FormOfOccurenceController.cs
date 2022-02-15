@@ -34,6 +34,7 @@ namespace ZooGuard.Web.Controllers
         {
             return View("AddOccurence");
         }
+
         [HttpPost("Types_of_property/AddType")]
         public IActionResult AddOccurence(OccurenceViewModel occurence)
         {

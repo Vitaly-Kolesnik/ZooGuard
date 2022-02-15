@@ -1,11 +1,13 @@
-﻿using ZooGuard.Web.Models;
+﻿using ZooGuard.Core.Entities;
+using ZooGuard.Web.Models;
 
 namespace ZooGuard.Web.Interfaces
 {
     public interface IUserViewModelService
     {
         int Add(UserViewModel userViewModel);
-        UserViewModel GetById(int value);
+        User GetUserById(int value);
+        UserViewModel GetModelById(int id);
         void Edit(UserViewModel user);
         UserViewModel GetEmpty();
     }

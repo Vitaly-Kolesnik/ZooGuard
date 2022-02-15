@@ -34,7 +34,7 @@ namespace ZooGuard.Web.Controllers
         {
             return View("AddRole");
         }
-        [HttpPost("AddRole/AddRole")]
+        [HttpPost("Role/AddRole")]
         public IActionResult AddRole(RoleViewModel role)
         {
             if (!ModelState.IsValid)

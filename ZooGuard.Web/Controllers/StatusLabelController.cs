@@ -35,6 +35,7 @@ namespace ZooGuard.Web.Controllers
         {
             return View("AddStatus");
         }
+
         [HttpPost("Status/AddStatus")]
         public IActionResult AddStatusLabel (StatusViewModel statusLabelPos)
         {

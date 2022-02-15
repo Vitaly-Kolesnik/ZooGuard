@@ -11,5 +11,8 @@ namespace ZooGuard.Core.Interfaces
         IList<Position> GetAll();
         void Delete(int id);
         int Update(Position position);
+        public IList<Position> GetPosAtStorage(int id);
+        public IList<Position> GetPosAtVender(int id);
+        public IList<Position> GetPosAtUser(int id);
     }
 }

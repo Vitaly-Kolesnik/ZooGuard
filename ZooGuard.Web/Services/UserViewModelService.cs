@@ -11,13 +11,13 @@ namespace ZooGuard.Web.Services
     public class UserViewModelService : IUserViewModelService
     {
         private readonly IUserService userService;
-        //private readonly IPasswordHasher passwordHasher;
+        private readonly IPasswordHasher passwordHasher;
         private readonly IRepository<Role> roleRepository;
 
-        public UserViewModelService(IUserService userService, IPasswordHasher passwordHasher, IRepository<Role> roleRepository)
+        public UserViewModelService(IUserService userService, IPasswordHasher passwordHasher, IRepository<Role> roleRepository, IRepository<Member> memberRepository)
         {
             this.userService = userService;
-            //this.passwordHasher = passwordHasher;
+            this.passwordHasher = passwordHasher;
             this.roleRepository = roleRepository;
         }
 
@@ -28,10 +28,16 @@ namespace ZooGuard.Web.Services
 
         public void Edit(UserViewModel user)
         {
-            throw new NotImplementedException();
+            userService.Update(ConvertToModel(user));
         }
 
-        public UserViewModel GetById(int id)
+        public User GetUserById(int id)
+        {
+            var user = userService.Get(id);
+            return user ?? null;
+        }
+
+        public UserViewModel GetModelById(int id)
         {
             var user = userService.Get(id);
             return user != null ? ConvertToViewModel(user) : null;
@@ -44,15 +50,19 @@ namespace ZooGuard.Web.Services
 
         private User ConvertToModel(UserViewModel userViewModel)
         {
-            //var salt = passwordHasher.GenerateSalt();
+            var salt = passwordHasher.GenerateSalt();
 
             return new User
             {
                 Id = userViewModel.Id.HasValue ? userViewModel.Id.Value : 0,
                 Name = userViewModel.Name,
                 Login = userViewModel.Login,
-                Password = userViewModel.Password,     //passwordHasher.Hash(userViewModel.Password, salt),
-                //Salt = salt,
+                LastName = userViewModel.LastName,
+                Email = userViewModel.Email,
+                Phone = userViewModel.Phone,
+                Project = userViewModel.Project,
+                Password = passwordHasher.Hash(userViewModel.Password, salt),
+                Salt = salt,
                 Members = userViewModel.RoleIds.Select(id => new Member { RoleId = id }).ToList()
             };
         }
@@ -67,8 +77,9 @@ namespace ZooGuard.Web.Services
                 Email = user.Email,
                 Phone = user.Phone,
                 Login = user.Login,
+                Project = user.Project,
                 Password = user.Password,
-                Roles = user.Members.Select(r => r.Role.Name).ToList()
+                Roles = roleRepository.List().Select(r => new SelectListItem(r.Name, r.Id.ToString(), user.Members?.Any(m => m.RoleId == r.Id) ?? false)).ToList()
             };
         }
     }

@@ -9,4 +9,3 @@ namespace ZooGuard.Core.Entities.InfoAboutPos
         public ICollection<Position> Positions { get; set; }
     }
 }
-

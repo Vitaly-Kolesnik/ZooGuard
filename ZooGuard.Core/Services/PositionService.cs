@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
@@ -31,7 +27,6 @@ namespace ZooGuard.Core.Services
 
         public Position Get(int id) //поиск по id
         {
-            
             return positionRepository.Get(new GetPositionSpecification(id)); //Вызываем соответствующий метод из EfRepository
         }
 
@@ -48,6 +43,21 @@ namespace ZooGuard.Core.Services
         {
             positionRepository.Update(position);
             return position.Id;
+        }
+
+        public IList<Position> GetPosAtStorage (int id) 
+        {
+            return positionRepository.List(new PositionAtStorageSpecification(id));
+        }
+
+        public IList<Position> GetPosAtVender(int id)
+        {
+            return positionRepository.List(new PositionAtVenderSpecification(id));
+        }
+
+        public IList<Position> GetPosAtUser(int id)
+        {
+            return positionRepository.List(new PositionAtUserSpecification(id));
         }
     }
 }

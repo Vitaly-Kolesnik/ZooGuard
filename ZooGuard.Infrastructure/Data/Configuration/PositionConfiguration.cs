@@ -18,22 +18,22 @@ namespace ZooGuard.Infrastructure.Data.Configuration
 
             builder
                 .Property(x => x.Date)
-                .HasMaxLength(10)
+                .HasMaxLength(15)
                 .IsRequired();
 
             builder
                 .Property(x => x.RegistrationDocument)
-                .HasMaxLength(256)
+                .HasMaxLength(500)
                 .IsRequired();
 
             builder
                 .Property(x => x.AccountingNumber)
-                .HasMaxLength(30)
+                .HasMaxLength(10)
                 .IsRequired();
 
             builder
                 .Property(x => x.Information)
-                .HasMaxLength(256)
+                .HasMaxLength(500)
                 .IsRequired();
         }
     }

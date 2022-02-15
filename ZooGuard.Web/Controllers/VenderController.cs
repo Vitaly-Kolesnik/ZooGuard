@@ -91,6 +91,7 @@ namespace ZooGuard.Web.Controllers
             return View("Delete", vender);
         }
         
+        [HttpPost("Vender/Delete")]
         public IActionResult DeleteVender(int id)
         {
             venderService.Delete(id);

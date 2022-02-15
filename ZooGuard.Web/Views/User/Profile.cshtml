@@ -1,4 +1,4 @@
-﻿@model UserViewModel
+﻿@model ZooGuard.Core.Entities.User
 @{
     ViewData["Title"] = "GetProfileUserById";
 }
@@ -8,7 +8,12 @@
 </div>
 
 <div class="form-group">
-    <input type="submit" value="Edit User" class="btn btn-primary" /> <input type="submit" value="Delete User" class="btn btn-primary" />
+   <table>
+		<tr>
+			<td><a href="~/User/Edit/@Model.Id"/><input type="submit" value="Edit Position" class="btn btn-primary"/></td>
+			<td><a href="~/User/Delete/@Model.Id"/><input type="submit" value="Delete Position" class="btn btn-primary" /></td>
+		</tr>
+	</table>
 </div>
 <table class="table">
 	<thead>
@@ -19,22 +24,22 @@
 		<th>Last Name:</th><td>@Model.LastName</td>
 		</tr>
 		<tr>
-		@if(@Model.Roles.Count()>1)
+		@if(@Model.Members.Count()>1)
 		{
 			<th>Roles</th>
 			<td><div class="dropdown">
                         <p class="dropbtn"> Roles </p>
                         <div class="dropdown-content">
-                            @foreach(string r in @Model.Roles) {
-                                <p>@r</p> 
-                                }
+                            @foreach(var r in @Model.Members.Select(r => r.Role.Name)) {
+								<p>@r</p> }
                         </div>
-                        </div></td>
+                        </div>
+			</td>
 		} 
 		else 
 		{
 			<th>Role</th>
-			<td>@Model.Roles.Single()</td>
+			<td>@Model.Members.Select(r => r.Role.Name).Single()</td>
 		}
 		</tr>
 		<tr>

@@ -90,7 +90,7 @@ namespace ZooGuard.Web.Controllers
             return View("Delete", storage);
         }
 
-        [HttpPost]
+        [HttpPost("Storage/Delete")]
         public IActionResult DeleteStorage(int id)
         {
             storageService.Delete(id);

@@ -17,10 +17,10 @@ namespace ZooGuard.Web.Models
         [Required, MaxLength(200), Display(Name = "Last Name")]
         public string LastNameRepresentative { get; set; }
 
-        [Required, MaxLength(15), Display(Name = "Phone")]
+        [Required, MaxLength(20), Display(Name = "Phone")]
         public string PhoneRepresentative { get; set; }
 
-        [Required, MaxLength(15), Display(Name = "Email")]
+        [Required, MaxLength(20), Display(Name = "Email")]
         public string EmailRepresentative { get; set; }
 
         [Required, MaxLength(50), Display(Name = "Adress")]

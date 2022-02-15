@@ -40,7 +40,7 @@ namespace ZooGuard.Web.Services
         public Position GetPositionById(int id)
         {
             var position = positionService.Get(id);
-            return position ?? null;
+            return position;
         }
 
         public PositionViewModel GetModelById(int id)
@@ -51,7 +51,8 @@ namespace ZooGuard.Web.Services
 
         public PositionViewModel GetEmpty()
         {
-            return ConvertToViewModel(new Position());
+            var position = ConvertToViewModel(new Position());
+            return position;
         }
 
         private PositionViewModel ConvertToViewModel(Position position)
@@ -64,11 +65,11 @@ namespace ZooGuard.Web.Services
                 RegistrationDocument = position.RegistrationDocument,
                 AccountingNumber = position.AccountingNumber,
                 Information = position.Information,
-                Venders = vender.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList(),
-                Storages = storage.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList(),
-                FormOfOccurences = formOfOccurence.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList(),
-                StatusLabels = statusLabel.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList(),
-                Users = user.List().Select(r => new SelectListItem(r.LastName, r.Id.ToString())).ToList(),
+                Venders = vender.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                Storages = storage.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                FormOfOccurences = formOfOccurence.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                StatusLabels = statusLabel.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                Users = user.List().Select(r => new SelectListItem(r.LastName, r.Id.ToString())),
             };
         }
 

@@ -9,5 +9,7 @@ namespace ZooGuard.Core.Interfaces
         User Get(int id);
         User Get(string login);
         IList<User> GetAll();
+        void Delete(int id);
+        int Update(User user);
     }
 }
