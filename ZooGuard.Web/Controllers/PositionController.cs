@@ -118,7 +118,7 @@ namespace ZooGuard.Web.Controllers
             return View("Index", positions);
         }
 
-        [HttpGet("Position/By/{CategoryTab}/{id}")]
+        [HttpGet("Position/By/{id}")]
         public IActionResult GetPositionsAtUserById(int id, int enumNumber)
         {
             //var positions = positionService.GetPosAtUser(id, tab);
