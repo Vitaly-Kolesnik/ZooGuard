@@ -36,7 +36,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
 
             return entity;
         }
-        public TEntity Get(ISpecification<TEntity> specification) //поиск по параметру
+        public TEntity Get(Specifications<TEntity> specification) //поиск по параметру
         {
             return ApplySpecification(dbContext.Set<TEntity>(), specification).FirstOrDefault();
         }
@@ -44,9 +44,9 @@ namespace ZooGuad.Infrastructure.Data.Repositories
         {
             return dbContext.Set<TEntity>().ToList(); 
         }
-        public IList<TEntity> List(ISpecification<TEntity> specification) //возвращает коллекицию на основании переданной спецификации
+        public IList<TEntity> List(Specifications<TEntity> specification) //возвращает коллекицию на основании переданной спецификации
         {
-            return ApplySpecification(dbContext.Set<TEntity>(), specification).ToList(); //первый аргумент это коллекция сущностей, второй - спецификация
+            return ApplySpecification(dbContext.Set<TEntity>(), specification).ToList(); //первый аргумент это коллекция сущностей по позициям, второй - спецификация
         }
         public void Update(TEntity entity)
         {
@@ -54,7 +54,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
 
             dbContext.SaveChanges();
         }
-        private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, ISpecification<TEntity> specification) //передает коллекцию реализующую IQueryable и спецификацию для обработки
+        private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, Specifications<TEntity> specification) //передает коллекцию реализующую IQueryable и спецификацию для обработки
         {
             var result = specification.Apply(source); //вызов спецификации и сохранение результатов в переменную, получаем Iqueryale<TEntity> в именах, которых встречается строка, срока передается в при создании объекта спецификации
 

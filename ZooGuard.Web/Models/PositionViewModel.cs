@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Web.Models
 {

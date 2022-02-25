@@ -30,7 +30,7 @@ namespace ZooGuard.Infrastructure
             new InformationAboutPositionConfiguration().Configure(modelBuilder.Entity<InformationAboutPosition>());
             new VenderConfiguration().Configure(modelBuilder.Entity<Vender>());
             new StorageConfiguration().Configure(modelBuilder.Entity<Storage>());
-            new StatusLabelConfigurationcs().Configure(modelBuilder.Entity<StatusLabel>());
+            new StatusLabelConfiguration().Configure(modelBuilder.Entity<StatusLabel>());
             new FormOfOccurenceConfiguration().Configure(modelBuilder.Entity<FormOfOccurence>());
         }
     }

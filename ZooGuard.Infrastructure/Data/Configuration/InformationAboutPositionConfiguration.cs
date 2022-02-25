@@ -10,10 +10,10 @@ namespace ZooGuard.Infrastructure.Data.Configuration
         {
             builder
                 .HasKey(x => x.Id);
-            
+
             builder
                .Property(x => x.Name)
-               .HasMaxLength(100)
+               .HasMaxLength(256)
                .IsRequired();
         }
     }

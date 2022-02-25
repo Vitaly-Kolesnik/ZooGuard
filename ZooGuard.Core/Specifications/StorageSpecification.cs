@@ -5,7 +5,7 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class StorageSpecification : ISpecification<Storage>
+    internal class StorageSpecification : Specifications<Storage>
     {
         public IList<string> Includes => new List<string>
         {

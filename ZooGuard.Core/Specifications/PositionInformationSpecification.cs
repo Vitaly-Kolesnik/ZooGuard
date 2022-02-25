@@ -5,7 +5,7 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class PositionInformationSpecification <TInformation> : ISpecification<TInformation>  
+    internal class PositionInformationSpecification <TInformation> : Specifications<TInformation>  
         where TInformation : InformationAboutPosition //на этом уровне мы замыкаем как раз круг обобщений, поддерживая такми образом типобезопасность
     {
         private string name;

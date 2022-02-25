@@ -6,7 +6,6 @@ namespace ZooGuard.Infrastructure.Data.Configuration
 {
     public class MemberConfiguration : IEntityTypeConfiguration<Member>
     {
-
         public void Configure(EntityTypeBuilder<Member> builder)
         {
             builder

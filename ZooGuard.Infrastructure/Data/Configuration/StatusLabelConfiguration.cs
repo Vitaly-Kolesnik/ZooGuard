@@ -4,9 +4,9 @@ using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
-    public class FormOfOccurenceConfiguration : IEntityTypeConfiguration<FormOfOccurence>
+    public class StatusLabelConfiguration : IEntityTypeConfiguration<StatusLabel>
     {
-        public void Configure(EntityTypeBuilder<FormOfOccurence> builder)
+        public void Configure(EntityTypeBuilder<StatusLabel> builder)
         {
         }
     }

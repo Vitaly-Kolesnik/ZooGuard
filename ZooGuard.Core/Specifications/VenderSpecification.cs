@@ -5,7 +5,7 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class VenderSpecification : ISpecification<Vender>
+    internal class VenderSpecification : Specifications<Vender>
     {
         private string name;
 

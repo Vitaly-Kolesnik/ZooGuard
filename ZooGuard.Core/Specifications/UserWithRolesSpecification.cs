@@ -8,7 +8,7 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class UserWithRolesSpecification : ISpecification<User>
+    internal class UserWithRolesSpecification : Specifications<User>
     {
         private int id;
         public IList<string> Includes =>

@@ -5,7 +5,7 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class AllUserAndRoleSpecification : ISpecification<User>
+    internal class AllUserAndRoleSpecification : Specifications<User>
     {
         public IList<string> Includes => new List<string> { $"{nameof(User.Members)}.{nameof(Member.Role)}"};
 

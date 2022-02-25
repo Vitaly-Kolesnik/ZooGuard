@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using ZooGuard.Core.Enum;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
@@ -100,12 +102,12 @@ namespace ZooGuard.Web.Controllers
             return RedirectToAction("GetAllPositionsInDataBase");
         }
 
-        [HttpGet("Position/By/Storage/{id}")] 
-        public IActionResult GetPositionsAtStorageById (int id)
+        [HttpGet("Position/By/Storage/{id}")]
+        public IActionResult GetPositionsAtStorageById(int id)
         {
             var positions = positionService.GetPosAtStorage(id);
-            
-            return View("Index", positions); 
+
+            return View("Index", positions);
         }
 
         [HttpGet("Position/By/Vender/{id}")]
@@ -116,14 +118,12 @@ namespace ZooGuard.Web.Controllers
             return View("Index", positions);
         }
 
-        [HttpGet("Position/By/User/{id}")]
-        public IActionResult GetPositionsAtUserById(int id)
+        [HttpGet("Position/By/{CategoryTab}/{id}")]
+        public IActionResult GetPositionsAtUserById(int id, int enumNumber)
         {
-            var positions = positionService.GetPosAtUser(id);
+            //var positions = positionService.GetPosAtUser(id, tab);
 
-            return View("Index", positions);
+            return View("Index");
         }
     }
-
-    
 }

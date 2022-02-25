@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ZooGuard.Core.Entities;
+using ZooGuard.Core.Enum;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
 
@@ -7,11 +8,11 @@ namespace ZooGuard.Core.Services
 {
     public class PositionService : IPositionService
     {
-        private readonly IRepository<Position> positionRepository; //репозиторий позиций
+        private readonly IRepository<Position> positionRepository; //поля для возврата репозитория позиций
 
         public PositionService(IRepository<Position> positionRepository)
         {
-            this.positionRepository = positionRepository;
+            this.positionRepository = positionRepository; //передача репозитория позиций (условного)
         }
 
         public int Add(Position position) //добавляет позицию в базу, возвращает id позиции
@@ -55,9 +56,34 @@ namespace ZooGuard.Core.Services
             return positionRepository.List(new PositionAtVenderSpecification(id));
         }
 
-        public IList<Position> GetPosAtUser(int id)
+        public IList<Position> GetPosAtUser(int id, InformTab inform)
         {
-            return positionRepository.List(new PositionAtUserSpecification(id));
+            IList<Position> result;
+
+            switch (inform)
+            {
+                case InformTab.Vender:
+                    {
+                        result = positionRepository.List(new PositionAtVenderSpecification(id));
+                        break;
+                    }
+                case InformTab.User:
+                    {
+                        result = positionRepository.List(new PositionAtUserSpecification(id));
+                        break;
+                    }
+                case InformTab.Storage:
+                    {
+                        result = positionRepository.List(new PositionAtStorageSpecification(id));
+                        break;
+                    }
+                default:
+                    {
+                        result= new List<Position>();
+                        break;
+                    }
+            }
+            return result;
         }
     }
 }
