@@ -1,12 +1,12 @@
-﻿using ZooGuard.Web.Models;
+﻿using System.Threading.Tasks;
+using ZooGuard.Web.Models;
 
 namespace ZooGuard.Web.Interfaces
 {
     public interface IOccurenceViewModelService
     {
-        int Add(OccurenceViewModel occurenceViewModel);
-        OccurenceViewModel GetById(int id);
-        void Edit(OccurenceViewModel occurence);
-        OccurenceViewModel GetEmpty();
+        Task<bool> AddAsync(OccurenceViewModel occurenceViewModel);
+        Task<bool> DeleteByIdAsync(int id);
+        Task<OccurenceViewModel> GetByIdAsync(int id);
     }
 }

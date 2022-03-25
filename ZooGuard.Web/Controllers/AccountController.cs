@@ -1,93 +1,52 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Models;
-using System.Linq;
 using ZooGuard.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZooGuard.Web.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IUserViewModelService userViewModelService;
-        private readonly IUserService userService;
-        //private readonly IPasswordHasher passwordHasher;
-
-        public AccountController(IUserViewModelService userViewModelService, IUserService userService, IPasswordHasher passwordHasher)
+        public AccountController(IUserViewModelService userViewModelService)
         {
             this.userViewModelService = userViewModelService;
-            this.userService = userService;
-            //this.passwordHasher = passwordHasher;
         }
-
         [HttpGet]
-        public IActionResult Index()
+        [AllowAnonymous]
+        public IActionResult Login()
         {
-            return View();
+            var result = userViewModelService.GetEmpty();
+            return View(result);
         }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(SingInViewModel signIn, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(signIn);
-            }
-
-            var user = userService.Get(signIn.Login);
-            /*if (user == null || !passwordHasher.IsValid(signIn.Password, user.Password, user.Salt))
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login or password");
-                return View(signIn);
-            }*/
-
-            var claims = new List<Claim>();
-
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.Name));
-            claims.AddRange(user.Members.Select(m => new Claim(ClaimTypes.Role, m.Role.Name)));
-
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-            return string.IsNullOrEmpty(returnUrl)
-                ? RedirectToAction(nameof(PositionController.GetAllPositionsInDataBase), "Position") //При входе, редиректим на страницу со всеми позициями (стартовая страница для всех прошедших авторизацию), 
-                : Redirect(returnUrl);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Profile(UserViewModel user)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-
-            int? id = user.Id;
-
-            if (id == null || id == 0)
+            var result = await userViewModelService.SingIn(model);
+            if (result == true)
             {
-                id = userViewModelService.Add(user);
+                return Redirect("/StartPage");
             }
-            else
-            {
-                userViewModelService.Edit(user);
-            }
-
-            return RedirectToAction(nameof(Index), "Home");
+            ModelState.AddModelError(nameof(LoginViewModel.Name), "Неверный логин или пароль");
+            return View(model);
         }
+
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction(nameof(Index), "Home");
+            bool result = await userViewModelService.SingOut();
+            if (result)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
         }
     }
 }

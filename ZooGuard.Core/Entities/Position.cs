@@ -19,7 +19,5 @@ namespace ZooGuard.Core.Entities
         public FormOfOccurence FormOfOccurence { get; set; }
         public int? StatusLabelId { get; set; }
         public StatusLabel StatusLabel { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
     }
 }

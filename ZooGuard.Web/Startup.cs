@@ -1,22 +1,21 @@
 ﻿using ZooGuard.Core.Interfaces;
 using ZooGuad.Infrastructure.Data.Repositories;
+using ZooGuard.Infrastructure;
+using ZooGuard.Core.Services;
+using ZooGuard.Web.Interfaces;
+using ZooGuard.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ZooGuard.Infrastructure;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using ZooGuard.Infrastructure.Security;
-using ZooGuard.Core.Services;
-using Microsoft.AspNetCore.Http;
-using ZooGuard.Web.Interfaces;
-using ZooGuard.Web.Services;
+using ZooGuard.Web.Filters;
 
 namespace ZooGuard.Web
 {
-    public class Startup //вызов класса происходит c приминением рефлексии
+    public class Startup 
     {
         public Startup(IConfiguration configuration)
         {
@@ -25,23 +24,42 @@ namespace ZooGuard.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) //регистрирует завистимости, что бы правельно вызывать классы во время выполнения 
+        public void ConfigureServices(IServiceCollection services)
         {
-            // DbContext
             services.AddDbContext<PositionDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PositionDb")));  //Подключение к серверу через appsettings.json
+                options.UseSqlServer(Configuration.GetConnectionString("PositionDb")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<PositionDbContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "myCompotAuth";
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/account/login";
+                options.AccessDeniedPath = "/account/accessdenied";
+                options.SlidingExpiration = true;
+            });
+
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); }); 
+            });
 
             // Repositories
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>)); //typeof получает экземпляр System.Type для указанного типа на этапе компиляции (рефлексия), так как классы находяся в разных проектах
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>)); 
 
             // Регистрация зависимостей Services
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IVenderService, VenderService>();
             services.AddScoped<IStorageService, StorageService>();
-            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
 
             // регистрация зависимостей ViewModelServices
@@ -50,61 +68,44 @@ namespace ZooGuard.Web
             services.AddScoped<IStorageViewModelService, StorageViewModelService>();
             services.AddScoped<IStatusViewModelService, StatusViewModelService> ();
             services.AddScoped<IOccurenceViewModelService, OccurenceViewModelService>();
-            services.AddScoped<IRoleViewModelService, RoleViewModelService>();
             services.AddScoped<IPositionViewModelService, PositionViewModelService>();
 
-            // ModelServices
-
-
             // MVC services
-            services.AddControllersWithViews(); //Поддержка контроллеров и представлений
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/Account/Index");
-                    options.AccessDeniedPath = new PathString("/Account/Index");
-                });
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("admin", "AdminArea"));
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //Конвеер промежуточного ПО, он контролирует то, как приложение отвечает на запросы
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
-            app.UseStatusCodePagesWithReExecute("{controller=Home}/{action=Index}/{id?}"); //обработка ошибок 404 и 500
-            
-            //Все используемые методы, являются методами расширения их классы реализуют интерфейсы типа параметров, под коотом у этих методов еще один метод расширения для передачи HTTPContext
-            //Важен порядок регистрации middleware+ так как команды вызываются последовательно
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); //Отвечает за возврат информации обо ошибках в режиме разработчика
+                app.UseDeveloperExceptionPage(); 
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error"); //Отвечает за возврат информации об ошибках в режиме Пользователя//перехватывает исключение//если ловит исключение -  отправляет их по конвееру по новой, и как только они пройдут весь конвеер им присвоится код 500. Это говорит программе, что пользователь получит удобный HTML
-                //рекомендовано делать страницы ошибок как можно проще, что бы в случае если ошибка будет в загружамом UI не отключить обработчик ошибок (после первого круга по конвееру он пропускает ошибку 500 наружу пользователю)
-                //рекомендовано иметь стат страницу
-
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
-            app.UseHttpsRedirection(); //Отвечает за обратботку только надежных HTTP запросов, тоесть HTTPS
+            app.UseHttpsRedirection();
+            app.UseStaticFiles(); 
 
-            app.UseStaticFiles(); //обработка запросов к статическим файлам, когда запрос поступает в компонент, он проверяет относится ли этот запрос к существующему файлу. Да - возвращает файл, Нет - игнорирует
+            app.UseRouting();
 
-            app.UseRouting(); //Маршрутизация. Установление компонента маршрутизации endpoints
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseAuthentication(); //проверка валидности
-
-            app.UseAuthorization(); //проверка валидности
-
-            app.UseEndpoints(endpoints => //компонет маршрутизации используются endpoints и выбирает представление (регистрация), по факту здесь мы регистрируем правило маршрутизации
+            app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute( //По факту когда мы получаем запрос он проходил по всему конвееру промежуточного ПО и вызывает контроллер, контроллер на основании модели возвращает вьюшку (выбор конечной точки)
-                    name: "default", 
-                    pattern: "{controller=Home}/{action=Index}/{id?}"); //В корне сайта будет использоваться Home контроллер метод Index, регистрация списка паттернов для вызова контролеера и представлений
-                                                                        //После выбора обработчика (контроллера) => создание контроллера. Привязка модели с помощью атрибутов!
-                                                                        //Регистрация конечных точек
-                //ASP.NET Core может привязывать в Razor Pages:
-                //aгументы метода – если у обработчика страницы есть аргументы етода, значения из запроса используются для создания необходимых параметров;
-                //свойства, отмеченные атрибутом[BindProperty],  – любые свойства, отмеченные этим атрибутом, будет привязаны. По умолчанию
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

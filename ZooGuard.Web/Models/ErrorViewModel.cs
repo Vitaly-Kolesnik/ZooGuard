@@ -1,4 +1,3 @@
-using System;
 
 namespace ZooGuard.Web.Models
 {

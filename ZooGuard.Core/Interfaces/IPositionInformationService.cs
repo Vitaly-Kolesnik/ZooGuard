@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Core.Interfaces
 {
     public interface IPositionInformationService <TInformation> 
-        where TInformation : InformationAboutPosition, new() //обязательно условие для типобезопсаности
+        where TInformation : InformationAboutPosition, new()
     {
-        int Add(TInformation informationAboutPosition); //Добавление информационно позиции
-        TInformation Get(int id); //Поиск информационной позиции по id
-        void Delete(int id); //Удаление информационной позиции id
-        IList<TInformation> List(string name); //поиск по строке
-        int Update(TInformation informationAboutPosition); //изменение информационной позиции
-        IList<TInformation> GetAll(); //возврат всех информационных позиций
+        Task<bool> AddAsync(TInformation informationAboutPosition);
+        Task<TInformation> GetAsync(int id);
+        Task<bool> DeleteAsync(int id); 
+        Task<IList<TInformation>> ListAsync(string name);
+        Task<bool> UpdateAsync(TInformation informationAboutPosition);
+        Task<IList<TInformation>> GetAllAsync();
     }
 }

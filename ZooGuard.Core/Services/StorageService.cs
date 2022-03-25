@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
@@ -18,31 +15,29 @@ namespace ZooGuard.Core.Services
             this.storageRepository = storageRepository;
         }
 
-        public int Add(Storage storage)
+        public async Task<bool> AddAsync(Storage storage)
         {
-            storageRepository.Add(storage);
-            return storage.Id;
+            return await storageRepository.AddAsync(storage);
         }
 
-        public void Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            storageRepository.Delete(new Storage { Id = id });
+            return await storageRepository.DeleteAsync(new Storage { Id = id });
         }
 
-        public Storage Get(int id)
+        public async Task<Storage> GetAsync(int id)
         {
-            return storageRepository.Get(id);
+            return await storageRepository.GetAsync(id);
         }
 
-        public IList<Storage> GetAll()
+        public async Task<IList<Storage>> GetAllAsync()
         {
-            return storageRepository.List(new StorageSpecification());
+            return await storageRepository.ListAsync(new StorageSpecification());
         }
 
-        public int Update(Storage storage)
+        public async Task<bool> UpdateAsync(Storage storage)
         {
-            storageRepository.Update(storage);
-            return storage.Id;
+            return await storageRepository.UpdateAsync(storage);
         }
     }
 }

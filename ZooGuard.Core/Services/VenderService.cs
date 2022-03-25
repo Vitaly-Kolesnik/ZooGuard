@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Specifications;
@@ -14,36 +15,34 @@ namespace ZooGuard.Core.Services
             this.repositoryVender = repository;
         }
         
-        public int Add(Vender vender)
+        public async Task<bool> AddAsync(Vender vender)
         {
-            repositoryVender.Add(vender);
-            return vender.Id;
+            return await repositoryVender.AddAsync(vender);
         }
 
-        public void Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            repositoryVender.Delete(new Vender { Id = id });
+            return await repositoryVender.DeleteAsync(new Vender { Id = id });
         }
 
-        public Vender Get(int id)
+        public async Task <Vender> GetAsync(int id)
         {
-            return repositoryVender.Get(id);
+            return await repositoryVender.GetAsync(id);
         }
 
-        public IList<Vender> GetAll()
+        public async Task<IList<Vender>> GetAllAsync()
         {
-            return repositoryVender.List();
+            return await repositoryVender.ListAsync();
         }
 
-        public IList<Vender> List(string name)
+        public async Task<IList<Vender>> ListAsync(string name)
         {
-            return repositoryVender.List(new VenderSpecification(name));
+            return await repositoryVender.ListAsync(new VenderSpecification(name));
         }
 
-        public int Update(Vender vender)
+        public async Task<bool> UpdateAsync(Vender vender)
         {
-            repositoryVender.Update(vender);
-            return(vender.Id);
+            return await repositoryVender.UpdateAsync(vender);
         }
     }
 }

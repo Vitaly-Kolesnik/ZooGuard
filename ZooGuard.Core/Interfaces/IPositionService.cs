@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Enum;
 
@@ -7,14 +7,12 @@ namespace ZooGuard.Core.Interfaces
 {
     public interface IPositionService
     {
-        int Add(Position position);
-        Position Get(int id);
-        IList<Position> List(string name);
-        IList<Position> GetAll();
-        void Delete(int id);
-        int Update(Position position);
-        public IList<Position> GetPosAtStorage(int id);
-        public IList<Position> GetPosAtVender(int id);
-        public IList<Position> GetPosAtUser(int id, InformTab informTab);
+        Task<bool> AddAsync(Position position);
+        Task<bool> DeleteAsync(int id);
+        Task<bool> UpdateAsync(Position position);
+        Task<Position> GetAsync(int id);
+        Task<IList<Position>> ListAsync(string name);
+        Task<IList<Position>> GetAllAsync();
+        Task<IList<Position>> GetPosAtInformTabAsync(int id, InformTab informTab);
     }
 }

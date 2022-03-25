@@ -1,4 +1,5 @@
-﻿using ZooGuard.Core.Entities;
+﻿using System.Threading.Tasks;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
@@ -13,29 +14,24 @@ namespace ZooGuard.Web.Services
         {
             this.venderService = venderService;
         }
-
-        public int Add(VenderViewModel vender)
+        public async Task<bool> AddAsync(VenderViewModel vender)
         {
-            return venderService.Add(ConvertToModel(vender));
+            return await venderService.AddAsync(ConvertToModel(vender));
         }
 
-        public void Edit(VenderViewModel vender)
+        public async Task<bool> EditAsync(VenderViewModel vender)
         {
-            venderService.Update(ConvertToModel(vender));
+            return await venderService.UpdateAsync(ConvertToModel(vender));
         }
-
-        public VenderViewModel GetById(int id)
+        public async Task<VenderViewModel> GetByIdAsync(int id)
         {
-            var vender = venderService.Get(id); //через сервис запрашиваем Vendera
-            return vender != null ? ConvertToViewModel(vender) : null; //если Vender есть, грузим его в метод, в котором формируем модель
-            //возвращаем сформмированную модель
+            var vender = await venderService.GetAsync(id); 
+            return vender != null ? ConvertToViewModel(vender) : null; 
         }
-
-        public VenderViewModel GetEmpty()
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+           return await venderService.DeleteAsync(id);
         }
-
         private VenderViewModel ConvertToViewModel (Vender vender) //для формировани модели, для возврата
         {
             return new VenderViewModel

@@ -1,4 +1,5 @@
-﻿using ZooGuard.Core.Entities.InfoAboutPos;
+﻿using System.Threading.Tasks;
+using ZooGuard.Core.Entities.InfoAboutPos;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
@@ -14,25 +15,20 @@ namespace ZooGuard.Web.Services
             this.positionInformationService = positionInformationService;
         }
 
-        public int Add(StatusViewModel statusViewModel)
+        public async Task<bool> AddAsync(StatusViewModel statusViewModel)
         {
-            return positionInformationService.Add(ConvertToModel(statusViewModel));
+            return await positionInformationService.AddAsync(ConvertToModel(statusViewModel));
         }
 
-        public void Edit(StatusViewModel user)
+        public async Task<StatusViewModel> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public StatusViewModel GetById(int id)
-        {
-            var status = positionInformationService.Get(id); 
+            var status = await positionInformationService.GetAsync(id); 
             return status != null ? ConvertToViewModel(status) : null; 
         }
 
-        public StatusViewModel GetEmpty()
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await positionInformationService.DeleteAsync(id);
         }
 
         private StatusLabel ConvertToModel(StatusViewModel statusViewModel)

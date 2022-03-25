@@ -1,4 +1,5 @@
-﻿using ZooGuard.Core.Entities;
+﻿using System.Threading.Tasks;
+using ZooGuard.Core.Entities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
@@ -14,25 +15,25 @@ namespace ZooGuard.Web.Services
             this.storageService = storageService;
         }
 
-        public int Add(StorageViewModel storageViewModel)
+        public async Task<bool> AddAsync(StorageViewModel storageViewModel)
         {
-            return storageService.Add(ConvertToModel(storageViewModel));
+            return await storageService.AddAsync(ConvertToModel(storageViewModel));
         }
 
-        public void Edit(StorageViewModel storageViewModel)
+        public async Task<bool> EditAsync(StorageViewModel storageViewModel)
         {
-            storageService.Update(ConvertToModel(storageViewModel));
+            return await storageService.UpdateAsync(ConvertToModel(storageViewModel));
         }
 
-        public StorageViewModel GetById(int id)
+        public async Task<StorageViewModel> GetByIdAsync(int id)
         {
-            var storage = storageService.Get(id);
+            var storage = await storageService.GetAsync(id);
             return storage != null ? ConvertToViewModel(storage) : null;
         }
 
-        public StorageViewModel GetEmpty()
+        public async Task<bool> DeleteAsync(int id) 
         {
-            throw new System.NotImplementedException();
+            return await storageService.DeleteAsync(id);
         }
 
         private StorageViewModel ConvertToViewModel(Storage storage) //для формировани модели, для возврата

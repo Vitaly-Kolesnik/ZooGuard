@@ -9,7 +9,7 @@ namespace ZooGuard.Core.Specifications
     {
         public IList<string> Includes => new List<string>
         {
-            $"{nameof(Storage.Positions)}.{nameof(Position.User)}"
+            $"{nameof(Storage.Positions)}"
         };
 
         public IQueryable<Storage> Apply(IQueryable<Storage> query)

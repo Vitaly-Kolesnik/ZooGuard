@@ -2,33 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
     <title>@ViewData["Title"] - ZooGuard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ZooGuard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @await Html.PartialAsync("_ButtonPatrial")
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+<body style="background-color: #f6f6f6">
+    <nav class = "navbar navbar-expand-lg navbar-dark bg-info sticky-top">
+       <a href="" class="navbar-brand"> <img src="~/ZG logo.png" width=55px height=55px/></a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" area-controls="navbarSupportedContent" area-expanded="false" area-label="Toggel navigation">
+       <span class="navbar-toggler-icon"></span>
+       </button>
+             
+            @if (User.IsInRole("admin"))
+            {
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                       <li class="nav-item active">
+                           <a href="#" class="nav-link h5">Home</a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="#" class="nav-link h5">Resources</a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="#" class="nav-link h5">Storages</a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="#" class="nav-link h5">Venders</a>
+                       </li>
+                      <li class="nav-item">
+                           <a href="#" class="nav-link h5">Staff</a>
+                       </li>
+                    </ul>
+                       <ul class="navbar-nav mr-auto">
+                       <li class="nav-item">
+                        <div class="row">
+                            <div class ="col-auto">
+                               <input class="form-control btn-outline-light" type="search" value="Search" id="example-search-input4">
+                        </div>
+                                <div class ="col-auto">
+                                <button class="btn btn-light rounded-right" type="button"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                        </ul>
+                    <div class="col-auto float-right">
+                         <button class="btn btn-light rounded-right" type="button" ><a asp-area="" asp-controller="Account" asp-action="Logout" class="text-dark text-decoration-none text-reset">Logout&ensp;<i class="fa fa-sign-out"></i></a></button>
+                    </div>
+                 </div>
+           } 
+       else 
+       {
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                   <li class="nav-item active">
+                       <a href="#" class="nav-link h5">About</a>
+                   </li>
+                 </ul>
+            <div class="form-inline my-2 my-lg-0">
+                   <div class="row">
+                        <div class="col-auto">
+                            <button class="btn btn-light rounded-right" type="submit">
+                                Login <i class="fa fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+               </div>
+          </div>
+       }
+   </nav>
+   @RenderBody()
+   <footer class="border-top bg-info footer text-muted">
         <div class="container">
-            &copy; 2022 - ZooGuard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

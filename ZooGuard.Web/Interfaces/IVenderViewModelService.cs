@@ -1,12 +1,13 @@
-﻿using ZooGuard.Web.Models;
+﻿using System.Threading.Tasks;
+using ZooGuard.Web.Models;
 
 namespace ZooGuard.Web.Interfaces
 {
     public interface IVenderViewModelService
     {
-        int Add(VenderViewModel venderViewModel);
-        VenderViewModel GetById(int id);
-        void Edit(VenderViewModel vender);
-        VenderViewModel GetEmpty();
+        Task<bool> AddAsync(VenderViewModel venderViewModel);
+        Task<VenderViewModel> GetByIdAsync(int id);
+        Task<bool> EditAsync(VenderViewModel vender);
+        Task<bool> DeleteAsync(int id);
     }
 }

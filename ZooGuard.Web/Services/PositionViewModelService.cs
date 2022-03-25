@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 using ZooGuard.Core.Entities.InfoAboutPos;
 using ZooGuard.Core.Interfaces;
@@ -13,46 +14,47 @@ namespace ZooGuard.Web.Services
         private readonly IPositionService positionService;
         private readonly IRepository<Vender> vender;
         private readonly IRepository<FormOfOccurence> formOfOccurence;
-        private readonly IRepository<User> user;
         private readonly IRepository<StatusLabel> statusLabel;
         private readonly IRepository<Storage> storage;
 
-        public PositionViewModelService(IPositionService positionService, IRepository<Vender> vender, IRepository<FormOfOccurence> formOfOccurence, IRepository<User> user, IRepository<StatusLabel> statusLabel, IRepository<Storage> storage)
+        public PositionViewModelService(IPositionService positionService, IRepository<Vender> vender, IRepository<FormOfOccurence> formOfOccurence, IRepository<StatusLabel> statusLabel, IRepository<Storage> storage)
         {
             this.positionService = positionService;
             this.vender = vender;
             this.formOfOccurence = formOfOccurence;
-            this.user = user;
             this.statusLabel = statusLabel;
             this.storage = storage;
         }
 
-        public int Add(PositionViewModel positionViewModel)
+        public async Task<bool> AddAsync(PositionViewModel positionViewModel)
         {
-            return positionService.Add(ConvertToModel(positionViewModel));
+            return await positionService.AddAsync(ConvertToModel(positionViewModel));
         }
 
-        public void Edit(PositionViewModel position)
+        public async Task<bool> DeleteAsync(int id)
         {
-            positionService.Update(ConvertToModel(position));
+            return await positionService.DeleteAsync(id);
         }
 
-        public Position GetPositionById(int id)
+        public async Task<bool> EditAsync(PositionViewModel position)
         {
-            var position = positionService.Get(id);
-            return position;
+            return await positionService.UpdateAsync(ConvertToModel(position));
         }
 
-        public PositionViewModel GetModelById(int id)
+        public async Task<Position> GetPositionByIdAsync(int id)
         {
-            var position = positionService.Get(id);
+            return await positionService.GetAsync(id);
+        }
+
+        public async Task<PositionViewModel> GetModelByIdAsync(int id)
+        {
+            var position = await positionService.GetAsync(id);
             return position != null ? ConvertToViewModel(position) : null;
         }
 
         public PositionViewModel GetEmpty()
         {
-            var position = ConvertToViewModel(new Position());
-            return position;
+            return ConvertToViewModel(new Position());
         }
 
         private PositionViewModel ConvertToViewModel(Position position)
@@ -65,11 +67,10 @@ namespace ZooGuard.Web.Services
                 RegistrationDocument = position.RegistrationDocument,
                 AccountingNumber = position.AccountingNumber,
                 Information = position.Information,
-                Venders = vender.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
-                Storages = storage.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
-                FormOfOccurences = formOfOccurence.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
-                StatusLabels = statusLabel.List().Select(r => new SelectListItem(r.Name, r.Id.ToString())),
-                Users = user.List().Select(r => new SelectListItem(r.LastName, r.Id.ToString())),
+                Venders = vender.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                Storages = storage.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                FormOfOccurences = formOfOccurence.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
+                StatusLabels = statusLabel.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
             };
         }
 
@@ -87,7 +88,6 @@ namespace ZooGuard.Web.Services
                 StorageId = position.StorageId,
                 FormOfOccurenceId = position.FormOfOccurenceId,
                 StatusLabelId = position.StatusLabelId,
-                UserId = position.UserId,
             };
         }
     }

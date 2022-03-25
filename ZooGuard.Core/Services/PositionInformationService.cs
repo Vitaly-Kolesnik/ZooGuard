@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZooGuard.Core.Entities.InfoAboutPos;
 using ZooGuard.Core.Interfaces;
@@ -19,37 +16,33 @@ namespace ZooGuard.Core.Services
             this.informationPositionRepository = informationPositionRepository;
         }
 
-        public int Add(TInformation informationAboutPosition)
+        public async Task<bool> AddAsync(TInformation informationAboutPosition)
         {
-            informationPositionRepository.Add(informationAboutPosition);
-            return informationAboutPosition.Id;
+            return await informationPositionRepository.AddAsync(informationAboutPosition);
         }
 
-        public void Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            informationPositionRepository.Delete(new TInformation { Id = id });
+            return await informationPositionRepository.DeleteAsync(new TInformation { Id = id });
         }
 
-        public TInformation Get(int id)
+        public async Task<TInformation> GetAsync(int id)
         {
-            return informationPositionRepository.Get(id);
+            return await informationPositionRepository.GetAsync(id);
         }
 
-        public IList<TInformation> GetAll()
+        public async Task<IList<TInformation>> GetAllAsync()
         {
-            return informationPositionRepository.List();
+            return await informationPositionRepository.ListAsync();
         }
 
-        public IList<TInformation> List(string name)
+        public async Task<IList<TInformation>> ListAsync(string name)
         {
-            var specification = new PositionInformationSpecification<TInformation>(name);
-
-            return informationPositionRepository.List(specification); // в данном случае ему по факту надо указать какая будет именно спецификация, так как описано в интерфейсе
+            return await informationPositionRepository.ListAsync(new PositionInformationSpecification<TInformation>(name)); 
         }
-        public int Update(TInformation informationAboutPosition)
+        public async Task<bool> UpdateAsync(TInformation informationAboutPosition)
         {
-            informationPositionRepository.Update(informationAboutPosition);
-            return informationAboutPosition.Id;
+            return await informationPositionRepository.UpdateAsync(informationAboutPosition);
         }
     }
 }

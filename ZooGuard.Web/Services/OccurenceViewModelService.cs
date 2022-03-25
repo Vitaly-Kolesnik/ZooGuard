@@ -1,4 +1,5 @@
-﻿using ZooGuard.Core.Entities.InfoAboutPos;
+﻿using System.Threading.Tasks;
+using ZooGuard.Core.Entities.InfoAboutPos;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
@@ -14,25 +15,20 @@ namespace ZooGuard.Web.Services
             this.positionInformationService = positionInformationService;
         }
 
-        public int Add(OccurenceViewModel occurenceViewModel)
+        public async Task<bool> AddAsync(OccurenceViewModel occurenceViewModel)
         {
-            return positionInformationService.Add(ConvertToModel(occurenceViewModel));
+            return await positionInformationService.AddAsync(ConvertToModel(occurenceViewModel));
         }
 
-        public void Edit(OccurenceViewModel occurence)
+        public async Task<OccurenceViewModel> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public OccurenceViewModel GetById(int id)
-        {
-            var occurence = positionInformationService.Get(id);
+            var occurence = await positionInformationService.GetAsync(id);
             return occurence != null ? ConvertToViewModel(occurence) : null;
         }
 
-        public OccurenceViewModel GetEmpty()
+        public async Task<bool> DeleteByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await positionInformationService.DeleteAsync(id);
         }
 
         private FormOfOccurence ConvertToModel(OccurenceViewModel occurenceViewModel)

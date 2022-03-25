@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Infrastructure;
@@ -15,44 +16,48 @@ namespace ZooGuad.Infrastructure.Data.Repositories
         {
             this.dbContext = dbContext;
         }
-        public TEntity Add(TEntity entity)
+        public async Task<bool> AddAsync(TEntity entity)
         {
-            dbContext.Set<TEntity>().Add(entity);// Set Возвращает DbSet<TEntity> экземпляр для доступа к сущностям заданного типа в контексте и базовом хранилище.
-            dbContext.SaveChanges();            // add Начинает отслеживать изменения внесенный в полученный экземпляр сущностей
-                                                // SaveChanges сохраняет изменения
+            await dbContext.Set<TEntity>().AddAsync(entity);// Set Возвращает DbSet<TEntity> экземпляр для доступа к сущностям заданного типа в контексте и базовом хранилище.
+            await dbContext.SaveChangesAsync();            // add Начинает отслеживать изменения внесенный в полученный экземпляр сущностей
+            await Task.Run(() => dbContext.Entry(entity).State = EntityState.Detached); //запрет трекинга, выключиталь отслеживания сущности
+            
+            return true;
+        }
+        public async Task<bool> DeleteAsync(TEntity entity) //удаление сущности, для этого нужно передать параметром объект.
+        {
+            await Task.Run (() => dbContext.Set<TEntity>().Remove(entity));
+            await dbContext.SaveChangesAsync();
 
-            dbContext.Entry(entity).State = EntityState.Detached; //запрет трекинга, выключиталь отслеживания сущности
-            return entity;
+            return true;
         }
-        public void Delete(TEntity entity) //удаление сущности, для этого нужно передать параметром объект.
+        public async Task <TEntity> GetAsync(int id) 
         {
-            dbContext.Set<TEntity>().Remove(entity);
-            dbContext.SaveChanges();
-        }
-        public TEntity Get(int id) 
-        {
-            var entity = dbContext.Set<TEntity>().Find(id); //поиск по ключу
-            dbContext.Entry(entity).State = EntityState.Detached; //запрет трекинга, выключиталь отслеживания сущности
+            var entity = await dbContext.Set<TEntity>().FindAsync(id); //поиск по ключу
+
+            await Task.Run(() => dbContext.Entry(entity).State = EntityState.Detached); //запрет трекинга, выключиталь отслеживания сущности
 
             return entity;
         }
-        public TEntity Get(Specifications<TEntity> specification) //поиск по параметру
+        public async Task <TEntity> GetAsync(Specifications<TEntity> specification) //поиск по параметру
         {
-            return ApplySpecification(dbContext.Set<TEntity>(), specification).FirstOrDefault();
+            return await ApplySpecification(dbContext.Set<TEntity>(), specification).FirstOrDefaultAsync();
         }
-        public IList<TEntity> List() //возвращает коллекцию объектов на основании сущностей, парсинг не применяется. То есть возврат только категории.
+        public async Task <IList<TEntity>> ListAsync() //возвращает коллекцию объектов на основании сущностей, парсинг не применяется. То есть возврат только категории.
         {
-            return dbContext.Set<TEntity>().ToList(); 
+            return await dbContext.Set<TEntity>().ToListAsync(); 
         }
-        public IList<TEntity> List(Specifications<TEntity> specification) //возвращает коллекицию на основании переданной спецификации
+        public async Task< IList<TEntity>> ListAsync(Specifications<TEntity> specification) //возвращает коллекицию на основании переданной спецификации
         {
-            return ApplySpecification(dbContext.Set<TEntity>(), specification).ToList(); //первый аргумент это коллекция сущностей по позициям, второй - спецификация
+            return await ApplySpecification(dbContext.Set<TEntity>(), specification).ToListAsync(); //первый аргумент это коллекция сущностей по позициям, второй - спецификация
         }
-        public void Update(TEntity entity)
+        public async Task <bool> UpdateAsync(TEntity entity)
         {
-            dbContext.Entry(entity).State = EntityState.Modified;
+            await Task.Run (() => dbContext.Entry(entity).State = EntityState.Modified);
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
+
+            return true;
         }
         private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, Specifications<TEntity> specification) //передает коллекцию реализующую IQueryable и спецификацию для обработки
         {

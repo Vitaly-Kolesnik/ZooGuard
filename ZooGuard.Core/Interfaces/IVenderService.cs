@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Core.Interfaces
 {
     public interface IVenderService
     {
-        int Add(Vender vender);
-        Vender Get(int id);
-        IList<Vender> List(string name);
-        IList<Vender> GetAll();
-        void Delete(int id);
-        int Update(Vender position);
+        Task<bool> AddAsync(Vender vender);
+        Task<Vender> GetAsync(int id);
+        Task<IList<Vender>> ListAsync(string name);
+        Task<IList<Vender>> GetAllAsync();
+        Task<bool> DeleteAsync(int id);
+        Task<bool> UpdateAsync(Vender position);
     }
 }
