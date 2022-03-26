@@ -8,41 +8,47 @@ namespace ZooGuard.Core.Services
 {
     public class VenderService : IVenderService
     {
-        private readonly IRepository<Vender> repositoryVender;
-
-        public VenderService (IRepository<Vender> repository)
+        private readonly IUnitOfWork unitOfWork;
+        public VenderService (IUnitOfWork unitOfWork)
         {
-            this.repositoryVender = repository;
+            this.unitOfWork = unitOfWork;
         }
         
         public async Task<bool> AddAsync(Vender vender)
         {
-            return await repositoryVender.AddAsync(vender);
-        }
+            await unitOfWork.VenderRepository.AddAsync(vender);
 
+            await unitOfWork.SaveAsync();
+
+            return true;
+        }
         public async Task<bool> DeleteAsync(int id)
         {
-            return await repositoryVender.DeleteAsync(new Vender { Id = id });
-        }
+            await unitOfWork.VenderRepository.DeleteAsync(new Vender { Id = id });
 
+            await unitOfWork.SaveAsync();
+
+            return true;
+        }
         public async Task <Vender> GetAsync(int id)
         {
-            return await repositoryVender.GetAsync(id);
+            return await unitOfWork.VenderRepository.GetAsync(id);
         }
-
         public async Task<IList<Vender>> GetAllAsync()
         {
-            return await repositoryVender.ListAsync();
+            return await unitOfWork.VenderRepository.ListAsync();
         }
-
         public async Task<IList<Vender>> ListAsync(string name)
         {
-            return await repositoryVender.ListAsync(new VenderSpecification(name));
+            return await unitOfWork.VenderRepository.ListAsync(new VenderSpecification(name));
         }
-
         public async Task<bool> UpdateAsync(Vender vender)
         {
-            return await repositoryVender.UpdateAsync(vender);
+            await unitOfWork.VenderRepository.UpdateAsync(vender);
+
+            await unitOfWork.SaveAsync();
+
+            return true;
         }
     }
 }

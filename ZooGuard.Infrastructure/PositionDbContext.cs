@@ -19,6 +19,10 @@ namespace ZooGuard.Infrastructure
         public PositionDbContext(DbContextOptions<PositionDbContext> options) : base(options)
         { }
 
+        public PositionDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new PositionConfiguration().Configure(modelBuilder.Entity<Position>());

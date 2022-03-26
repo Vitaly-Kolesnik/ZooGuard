@@ -8,36 +8,48 @@ namespace ZooGuard.Core.Services
 {
     public class StorageService : IStorageService
     {
-        private readonly IRepository<Storage> storageRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public StorageService(IRepository<Storage> storageRepository)
+        public StorageService(IUnitOfWork unitOfWork)
         {
-            this.storageRepository = storageRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<bool> AddAsync(Storage storage)
         {
-            return await storageRepository.AddAsync(storage);
+            await unitOfWork.StorageRepository.AddAsync(storage);
+
+            await unitOfWork.SaveAsync();
+
+            return true;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await storageRepository.DeleteAsync(new Storage { Id = id });
+            await unitOfWork.StorageRepository.DeleteAsync(new Storage { Id = id });
+
+            await unitOfWork.SaveAsync();
+
+            return true;
         }
 
         public async Task<Storage> GetAsync(int id)
-        {
-            return await storageRepository.GetAsync(id);
+        {   
+            return await unitOfWork.StorageRepository.GetAsync(id);
         }
 
         public async Task<IList<Storage>> GetAllAsync()
         {
-            return await storageRepository.ListAsync(new StorageSpecification());
+            return await unitOfWork.StorageRepository.ListAsync(new StorageSpecification());
         }
 
         public async Task<bool> UpdateAsync(Storage storage)
         {
-            return await storageRepository.UpdateAsync(storage);
+            await  unitOfWork.StorageRepository.UpdateAsync(storage);
+
+            await unitOfWork.SaveAsync();
+
+            return true;
         }
     }
 }

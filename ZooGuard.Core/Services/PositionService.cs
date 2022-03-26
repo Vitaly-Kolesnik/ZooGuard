@@ -9,39 +9,46 @@ namespace ZooGuard.Core.Services
 {
     public class PositionService : IPositionService
     {
-        private readonly IRepository<Position> positionRepository;
-
-        public PositionService(IRepository<Position> positionRepository)
+        private readonly IUnitOfWork unitOfWork;
+        public PositionService(IUnitOfWork unitOfWork)
         {
-            this.positionRepository = positionRepository;
+            this.unitOfWork = unitOfWork;
         }
-
         public async Task <bool> AddAsync(Position position)
         {
-            return await positionRepository.AddAsync(position);
-        }
+            await unitOfWork.PositionRepository.AddAsync(position);
 
+            await unitOfWork.SaveAsync();
+
+            return true;
+        }
         public async Task<bool> DeleteAsync(int id)
         {
-           return await positionRepository.DeleteAsync(new Position { Id = id });
-        }
+            await unitOfWork.PositionRepository.DeleteAsync(new Position { Id = id });
 
+            await unitOfWork.SaveAsync();
+
+            return true;
+        }
         public async Task<Position> GetAsync(int id)
         {
-            return await positionRepository.GetAsync(new GetPositionSpecification(id));
+            return await unitOfWork.PositionRepository.GetAsync(new GetPositionSpecification(id));
         }
-
         public async Task<IList<Position>> ListAsync(string name)
         {
-            return await positionRepository.ListAsync(new PositionSpecification(name));
+            return await unitOfWork.PositionRepository.ListAsync(new PositionSpecification(name));
         }
         public async Task<IList<Position>> GetAllAsync()
         {
-            return await positionRepository.ListAsync(new AllPositionInformationSpecification()); //Возвращает коллекцию позиций
+            return await unitOfWork.PositionRepository.ListAsync(new AllPositionInformationSpecification()); //Возвращает коллекцию позиций
         }
         public async Task<bool> UpdateAsync(Position position)
         {
-            return await positionRepository.UpdateAsync(position);
+            await unitOfWork.PositionRepository.UpdateAsync(position);
+
+            await unitOfWork.SaveAsync();
+
+            return true;
         }
         public async Task<IList<Position>> GetPosAtInformTabAsync(int id, InformTab inform)
         {
@@ -51,17 +58,17 @@ namespace ZooGuard.Core.Services
             {
                 case InformTab.Vender:
                     {
-                        result = await positionRepository.ListAsync(new PositionAtVenderSpecification(id));
+                        result = await unitOfWork.PositionRepository.ListAsync(new PositionAtVenderSpecification(id));
                         return result;
                     }
                 case InformTab.User:
                     {
-                        result = await positionRepository.ListAsync(new PositionAtUserSpecification(id));
+                        result = await unitOfWork.PositionRepository.ListAsync(new PositionAtUserSpecification(id));
                         return result;
                     }
                 case InformTab.Storage:
                     {
-                        result = await positionRepository.ListAsync(new PositionAtStorageSpecification(id));
+                        result = await unitOfWork.PositionRepository.ListAsync(new PositionAtStorageSpecification(id));
                         return result;
                     }
                 default:

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ZooGuard.Web.Filters;
+using ZooGuard.Infrastructure.Data.UnitOfWork;
 
 namespace ZooGuard.Web
 {
@@ -54,15 +55,19 @@ namespace ZooGuard.Web
             });
 
             // Repositories
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>)); 
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
-            // Регистрация зависимостей Services
+            //UnitOfWork
+            services.AddScoped (typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddScoped <IUnitOfWork,UnitOfWork>();
+
+            //Services
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IVenderService, VenderService>();
             services.AddScoped<IStorageService, StorageService>();
             services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
 
-            // регистрация зависимостей ViewModelServices
+            //ViewModelServices
             services.AddScoped<IUserViewModelService, UserViewModelService>();
             services.AddScoped<IVenderViewModelService, VenderViewModelService>();
             services.AddScoped<IStorageViewModelService, StorageViewModelService>();
