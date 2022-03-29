@@ -1,4 +1,6 @@
-﻿namespace ZooGuard.Core.Entities.InfoAboutPos
+﻿using System.Collections.Generic;
+
+namespace ZooGuard.Core.Entities.InfoAboutPos
 {
     public class StatusLabel : InformationAboutPosition
     {

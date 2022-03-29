@@ -16,39 +16,63 @@ namespace ZooGuard.Core.Services
         
         public async Task<bool> AddAsync(Vender vender)
         {
-            await unitOfWork.VenderRepository.AddAsync(vender);
+            using(unitOfWork)
+            {
+                await unitOfWork.VenderRepository.AddAsync(vender);
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
         }
         public async Task<bool> DeleteAsync(int id)
         {
-            await unitOfWork.VenderRepository.DeleteAsync(new Vender { Id = id });
+            using (unitOfWork)
+            {
+                await unitOfWork.VenderRepository.DeleteAsync(new Vender { Id = id });
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
-        }
-        public async Task <Vender> GetAsync(int id)
-        {
-            return await unitOfWork.VenderRepository.GetAsync(id);
-        }
-        public async Task<IList<Vender>> GetAllAsync()
-        {
-            return await unitOfWork.VenderRepository.ListAsync();
-        }
-        public async Task<IList<Vender>> ListAsync(string name)
-        {
-            return await unitOfWork.VenderRepository.ListAsync(new VenderSpecification(name));
+                return true;
+            }
         }
         public async Task<bool> UpdateAsync(Vender vender)
         {
-            await unitOfWork.VenderRepository.UpdateAsync(vender);
+            using (unitOfWork)
+            {
+                await unitOfWork.VenderRepository.UpdateAsync(vender);
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
+        }
+        public async Task <Vender> GetAsync(int id)
+        {
+            using (unitOfWork)
+            {
+                var entity = await unitOfWork.VenderRepository.GetAsync(id);
+
+                return entity;
+            }
+        }
+        public async Task<IList<Vender>> GetAllAsync()
+        {
+            using (unitOfWork)
+            {
+                var list = await unitOfWork.VenderRepository.ListAsync();
+
+                return list;
+            }
+        }
+        public async Task<IList<Vender>> ListAsync(string name)
+        {
+            using (unitOfWork)
+            {
+                var list = await unitOfWork.VenderRepository.ListAsync(new VenderSpecification(name));
+
+                return list;
+            }
         }
     }
 }

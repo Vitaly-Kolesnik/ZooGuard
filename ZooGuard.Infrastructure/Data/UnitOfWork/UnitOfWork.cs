@@ -7,49 +7,6 @@ using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Infrastructure.Data.UnitOfWork
 {
-    public class UnitOfWork<T>: IUnitOfWork<T> 
-        where T : InformationAboutPosition, new()
-    {
-        private readonly PositionDbContext dbContext = new(); //создание пустого класса! Оче важно, что бы класс был пустой в дальнейшем туда запишется контекст
-        private IRepository<T> informationAboutPositionRepository;
-
-        public IRepository<T> InformationAboutPositionRepository
-        {
-            get
-            {
-                if (informationAboutPositionRepository == null)
-                    informationAboutPositionRepository = new EfRepository<T>(dbContext);
-                return informationAboutPositionRepository;
-            }
-        }
-
-        public async Task<bool> SaveAsync()
-        {
-            await dbContext.SaveChangesAsync();
-            return true;
-        }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    dbContext.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-    }
-
     public class UnitOfWork : IUnitOfWork
     {
         private readonly PositionDbContext dbContext = new();
@@ -61,9 +18,9 @@ namespace ZooGuard.Infrastructure.Data.UnitOfWork
         {
             get
             {
-                if (this.positionRepository == null)
+                if (positionRepository == null)
                 {
-                    this.positionRepository = new EfRepository<Position>(dbContext);
+                    positionRepository = new EfRepository<Position>(dbContext);
                 }
 
                 return positionRepository;
@@ -75,7 +32,10 @@ namespace ZooGuard.Infrastructure.Data.UnitOfWork
             get
             {
                 if (storageRepository == null)
+                {
                     storageRepository = new EfRepository<Storage>(dbContext);
+                }
+                    
                 return storageRepository;
             }
         }
@@ -85,10 +45,14 @@ namespace ZooGuard.Infrastructure.Data.UnitOfWork
             get
             {
                 if (venderRepository == null)
+                {
                     venderRepository = new EfRepository<Vender>(dbContext);
+                }
                 return venderRepository;
             }
         }
+
+        public IRepository<T> GetRepository<T>() where T : InformationAboutPosition => new EfRepository<T>(dbContext);
 
         public async Task<bool> SaveAsync()
         {
@@ -100,16 +64,15 @@ namespace ZooGuard.Infrastructure.Data.UnitOfWork
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     dbContext.Dispose();
                 }
-                this.disposed = true;
+                disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);

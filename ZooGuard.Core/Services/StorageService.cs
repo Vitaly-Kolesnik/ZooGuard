@@ -14,42 +14,56 @@ namespace ZooGuard.Core.Services
         {
             this.unitOfWork = unitOfWork;
         }
-
         public async Task<bool> AddAsync(Storage storage)
         {
-            await unitOfWork.StorageRepository.AddAsync(storage);
+            using (unitOfWork)
+            {
+                await unitOfWork.StorageRepository.AddAsync(storage);
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
-            await unitOfWork.StorageRepository.DeleteAsync(new Storage { Id = id });
+            using(unitOfWork)
+            {
+                await unitOfWork.StorageRepository.DeleteAsync(new Storage { Id = id });
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
         }
-
-        public async Task<Storage> GetAsync(int id)
-        {   
-            return await unitOfWork.StorageRepository.GetAsync(id);
-        }
-
-        public async Task<IList<Storage>> GetAllAsync()
-        {
-            return await unitOfWork.StorageRepository.ListAsync(new StorageSpecification());
-        }
-
         public async Task<bool> UpdateAsync(Storage storage)
         {
-            await  unitOfWork.StorageRepository.UpdateAsync(storage);
+            using (unitOfWork)
+            {
+                await unitOfWork.StorageRepository.UpdateAsync(storage);
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
+        }
+        public async Task<Storage> GetAsync(int id)
+        {
+            using (unitOfWork)
+            {
+                var entity = await unitOfWork.StorageRepository.GetAsync(id);
+
+                return entity;
+            }
+        }
+        public async Task<IList<Storage>> GetAllAsync()
+        {
+            using (unitOfWork)
+            {
+                var list = await unitOfWork.StorageRepository.ListAsync(new StorageSpecification());
+
+                return list;
+            }
         }
     }
 }

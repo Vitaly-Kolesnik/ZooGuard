@@ -5,18 +5,13 @@ using ZooGuard.Core.Entities.InfoAboutPos;
 
 namespace ZooGuard.Core.Interfaces
 {
-    public interface IUnitOfWork<T> : IDisposable 
-        where T : InformationAboutPosition, new() 
-    {
-        IRepository<T> InformationAboutPositionRepository { get; }
-        Task<bool> SaveAsync();
-    }
 
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Position> PositionRepository { get; }
-        IRepository<Storage> StorageRepository { get; }
-        IRepository<Vender> VenderRepository { get; }
+        public IRepository<Position> PositionRepository { get; }
+        public IRepository<Storage> StorageRepository { get; }
+        public IRepository<Vender> VenderRepository { get; }
+        public IRepository<T> GetRepository<T>() where T : InformationAboutPosition;
         Task<bool> SaveAsync();
     }
 }

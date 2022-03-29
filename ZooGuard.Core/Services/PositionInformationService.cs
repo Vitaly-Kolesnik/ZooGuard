@@ -6,59 +6,78 @@ using ZooGuard.Core.Specifications;
 
 namespace ZooGuard.Core.Services
 {
-    public class PositionInformationService<TInformation> : IPositionInformationService<TInformation> 
+    public class PositionInformationService<TInformation> : IPositionInformationService<TInformation>
         where TInformation : InformationAboutPosition, new()
     {
-        private readonly IUnitOfWork<TInformation> unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
-        public PositionInformationService(IUnitOfWork<TInformation> unitOfWork)
+        public PositionInformationService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
         public async Task<bool> AddAsync(TInformation informationAboutPosition)
         {
-            await unitOfWork.InformationAboutPositionRepository.AddAsync(informationAboutPosition);
+            using (unitOfWork)
+            {
+                await unitOfWork.GetRepository<TInformation>().AddAsync(informationAboutPosition);
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            await unitOfWork.InformationAboutPositionRepository.DeleteAsync(new TInformation { Id = id });
+            using (unitOfWork)
+            {
+                await unitOfWork.GetRepository<TInformation>().DeleteAsync(new TInformation { Id = id });
 
-            await unitOfWork.SaveAsync();
+                await unitOfWork.SaveAsync();
 
-            return true;
+                return true;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(TInformation informationAboutPosition)
+        {
+            using(unitOfWork)
+            {
+                await unitOfWork.GetRepository<TInformation>().UpdateAsync(informationAboutPosition);
+
+                await unitOfWork.SaveAsync();
+
+                return true;
+            }
         }
 
         public async Task<TInformation> GetAsync(int id)
         {
-            TInformation entity =  await unitOfWork.InformationAboutPositionRepository.GetAsync(id);
+            using(unitOfWork)
+            {
+                TInformation entity = await unitOfWork.GetRepository<TInformation>().GetAsync(id);
 
-            return entity;
+                return entity;
+            }
         }
 
         public async Task<IList<TInformation>> GetAllAsync()
         {
-           var list = await unitOfWork.InformationAboutPositionRepository.ListAsync();
+            var list = await unitOfWork.GetRepository<TInformation>().ListAsync();
 
             return list;
         }
 
         public async Task<IList<TInformation>> ListAsync(string name)
         {
-            return await unitOfWork.InformationAboutPositionRepository.ListAsync(new PositionInformationSpecification<TInformation>(name)); 
-        }
-        public async Task<bool> UpdateAsync(TInformation informationAboutPosition)
-        {
-            await unitOfWork.InformationAboutPositionRepository.UpdateAsync(informationAboutPosition);
+            using (unitOfWork)
+            {
+                var list = await unitOfWork.GetRepository<TInformation>().ListAsync(new PositionInformationSpecification<TInformation>(name));
 
-            await unitOfWork.SaveAsync();
-
-            return true;
+                return list;
+            }
         }
+        
     }
 }
