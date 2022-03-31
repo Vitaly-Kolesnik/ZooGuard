@@ -1,87 +1,59 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
-    <title>@ViewData["Title"] - ZooGuard</title>
+	<meta charset="UTF-8">
+	<title>Side Navigation Bar</title>
+	<link rel="stylesheet" href="/css/site.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body style="background-color: #f6f6f6">
-    <nav class = "navbar navbar-expand navbar-dark bg-info sticky-top">
-       <a href="" class="navbar-brand"> <img src="~/ZG logo.png" width=55px height=55px/></a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" area-controls="navbarSupportedContent" area-expanded="false" area-label="Toggel navigation">
-       <span class="navbar-toggler-icon"></span>
-       </button>
-      
-             
-            @if (User.IsInRole("admin"))
-            {
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                       <li class="nav-item active">
-                           <a href="#" class="nav-link h5">Home</a>
-                       </li>
-                       <li class="nav-item">
-                           <a href="#" class="nav-link h5">Resources</a>
-                       </li>
-                       <li class="nav-item">
-                           <a href="#" class="nav-link h5">Storages</a>
-                       </li>
-                       <li class="nav-item">
-                           <a href="#" class="nav-link h5">Venders</a>
-                       </li>
-                      <li class="nav-item">
-                           <a href="#" class="nav-link h5">Staff</a>
-                       </li>
-                    </ul>
-                       <ul class="navbar-nav mr-auto">
-                       <li class="nav-item">
-                        <div class="row">
-                            <div class ="col-auto">
-                               <input class="form-control btn-outline-light" type="search" value="Search" id="example-search-input4">
-                        </div>
-                                <div class ="col-auto">
-                                <button class="btn btn-light rounded-right" type="button"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </li>
-                        </ul>
-                    <div class="col-auto float-right">
-                         <button class="btn btn-light rounded-right" type="button" ><a asp-area="" asp-controller="Account" asp-action="Logout" class="text-dark text-decoration-none text-reset">Logout&ensp;<i class="fa fa-sign-out"></i></a></button>
-                    </div>
-                 </div>
-           } 
-       else 
-       {
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                   <li class="nav-item active">
-                       <a href="#" class="nav-link h5">About</a>
-                   </li>
-                 </ul>
-            <div class="form-inline my-2 my-lg-0">
-                   <div class="row">
-                        <div class="col-auto">
-                            <button class="btn btn-light rounded-right" type="submit">
-                                Login <i class="fa fa-user"></i>
-                            </button>
-                        </div>
-                    </div>
-               </div>
-          </div>
-       }
-   </nav>
-   @RenderBody()
-   <footer class="border-top bg-info footer text-muted">
-        <div class="container">
-            &copy; 2022 - Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<div class="wrapper">
+    <div class="sidebar bg-info" >
+        <div class="list-logo d-flex flex-row" style="background-color: #f6f6f6">
+        <div class="p-2">
+        <a href="#" class="navbar-logo"> <img src="~/ZG logo.png" width=52px height=52px/></a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <div class="p-2">
+            <strong>ZooGuard</strong>
+            Helper
+        </div>
+        </div>
+        <ul>
+            <li><a href="#"><i class="fa fa-home"></i>&ensp;Home</a></li>
+            <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>&ensp;Calendar</a></li>
+            <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>&ensp;Notifications</a></li>
+            <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i>&ensp;Tasks</a></li>
+            <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i>&ensp;Favorites</a></li>
+        </ul> 
+        <div class="social_media">
+          <a href="#"><i class="fa fa-facebook-f"></i></a>
+          <a href="#"><i class="fa fa-google"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="main_content">
+        <nav class="header" style="background-color: #f6f6f6">
+            <div class="header-nav-buttons d-flex flex-row-reverse">
+                <div class ="Loginbutton col-auto p-2">
+                    <button class="btn btn-light rounded-right border border-secondary" type="button">User&ensp;<i class="fa fa-user fa-1x" aria-hidden="true"></i></button>
+                </div>
+                <div class="menu-button p-2 col-auto pr-5">
+                     <a href="#"> <img src="~/icons8-menu-64.png" width=33px height=33px/></a>
+                </div>
+                <div class ="info-button p-2 pr-4">
+                    <a href ="#" class="text-dark"><p><i class="fa fa-info-circle fa-2x"></i></p></a>
+                    </div>
+            </div>
+        </nav>
+        <div class="info">
+            @RenderBody()
+          @await RenderSectionAsync("Scripts", required: false)
+    </div>
+</div>
+</div>
 </body>
 </html>
+
+ 
+    

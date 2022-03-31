@@ -58,7 +58,6 @@ namespace ZooGuard.Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             //UnitOfWork
-            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddScoped <IUnitOfWork,UnitOfWork>();
 
             //Services

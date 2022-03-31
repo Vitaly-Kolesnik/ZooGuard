@@ -3,12 +3,10 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="container-fluid d-flex justify-content-center align-items-center p-3">
-<div class="p-5"> 
-<div class="p-5">
+<div class="login-container container d-flex justify-content-center align-items-center">
         <div class="justify-content-center shadow-lg p-5 mb-8">
            <div class="col">
-            <h2 class="text-center mb-4"><strong>ZooGuard</strong></h2>
+            <h2 class="text-center text-dark"><strong>ZooGuard</strong></h2>
             <form asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewBag.returnUrl" method="post">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Login</label>
@@ -25,8 +23,6 @@
               </form>
            </div>
         </div>
-    </div>
-</div>
 </div>
 
 @section Scripts {
