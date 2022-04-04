@@ -1,57 +1,33 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Side Navigation Bar</title>
-	<link rel="stylesheet" href="/css/site.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	@await Html.PartialAsync("CssPatrial")
+    @await Html.PartialAsync("MetaTagsPatrial")
+    @await RenderSectionAsync("Scripts", required: false)
 </head>
-<body style="background-color: #f6f6f6">
-<div class="wrapper">
-    <div class="sidebar bg-info" >
-        <div class="list-logo d-flex flex-row" style="background-color: #f6f6f6">
-        <div class="p-2">
-        <a href="#" class="navbar-logo"> <img src="~/ZG logo.png" width=52px height=52px/></a>
-        </div>
-        <div class="p-2">
-            <strong>ZooGuard</strong>
-            Helper
-        </div>
-        </div>
-        <ul>
-            <li><a href="#"><i class="fa fa-home"></i>&ensp;Home</a></li>
-            <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>&ensp;Calendar</a></li>
-            <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>&ensp;Notifications</a></li>
-            <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i>&ensp;Tasks</a></li>
-            <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i>&ensp;Favorites</a></li>
-        </ul> 
-        <div class="social_media">
-          <a href="#"><i class="fa fa-facebook-f"></i></a>
-          <a href="#"><i class="fa fa-google"></i></a>
-          <a href="#"><i class="fa fa-instagram"></i></a>
-      </div>
-    </div>
-    <div class="main_content">
-        <nav class="header" style="background-color: #f6f6f6">
-            <div class="header-nav-buttons d-flex flex-row-reverse">
-                <div class ="Loginbutton col-auto p-2">
-                    <button class="btn btn-light rounded-right border border-secondary" type="button">User&ensp;<i class="fa fa-user fa-1x" aria-hidden="true"></i></button>
-                </div>
-                <div class="menu-button p-2 col-auto pr-5">
-                     <a href="#"> <img src="~/icons8-menu-64.png" width=33px height=33px/></a>
-                </div>
-                <div class ="info-button p-2 pr-4">
-                    <a href ="#" class="text-dark"><p><i class="fa fa-info-circle fa-2x"></i></p></a>
-                    </div>
-            </div>
-        </nav>
+
+<body class="wrapper" style="background-color: #f6f6f6">
+    @if(@User.IsInRole("admin"))
+    {
+        @await Html.PartialAsync("SideBarPatrialAutoris")
+    }
+    else
+    {
+        @await Html.PartialAsync("SideBarPatrialGuest")
+    }
+    <div class="main_content container-field">
+        @if(@User.IsInRole("admin"))
+        {
+            @await Html.PartialAsync("HeaderPatrialAutoris")
+        } 
+            else
+        {
+            @await Html.PartialAsync("HeaderPatrialGuest")
+        }
         <div class="info">
             @RenderBody()
-          @await RenderSectionAsync("Scripts", required: false)
+        </div>
     </div>
-</div>
-</div>
 </body>
 </html>
 

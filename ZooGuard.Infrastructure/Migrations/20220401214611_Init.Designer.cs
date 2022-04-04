@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooGuard.Infrastructure;
 
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    partial class PositionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220401214611_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "d97dbcbe-c7a5-46e8-bcc6-5e325fcc2abd",
+                            ConcurrencyStamp = "b4a80cdc-6c46-472d-8843-e9ba9f976697",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -148,13 +150,13 @@ namespace ZooGuard.Infrastructure.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69ddb4a0-cfd9-43dc-a21f-6c88324e489f",
+                            ConcurrencyStamp = "475a93d9-e0fa-4a4a-a376-366f2ac9ed3d",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBki4ey/0HVw8jM5tbhGr9iqXSEqUGbuqljkBZ5TlZxlosS8rnWS5CXDqxvcKTyy0Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJGVeRoRDlV5CdJuQrnWqeDcwtCTEG9U3cvoglV8ihSZFb2i5LUPeQo28PoJ/LvHzw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -341,25 +343,16 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ActualAddress")
+                    b.Property<string>("Adress")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Characteristic")
-                        .IsRequired()
-                        .HasMaxLength(10000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("OrganisationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkerId")
+                    b.Property<int?>("WorkerId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -487,7 +480,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("OrganisationId")
+                    b.Property<int?>("OrganisationId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkerId")
@@ -546,7 +539,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("OrganisationId")
+                    b.Property<int?>("OrganisationId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkerId")
@@ -845,38 +838,30 @@ namespace ZooGuard.Infrastructure.Migrations
 
             modelBuilder.Entity("ZooGuard.Core.Entities.ServerRoom", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
+                    b.HasOne("ZooGuard.Core.Entities.Organisation", null)
                         .WithMany("ServerRooms")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganisationId");
 
                     b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
                         .WithMany("ServerRooms")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Organisation");
 
                     b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
+                    b.HasOne("ZooGuard.Core.Entities.Organisation", null)
                         .WithMany("Storages")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganisationId");
 
                     b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
                         .WithMany("Storages")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Organisation");
 
                     b.Navigation("Worker");
                 });

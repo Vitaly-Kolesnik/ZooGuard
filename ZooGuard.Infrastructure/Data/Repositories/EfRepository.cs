@@ -11,13 +11,10 @@ namespace ZooGuad.Infrastructure.Data.Repositories
     public class EfRepository<TEntity> : IRepository<TEntity>
       where TEntity : class
     {
-        internal PositionDbContext dbContext;
-        internal DbSet<TEntity> dbSet;
-        public EfRepository(PositionDbContext dbContext)
+        private readonly DbSet<TEntity> dbSet;
+        public EfRepository(PositionDbContext dbcontext)
         {
-            this.dbContext = dbContext; 
-            dbSet = dbContext.Set<TEntity>();
-
+            this.dbSet = dbcontext.Set<TEntity>();
         }
         public async Task<bool> AddAsync(TEntity entity)
         {

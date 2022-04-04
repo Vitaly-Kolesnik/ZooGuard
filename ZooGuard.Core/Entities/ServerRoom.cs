@@ -3,9 +3,9 @@ using ZooGuard.Core.Entities.BaseEntities;
 
 namespace ZooGuard.Core.Entities
 {
-    public class Storage : BaseStorageEntitties
+    public class ServerRoom : BaseStorageEntitties
     {
-        #region One-to-Many (Storage - Positions )
+        #region One-to-Many (ServerRoom - Positions )
         public ICollection<Position> Positions { get; set; }
         #endregion
     }

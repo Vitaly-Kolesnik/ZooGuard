@@ -9,10 +9,15 @@ namespace ZooGuard.Infrastructure.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly PositionDbContext dbContext = new();
+        private readonly PositionDbContext dbContext;
         private IRepository<Position> positionRepository;
         private IRepository<Storage> storageRepository;
         private IRepository<Vender> venderRepository;
+
+        public UnitOfWork(PositionDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public IRepository<Position> PositionRepository
         {

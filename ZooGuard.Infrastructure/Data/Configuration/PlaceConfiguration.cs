@@ -4,9 +4,9 @@ using ZooGuard.Core.Entities;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
 {
-    public class StorageConfiguration : IEntityTypeConfiguration<Storage>
+    public class PlaceConfiguration : IEntityTypeConfiguration<Place>
     {
-        public void Configure(EntityTypeBuilder<Storage> builder)
+        public void Configure(EntityTypeBuilder<Place> builder)
         {
             builder
               .HasKey(x => x.Id);

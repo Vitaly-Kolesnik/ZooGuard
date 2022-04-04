@@ -12,7 +12,10 @@ namespace ZooGuard.Core.Entities
         public string EmailRepresentative { get; set; }
         public string MailingAddress { get; set; }
         public string Comment { get; set; }
+
+        #region One-to-Many (Vender - Positions)
         public ICollection<Position> Positions { get; set; }
+        #endregion
 
     }
 }
