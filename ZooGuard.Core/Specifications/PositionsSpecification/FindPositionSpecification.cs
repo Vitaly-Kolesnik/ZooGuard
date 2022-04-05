@@ -22,7 +22,7 @@ namespace ZooGuard.Core.Specifications
         }
         public IQueryable<Position> Apply(IQueryable<Position> source) //получает перечисление реализующие интерфейс IQueryable, soure
         {
-            return source.Where(p => p.Name.ToLower().IndexOf(name.ToLower()) != -1); //Where, фильтрует по свойствам Name (пониженный регистр), IndexOf - метод класса string, возвращает или значение, если параметр найден или -1, если пустой - вернет 0.
+            return source.Where(p => p.FullName.ToLower().IndexOf(name.ToLower()) != -1); //Where, фильтрует по свойствам Name (пониженный регистр), IndexOf - метод класса string, возвращает или значение, если параметр найден или -1, если пустой - вернет 0.
             //на выходе мы получим IQueryable<Position>, отвечающий условию наличия в имени переданного строкового параметра.
         }
     }

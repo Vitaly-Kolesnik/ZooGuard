@@ -23,6 +23,8 @@ namespace ZooGuard.Infrastructure
         public DbSet<ServerRoom> ServerRooms { get; set; } 
         public DbSet<SpecialityWorker> SpecialityWorkers { get; set; }
         public DbSet<Worker> Workers { get; set; }
+
+        public DbSet<PositionCategory> PositionCategories { get; set; }
         #endregion
 
         #region DbSet Connections Entity For Many-To-Many Connection
@@ -49,6 +51,7 @@ namespace ZooGuard.Infrastructure
             new ServerRoomConfiguration().Configure(modelBuilder.Entity<ServerRoom>());
             new SpecialityWorkerConfiguration().Configure(modelBuilder.Entity<SpecialityWorker>());
             new WorkerConfiguration().Configure(modelBuilder.Entity<Worker>());
+            new PositionCategoryConfiguration().Configure(modelBuilder.Entity<PositionCategory>());
             #endregion
 
             new SpecialitiesOfWorkersConfiguration().Configure(modelBuilder.Entity<SpecialitiesOfWorkers>());

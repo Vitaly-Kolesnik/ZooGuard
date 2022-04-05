@@ -62,7 +62,7 @@ namespace ZooGuard.Web.Services
             return new PositionViewModel
             {
                 Id = position.Id,
-                Name = position.Name,
+                Name = position.FullName,
                 Date = position.Date,
                 RegistrationDocument = position.RegistrationDocument,
                 AccountingNumber = position.AccountingNumber,
@@ -79,7 +79,7 @@ namespace ZooGuard.Web.Services
             return new Position
             {
                 Id = position.Id.HasValue ? position.Id.Value : 0,
-                Name = position.Name,
+                FullName = position.Name,
                 Date = position.Date,
                 RegistrationDocument = position.RegistrationDocument,
                 AccountingNumber = position.AccountingNumber,

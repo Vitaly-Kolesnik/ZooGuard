@@ -6,11 +6,17 @@ namespace ZooGuard.Core.Entities
     public class Position
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
+        public string ShortName { get; set; }
         public DateTime Date { get; set; }
         public string RegistrationDocument { get; set; }
         public string AccountingNumber { get; set; }
         public string Information { get; set; }
+
+        #region Many-To-One (Position - PositionCategory)
+        public int PositionCategoryId { get; set; }
+        public PositionCategory PositionCategory { get; set; }
+        #endregion
 
         #region Many-to-One (Position - Vender)
         public int VenderId { get; set; }
