@@ -32,7 +32,7 @@ namespace ZooGuard.Web.Controllers
             var result = await userViewModelService.SingIn(model);
             if (result == true)
             {
-                return Redirect("~/sp");
+                return Redirect("~/hm");
             }
             ModelState.AddModelError(nameof(LoginViewModel.Name), "Неверный логин или пароль");
             return View(model);

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ZooGuard.Core.Entities;
+using ZooGuard.Core.Entities.PositionEntities;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class PositionAtUserSpecification : Specifications<Position>
+    internal class PositionAtUserSpecification : ISpecification<Position>
     {
         private readonly int id;
 
@@ -17,7 +17,6 @@ namespace ZooGuard.Core.Specifications
         {
           $"{nameof(Position.FormOfOccurence)}",
           $"{nameof(Position.Vender)}",
-          $"{nameof(Position.StatusLabel)}",
           $"{nameof(Position.Storage)}",
         };
         public IQueryable<Position> Apply(IQueryable<Position> query)

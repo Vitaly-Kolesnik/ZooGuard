@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using ZooGuard.Core.Entities;
-using ZooGuard.Core.Interfaces;
+using ZooGuard.Core.Entities.VenderEntities;
+using ZooGuard.Core.Interfaces.InterfacesForVenderServicies;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
 

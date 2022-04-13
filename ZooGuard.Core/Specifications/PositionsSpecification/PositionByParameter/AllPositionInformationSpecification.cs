@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ZooGuard.Core.Interfaces;
-using ZooGuard.Core.Entities;
+using ZooGuard.Core.Entities.PositionEntities;
 
 namespace ZooGuard.Core.Specifications
 {
-    public class AllPositionInformationSpecification : Specifications<Position>
+    public class AllPositionInformationSpecification : ISpecification<Position>
     {
         public IList<string> Includes => new List<string> //Мы создаем коллекцию адресов.                                 
         {
           $"{nameof(Position.FormOfOccurence)}",
           $"{nameof(Position.Vender)}",
-          $"{nameof(Position.StatusLabel)}",
           $"{nameof(Position.Storage)}",
         };
 

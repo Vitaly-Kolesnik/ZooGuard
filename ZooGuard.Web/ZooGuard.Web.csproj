@@ -16,4 +16,9 @@
     <ProjectReference Include="..\ZooGuard.Infrastructure\ZooGuard.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Company\CompanyPartrial\" />
+    <Folder Include="Areas\Admin\Views\PositionCategory\" />
+  </ItemGroup>
+
 </Project>

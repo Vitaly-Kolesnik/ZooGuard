@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ZooGuard.Core.Interfaces
 {
-    public interface Specifications<TEntity> 
+    public interface ISpecification<TEntity> 
         where TEntity : class
     {
         IList<string> Includes { get; } //коллекция строк из базы

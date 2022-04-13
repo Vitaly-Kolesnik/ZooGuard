@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZooGuard.Core.Enum;
-using ZooGuard.Core.Interfaces;
+using ZooGuard.Core.Interfaces.ForPosition;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
 

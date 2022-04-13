@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ZooGuard.Core.Entities;
+using ZooGuard.Core.Entities.PositionEntities;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class FindPositionSpecification : Specifications<Position>
+    internal class FindPositionSpecification : ISpecification<Position>
     {
         private string name;
 
@@ -13,7 +13,6 @@ namespace ZooGuard.Core.Specifications
         {                                                                                                       
           $"{nameof(Position.FormOfOccurence)}",
           $"{nameof(Position.Vender)}",
-          $"{nameof(Position.StatusLabel)}",
           $"{nameof(Position.Storage)}",
         };
         public FindPositionSpecification(string name)

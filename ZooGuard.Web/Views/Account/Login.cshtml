@@ -4,7 +4,7 @@
 }
 
 <div class="login-container container-field d-flex justify-content-center align-items-center">
-        <div class="justify-content-center shadow-lg p-5 mb-8">
+        <div class="login-container-width justify-content-center shadow-lg p-5 mb-8">
            <div class="col">
                 <h2 class="text-center text-dark"><strong>ZooGuard</strong></h2>
                 <form asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewBag.returnUrl" method="post">
@@ -21,7 +21,7 @@
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                   </form>
-                  </br>
+                  <br>
                   @await Html.PartialAsync("SocialMediaPartrial")
            </div>
         </div>

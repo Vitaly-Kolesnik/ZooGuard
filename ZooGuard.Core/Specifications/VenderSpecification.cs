@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ZooGuard.Core.Entities;
+using ZooGuard.Core.Entities.VenderEntities;
 using ZooGuard.Core.Interfaces;
 
 namespace ZooGuard.Core.Specifications
 {
-    internal class VenderSpecification : Specifications<Vender>
+    internal class VenderSpecification : ISpecification<Vender>
     {
         private string name;
 

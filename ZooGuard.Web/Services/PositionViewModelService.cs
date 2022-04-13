@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Threading.Tasks;
-using ZooGuard.Core.Entities;
-using ZooGuard.Core.Entities.InfoAboutPos;
+using ZooGuard.Core.Entities.PositionEntities;
+using ZooGuard.Core.Entities.StorageEntities;
+using ZooGuard.Core.Entities.VenderEntities;
 using ZooGuard.Core.Interfaces;
+using ZooGuard.Core.Interfaces.ForPosition;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
 
@@ -14,15 +16,13 @@ namespace ZooGuard.Web.Services
         private readonly IPositionService positionService;
         private readonly IRepository<Vender> vender;
         private readonly IRepository<FormOfOccurence> formOfOccurence;
-        private readonly IRepository<StatusLabel> statusLabel;
         private readonly IRepository<Storage> storage;
 
-        public PositionViewModelService(IPositionService positionService, IRepository<Vender> vender, IRepository<FormOfOccurence> formOfOccurence, IRepository<StatusLabel> statusLabel, IRepository<Storage> storage)
+        public PositionViewModelService(IPositionService positionService, IRepository<Vender> vender, IRepository<FormOfOccurence> formOfOccurence, IRepository<Storage> storage)
         {
             this.positionService = positionService;
             this.vender = vender;
             this.formOfOccurence = formOfOccurence;
-            this.statusLabel = statusLabel;
             this.storage = storage;
         }
 
@@ -70,7 +70,6 @@ namespace ZooGuard.Web.Services
                 Venders = vender.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
                 Storages = storage.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
                 FormOfOccurences = formOfOccurence.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
-                StatusLabels = statusLabel.ListAsync().Result.Select(r => new SelectListItem(r.Name, r.Id.ToString())),
             };
         }
 
@@ -87,7 +86,6 @@ namespace ZooGuard.Web.Services
                 VenderId = position.VenderId,
                 StorageId = position.StorageId,
                 FormOfOccurenceId = position.FormOfOccurenceId,
-                StatusLabelId = position.StatusLabelId,
             };
         }
     }

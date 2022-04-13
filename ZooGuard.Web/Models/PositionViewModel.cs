@@ -27,6 +27,7 @@ namespace ZooGuard.Web.Models
 
         [Required, MaxLength(100)]
         [Display(Name = "Information")]
+
         public string Information { get; set; }
 
         [Display(Name = "Venders")]

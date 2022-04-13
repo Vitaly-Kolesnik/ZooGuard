@@ -1,4 +1,6 @@
 ﻿
+using ZooGuard.Core.Entities.WorkerEntities;
+
 namespace ZooGuard.Core.Entities.MultipleConnections
 {
     public class SpecialitiesOfWorkers

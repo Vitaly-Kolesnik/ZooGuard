@@ -14,7 +14,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
         private readonly DbSet<TEntity> dbSet;
         public EfRepository(PositionDbContext dbcontext)
         {
-            this.dbSet = dbcontext.Set<TEntity>();
+            dbSet = dbcontext.Set<TEntity>();
         }
         public async Task<bool> AddAsync(TEntity entity)
         {
@@ -32,7 +32,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
             var entity = await dbSet.FindAsync(id);
             return entity;
         }
-        public async Task <TEntity> GetAsync(Specifications<TEntity> specification)
+        public async Task <TEntity> GetAsync(ISpecification<TEntity> specification)
         {
             return await ApplySpecification(dbSet, specification).FirstOrDefaultAsync();
         }
@@ -40,7 +40,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
         {
             return await dbSet.ToListAsync(); 
         }
-        public async Task< IList<TEntity>> ListAsync(Specifications<TEntity> specification)
+        public async Task< IList<TEntity>> ListAsync(ISpecification<TEntity> specification)
         {
             return await ApplySpecification(dbSet, specification).ToListAsync();
         }
@@ -50,7 +50,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
 
             return true;
         }
-        private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, Specifications<TEntity> specification)
+        private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, ISpecification<TEntity> specification)
         {
             var result = specification.Apply(source);
             if (specification.Includes != null) 
@@ -60,7 +60,7 @@ namespace ZooGuad.Infrastructure.Data.Repositories
                     result = result.Include(include);
                 }
             }
-            return result.AsNoTracking();
+            return result;
         }
     }
 }

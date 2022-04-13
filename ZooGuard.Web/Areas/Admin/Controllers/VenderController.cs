@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZooGuard.Core.Interfaces;
+using ZooGuard.Core.Interfaces.InterfacesForVenderServicies;
 using ZooGuard.Web.Interfaces;
 using ZooGuard.Web.Models;
 
 namespace ZooGuard.Web.Controllers
 {
+    [Area("admin")]
     public class VenderController : Controller
     {
         private readonly IVenderService venderService;
@@ -20,6 +21,12 @@ namespace ZooGuard.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet("vn")]
+        public async Task<IActionResult> Venders()
+        {
+            return View("Venders");
         }
 
         [HttpGet ("Vender")]

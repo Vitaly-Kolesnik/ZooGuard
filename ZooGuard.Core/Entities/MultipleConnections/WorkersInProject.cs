@@ -1,4 +1,6 @@
-﻿
+﻿using ZooGuard.Core.Entities.TeamEntities;
+using ZooGuard.Core.Entities.WorkerEntities;
+
 namespace ZooGuard.Core.Entities.MultipleConnections
 {
     public class WorkersInProject

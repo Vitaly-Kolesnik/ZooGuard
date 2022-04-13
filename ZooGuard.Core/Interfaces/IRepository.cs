@@ -10,8 +10,8 @@ namespace ZooGuard.Core.Interfaces
         Task<bool> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
         Task<TEntity> GetAsync(int id);
-        Task<TEntity> GetAsync(Specifications<TEntity> specification);
+        Task<TEntity> GetAsync(ISpecification<TEntity> specification);
         Task<IList<TEntity>> ListAsync();
-        Task<IList<TEntity>> ListAsync(Specifications<TEntity> specification);
+        Task<IList<TEntity>> ListAsync(ISpecification<TEntity> specification);
     }
 }

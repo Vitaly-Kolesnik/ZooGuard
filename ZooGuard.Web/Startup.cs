@@ -13,6 +13,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ZooGuard.Web.Filters;
 using ZooGuard.Infrastructure.Data.UnitOfWork;
+using ZooGuard.Core.Interfaces.ForPosition;
+using ZooGuard.Core.Interfaces.InterfacesForVenderServicies;
+using ZooGuard.Core.Services.PositionServices;
+using ZooGuard.Core.Services.WorkerServices;
+using ZooGuard.Core.Services.VenderServices;
+using ZooGuard.Core.Interfaces.InterfaciesForWorkerServicies;
+using ZooGuard.Core.Interfaces.InterfaciesForTeamServicies;
+using ZooGuard.Core.Services.TeamServices;
 
 namespace ZooGuard.Web
 {
@@ -54,27 +62,47 @@ namespace ZooGuard.Web
                 x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); }); 
             });
 
-            // Repositories
+            #region EfRepository
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            #endregion
 
-            //UnitOfWork
+            #region UnitOfWork
             services.AddScoped <IUnitOfWork,UnitOfWork>();
+            #endregion
 
-            //Services
+            #region PositionServicies
             services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IPositionCategoryService, PositionCategoryService>();
+            #endregion
+
+            #region WorkerServicies
+            services.AddScoped<IWorkerService, WorkerService>();
+            services.AddScoped<ISpecialityWorkerService, SpecialityWorkerService>();
+            #endregion
+
+            #region VenderServicies
             services.AddScoped<IVenderService, VenderService>();
-            services.AddScoped<IStorageService, StorageService>();
-            services.AddScoped(typeof(IPositionInformationService<>), typeof(PositionInformationService<>));
+            services.AddScoped<IFormOfOccurenceService, FormOfOccurenceService>();
+            #endregion
+
+            #region TeamServicies
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            #endregion
+
+            #region BrokenService
+            services.AddScoped<IBrokenService, BrokenService>();
+            #endregion
+
+            #region StoragiesServicesGen
+            services.AddScoped(typeof(IAllStorageService<>), typeof(AllStorageService<>));
+            #endregion
 
             //ViewModelServices
             services.AddScoped<IUserViewModelService, UserViewModelService>();
             services.AddScoped<IVenderViewModelService, VenderViewModelService>();
-            services.AddScoped<IStorageViewModelService, StorageViewModelService>();
-            services.AddScoped<IStatusViewModelService, StatusViewModelService> ();
-            services.AddScoped<IOccurenceViewModelService, OccurenceViewModelService>();
             services.AddScoped<IPositionViewModelService, PositionViewModelService>();
 
-            // MVC services
             services.AddControllersWithViews(x =>
             {
                 x.Conventions.Add(new AdminAreaAuthorization("admin", "AdminArea"));
