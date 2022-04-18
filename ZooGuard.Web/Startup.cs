@@ -21,6 +21,8 @@ using ZooGuard.Core.Services.VenderServices;
 using ZooGuard.Core.Interfaces.InterfaciesForWorkerServicies;
 using ZooGuard.Core.Interfaces.InterfaciesForTeamServicies;
 using ZooGuard.Core.Services.TeamServices;
+using ZooGuard.Web.Interfaces.InterfacesForTeamViewModelServices;
+using ZooGuard.Web.Interfaces.InterfacesForCompanyViewModelServices;
 
 namespace ZooGuard.Web
 {
@@ -102,7 +104,8 @@ namespace ZooGuard.Web
             services.AddScoped<IUserViewModelService, UserViewModelService>();
             services.AddScoped<IVenderViewModelService, VenderViewModelService>();
             services.AddScoped<IPositionViewModelService, PositionViewModelService>();
-
+            services.AddScoped<IProjectViewModelService, ProjectViewModelService>();
+            services.AddScoped<ICompanyViewModelService, CompanyViewModelService>();
             services.AddControllersWithViews(x =>
             {
                 x.Conventions.Add(new AdminAreaAuthorization("admin", "AdminArea"));

@@ -10,6 +10,6 @@ namespace ZooGuard.Core.Interfaces.InterfaciesForTeamServicies
         Task<bool> DeleteAsync(int id);
         Task<bool> UpdateAsync(Project project);
         Task<Project> GetAsync(int id);
-        Task<IList<Project>> GetAll();
+        Task<IList<Project>> GetAllAsync();
     }
 }

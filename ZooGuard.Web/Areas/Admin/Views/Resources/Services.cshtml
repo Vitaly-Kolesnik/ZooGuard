@@ -2,18 +2,7 @@
     ViewData["Title"] = "Start Page";
 }
 
-<div class="container-fluid">
-  <div class="button-add-link row align-items-start">
-    <div class="col">
-       <div class="addres-link"><p><a href="~/hm">Home</a>&#47;<a href="/sp/teh">Resources</a>&#47;Services</p></div> 
-    </div>
-    <div class="col d-flex flex-row-reverse">
-        <div class ="add-button">
-            <button class="btn btn-info rounded-left" type="button">Add Service</button>
-        </div>
-    </div>
-  </div>
- </div>
+@await Html.PartialAsync("ResourcesNavBar")
 
 <div class = "tabs">
     <ul class="nav nav-tabs">
@@ -46,12 +35,12 @@
     <tr class="row-table table-light">
       <th scope="row">2</th>
       <td>Jacob</td>
-      <td>Thornton</td>
-      <td>Thornton</td>
-      <td>Thornton</td>
-      <td>Thornton</td>
-      <td>Thornton</td>
-      <td>Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
+      <td class="d-none d-table-cell">Thornton</td>
     </tr>
   </tbody>
 </table>

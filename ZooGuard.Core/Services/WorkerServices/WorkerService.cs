@@ -14,7 +14,6 @@ namespace ZooGuard.Core.Services.WorkerServices
         {
             this.unitOfWork = unitOfWork;
         }
-
         public async Task<bool> AddAsync(Worker worker)
         {
             using (unitOfWork)
@@ -26,7 +25,6 @@ namespace ZooGuard.Core.Services.WorkerServices
                 return true;
             }
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
             using(unitOfWork)
@@ -38,7 +36,6 @@ namespace ZooGuard.Core.Services.WorkerServices
                 return true;
             }
         }
-
         public async Task<bool> UpdateAsync(Worker worker)
         {
             using(unitOfWork)
@@ -50,17 +47,15 @@ namespace ZooGuard.Core.Services.WorkerServices
                 return true;
             }
         }
-
         public async Task<IList<Worker>> GetAllAsync()
         {
             using (unitOfWork)
             {
-                var list = await unitOfWork.WorkerRepository.ListAsync();
+                var list = await unitOfWork.WorkerRepository.ListAsync(new AllWorkerSpecification());
 
                 return list;
             }
         }
-
         public async Task<Worker> GetAsync(int id)
         {
             using (unitOfWork)

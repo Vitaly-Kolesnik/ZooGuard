@@ -64,6 +64,22 @@ namespace ZooGuard.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrgForm = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    UNP = table.Column<int>(type: "int", maxLength: 9, nullable: false),
+                    Adress = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FormOfOccurences",
                 columns: table => new
                 {
@@ -77,16 +93,15 @@ namespace ZooGuard.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Organisations",
+                name: "Managers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Organisations", x => x.Id);
+                    table.PrimaryKey("PK_Managers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,23 +149,6 @@ namespace ZooGuard.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Venders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Workers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    IsResponsibilityStorage = table.Column<bool>(type: "bit", nullable: false),
-                    IsResponsibilityServerRoom = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Workers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,17 +264,48 @@ namespace ZooGuard.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    ManagerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_Projects_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Projects_Managers_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "Managers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Patronymic = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    IsResponsibilityStorage = table.Column<bool>(type: "bit", nullable: false),
+                    IsResponsibilityServerRoom = table.Column<bool>(type: "bit", nullable: false),
+                    ManagerForeignKey = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Workers_Managers_ManagerForeignKey",
+                        column: x => x.ManagerForeignKey,
+                        principalTable: "Managers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,24 +314,31 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkerForeignKey = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ActualAddress = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Characteristic = table.Column<string>(type: "nvarchar(max)", maxLength: 10000, nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Places", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Places_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_Places_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Places_Workers_WorkerId",
-                        column: x => x.WorkerId,
+                        name: "FK_Places_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Places_Workers_WorkerForeignKey",
+                        column: x => x.WorkerForeignKey,
                         principalTable: "Workers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -314,19 +350,19 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ActualAddress = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Characteristic = table.Column<string>(type: "nvarchar(max)", maxLength: 10000, nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ServerRooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServerRooms_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_ServerRooms_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -367,19 +403,19 @@ namespace ZooGuard.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ActualAddress = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Characteristic = table.Column<string>(type: "nvarchar(max)", maxLength: 10000, nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Storages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Storages_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_Storages_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -391,23 +427,23 @@ namespace ZooGuard.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkersInOrganisations",
+                name: "WorkersInCompany",
                 columns: table => new
                 {
                     WorkerId = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkersInOrganisations", x => new { x.WorkerId, x.OrganisationId });
+                    table.PrimaryKey("PK_WorkersInCompany", x => new { x.WorkerId, x.CompanyId });
                     table.ForeignKey(
-                        name: "FK_WorkersInOrganisations_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_WorkersInCompany_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkersInOrganisations_Workers_WorkerId",
+                        name: "FK_WorkersInCompany_Workers_WorkerId",
                         column: x => x.WorkerId,
                         principalTable: "Workers",
                         principalColumn: "Id",
@@ -455,9 +491,11 @@ namespace ZooGuard.Infrastructure.Migrations
                     StorageId = table.Column<int>(type: "int", nullable: true),
                     BrokenId = table.Column<int>(type: "int", nullable: true),
                     FormOfOccurenceId = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     WorkerId = table.Column<int>(type: "int", nullable: false),
-                    ServerRoomId = table.Column<int>(type: "int", nullable: true)
+                    ServerRoomId = table.Column<int>(type: "int", nullable: true),
+                    PlaceId = table.Column<int>(type: "int", nullable: true),
+                    ProjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -469,23 +507,35 @@ namespace ZooGuard.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Positions_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Positions_FormOfOccurences_FormOfOccurenceId",
                         column: x => x.FormOfOccurenceId,
                         principalTable: "FormOfOccurences",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Positions_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
+                        name: "FK_Positions_Places_PlaceId",
+                        column: x => x.PlaceId,
+                        principalTable: "Places",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Positions_PositionCategories_PositionCategoryId",
                         column: x => x.PositionCategoryId,
                         principalTable: "PositionCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Positions_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Positions_ServerRooms_ServerRoomId",
                         column: x => x.ServerRoomId,
@@ -515,12 +565,12 @@ namespace ZooGuard.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "44546e06-8719-4ad8-b88a-f271ae9d6eab", "4417f5f3-90a9-4d83-a32a-748c123b5b79", "admin", "ADMIN" });
+                values: new object[] { "44546e06-8719-4ad8-b88a-f271ae9d6eab", "e3da3b1c-0848-4cd5-ac3e-7097f3e3c81e", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3b62472e-4f66-49fa-a20f-e7685b9565d8", 0, "ab1969f6-1582-4d0b-a952-e32bcc6e0521", "my@email.com", true, false, null, "MY@EMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEBDC8PIR87aaVNguj3xBsPM2JUuE/KRGAMIfMwlphSX/msYbibC838dp4w+1rB2IAQ==", null, false, "", false, "admin" });
+                values: new object[] { "3b62472e-4f66-49fa-a20f-e7685b9565d8", 0, "83a999b7-de81-4799-8d7e-e2646b66def9", "my@email.com", true, false, null, "MY@EMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEKDxQC0ATlZhJtvcc9F34XJFzmb5cSFKte40kCMxGWpHMW1ABAjqPc3fLbkyxo7sgQ==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -567,14 +617,19 @@ namespace ZooGuard.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Places_OrganisationId",
+                name: "IX_Places_CompanyId",
                 table: "Places",
-                column: "OrganisationId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Places_WorkerId",
+                name: "IX_Places_ProjectId",
                 table: "Places",
-                column: "WorkerId",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Places_WorkerForeignKey",
+                table: "Places",
+                column: "WorkerForeignKey",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -583,19 +638,29 @@ namespace ZooGuard.Infrastructure.Migrations
                 column: "BrokenId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Positions_CompanyId",
+                table: "Positions",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Positions_FormOfOccurenceId",
                 table: "Positions",
                 column: "FormOfOccurenceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Positions_OrganisationId",
+                name: "IX_Positions_PlaceId",
                 table: "Positions",
-                column: "OrganisationId");
+                column: "PlaceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Positions_PositionCategoryId",
                 table: "Positions",
                 column: "PositionCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Positions_ProjectId",
+                table: "Positions",
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Positions_ServerRoomId",
@@ -618,14 +683,19 @@ namespace ZooGuard.Infrastructure.Migrations
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_OrganisationId",
+                name: "IX_Projects_CompanyId",
                 table: "Projects",
-                column: "OrganisationId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServerRooms_OrganisationId",
+                name: "IX_Projects_ManagerId",
+                table: "Projects",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServerRooms_CompanyId",
                 table: "ServerRooms",
-                column: "OrganisationId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ServerRooms_WorkerId",
@@ -638,9 +708,9 @@ namespace ZooGuard.Infrastructure.Migrations
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Storages_OrganisationId",
+                name: "IX_Storages_CompanyId",
                 table: "Storages",
-                column: "OrganisationId");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Storages_WorkerId",
@@ -648,9 +718,16 @@ namespace ZooGuard.Infrastructure.Migrations
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkersInOrganisations_OrganisationId",
-                table: "WorkersInOrganisations",
-                column: "OrganisationId");
+                name: "IX_Workers_ManagerForeignKey",
+                table: "Workers",
+                column: "ManagerForeignKey",
+                unique: true,
+                filter: "[ManagerForeignKey] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkersInCompany_CompanyId",
+                table: "WorkersInCompany",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkersInProjects_ProjectId",
@@ -676,16 +753,13 @@ namespace ZooGuard.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Places");
-
-            migrationBuilder.DropTable(
                 name: "Positions");
 
             migrationBuilder.DropTable(
                 name: "SpecialitiesOfWorkers");
 
             migrationBuilder.DropTable(
-                name: "WorkersInOrganisations");
+                name: "WorkersInCompany");
 
             migrationBuilder.DropTable(
                 name: "WorkersInProjects");
@@ -701,6 +775,9 @@ namespace ZooGuard.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "FormOfOccurences");
+
+            migrationBuilder.DropTable(
+                name: "Places");
 
             migrationBuilder.DropTable(
                 name: "PositionCategories");
@@ -724,7 +801,10 @@ namespace ZooGuard.Infrastructure.Migrations
                 name: "Workers");
 
             migrationBuilder.DropTable(
-                name: "Organisations");
+                name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Managers");
         }
     }
 }

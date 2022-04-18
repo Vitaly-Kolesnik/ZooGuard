@@ -1,5 +1,4 @@
-﻿
-using ZooGuard.Core.Entities.WorkerEntities;
+﻿using ZooGuard.Core.Entities.WorkerEntities;
 
 namespace ZooGuard.Core.Entities.MultipleConnections
 {
@@ -9,6 +8,5 @@ namespace ZooGuard.Core.Entities.MultipleConnections
         public SpecialityWorker SpecialityWorker { get; set; }
         public int WorkerId { get; set; }
         public Worker Worker { get; set; }
-
     }
 }

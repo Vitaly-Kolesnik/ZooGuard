@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZooGuard.Core.Entities.TeamEntities;
 using ZooGuard.Core.Interfaces;
 using ZooGuard.Core.Interfaces.InterfaciesForTeamServicies;
+using ZooGuard.Core.Specifications.TeamSpecifications;
 
 namespace ZooGuard.Core.Services.TeamServices
 {
@@ -38,11 +37,11 @@ namespace ZooGuard.Core.Services.TeamServices
                 return true;
             }
         }
-        public async Task<IList<Project>> GetAll()
+        public async Task<IList<Project>> GetAllAsync()
         {
             using (unitOfWork)
             {
-                return await unitOfWork.ProjectRepository.ListAsync();
+                return await unitOfWork.ProjectRepository.ListAsync(new AllProjectSpecification());
             }
         }
         public async Task<Project> GetAsync(int id)

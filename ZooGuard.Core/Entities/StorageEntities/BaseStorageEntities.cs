@@ -13,11 +13,6 @@ namespace ZooGuard.Core.Entities.BaseEntities
         public string ActualAddress { get; set; }
         public string Characteristic { get; set; }
 
-        #region Many-To-One (Storages - Worker)
-        public int WorkerId { get; set; }
-        public Worker Worker { get; set; }
-        #endregion
-
         #region Many-To-One (Storages - Company)
         public int CompanyId { get; set; }
         public Company Company { get; set; }

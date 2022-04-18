@@ -8,7 +8,10 @@ namespace ZooGuard.Core.Entities.TeamEntities
     public class Company 
     {
         public int Id { get; set; }
+        public string OrgForm { get; set; }
         public string Name { get; set; }
+        public int UNP { get; set; }
+        public string Adress { get; set; }
 
         #region One-To-Many (Company - Positions)
         public ICollection<Position> Positions { get; set; }
@@ -30,8 +33,9 @@ namespace ZooGuard.Core.Entities.TeamEntities
         public ICollection<ServerRoom> ServerRooms { get; set; }
         #endregion
 
-        #region Many-to-Many (Organisation-Worker)
+        #region Many-to-Many (Company-Worker)
         public ICollection<WorkersInCompany> WorkersInCompanies { get; set; }
         #endregion
+
     }
 }

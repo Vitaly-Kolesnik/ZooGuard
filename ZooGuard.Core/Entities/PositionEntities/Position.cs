@@ -16,7 +16,7 @@ namespace ZooGuard.Core.Entities.PositionEntities
         public string AccountingNumber { get; set; }
         public string Information { get; set; }
 
-        #region Many-To-One (Position - PositionCategory)
+        #region Many-to-One (Position - PositionCategory)
         public int PositionCategoryId { get; set; }
         public PositionCategory PositionCategory { get; set; }
         #endregion

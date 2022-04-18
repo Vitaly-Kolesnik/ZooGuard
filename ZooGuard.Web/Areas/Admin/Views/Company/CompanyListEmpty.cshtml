@@ -2,6 +2,8 @@
     ViewData["Title"] = "Company Empty";
 }
 
-    @await Html.PartialAsync("CompanyNavBar")
-    <h3 class="mt-5">The list is empty</h3>
+    @await Html.PartialAsync("CompanyNavBarPartial")
+    
+    @await Html.PartialAsync("CompanyMarkPartial")
 
+    <h3 class="mt-5">The list is empty</h3>

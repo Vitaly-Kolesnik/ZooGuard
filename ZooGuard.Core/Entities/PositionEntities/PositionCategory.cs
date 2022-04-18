@@ -8,7 +8,7 @@ namespace ZooGuard.Core.Entities.PositionEntities
         public string Name { get; set; }
         public string Description { get; set; }
 
-        #region Many-To-One (Positions - PositionCategory)
+        #region Many-to-One (Positions - PositionCategory)
         public ICollection<Position> Positions { get; set; }
         #endregion
     }

@@ -10,10 +10,23 @@ namespace ZooGuard.Web.Models
         [HiddenInput]
         public int? Id { get; set; }
 
+        [Display(Name = "Ogr form")]
+        [Required, MaxLength(5)]
+        public string OrgForm { get; set; }
+
         [Display(Name = "Name Vender" )]
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
+        [Display(Name = "UNP")]
+        [Required]
+        public int UNP { get; set; }
+
+        [Display(Name = "Adress")]
+        [Required, MaxLength(512)]
+        public string Adress { get; set; }
+
+        /*
         [Display(Name = "Worker")]
         public int[] WorkerIds { get; set; }
         public IEnumerable<SelectListItem> Workers { get; set; }
@@ -36,6 +49,6 @@ namespace ZooGuard.Web.Models
 
         [Display(Name = "Server Rooms")]
         public int[] ServerRoomIds { get; set; }
-        public IEnumerable<SelectListItem> ServerRooms { get; set; }
+        public IEnumerable<SelectListItem> ServerRooms { get; set; } */
     }
 }

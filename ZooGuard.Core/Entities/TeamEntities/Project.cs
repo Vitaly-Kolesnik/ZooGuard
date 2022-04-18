@@ -9,12 +9,13 @@ namespace ZooGuard.Core.Entities.TeamEntities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int PMId { get; set; }
 
         #region One-To-Many (Company - Positions)
         public ICollection<Position> Positions { get; set; }
         #endregion
 
-        #region One-To-Many (Organisation - Places)
+        #region One-To-Many (Company - Places)
         public ICollection<Place> Places { get; set; }
         #endregion
 
@@ -26,5 +27,6 @@ namespace ZooGuard.Core.Entities.TeamEntities
         #region Many-to-Many (Project-Worker)
         public ICollection<WorkersInProject> WorkersInProjects { get; set; }
         #endregion
+
     }
 }

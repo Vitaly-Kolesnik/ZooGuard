@@ -10,7 +10,7 @@ using ZooGuard.Infrastructure;
 namespace ZooGuard.Infrastructure.Migrations
 {
     [DbContext(typeof(PositionDbContext))]
-    [Migration("20220410185740_Init")]
+    [Migration("20220414203939_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "4417f5f3-90a9-4d83-a32a-748c123b5b79",
+                            ConcurrencyStamp = "e3da3b1c-0848-4cd5-ac3e-7097f3e3c81e",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,13 +150,13 @@ namespace ZooGuard.Infrastructure.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab1969f6-1582-4d0b-a952-e32bcc6e0521",
+                            ConcurrencyStamp = "83a999b7-de81-4799-8d7e-e2646b66def9",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBDC8PIR87aaVNguj3xBsPM2JUuE/KRGAMIfMwlphSX/msYbibC838dp4w+1rB2IAQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKDxQC0ATlZhJtvcc9F34XJFzmb5cSFKte40kCMxGWpHMW1ABAjqPc3fLbkyxo7sgQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -284,23 +284,6 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Brokens");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FormOfOccurences");
-                });
-
             modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.SpecialitiesOfWorkers", b =>
                 {
                     b.Property<int>("SpecialityWorkerId")
@@ -316,27 +299,27 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("SpecialitiesOfWorkers");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInOrganisation", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInCompany", b =>
                 {
                     b.Property<int>("WorkerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrganisationId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.HasKey("WorkerId", "OrganisationId");
+                    b.HasKey("WorkerId", "CompanyId");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("CompanyId");
 
-                    b.ToTable("WorkersInOrganisations");
+                    b.ToTable("WorkersInCompany");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInProject", b =>
                 {
-                    b.Property<int>("WorkerId")
+                    b.Property<int?>("WorkerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("WorkerId", "ProjectId");
@@ -346,62 +329,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("WorkersInProjects");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Organisation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Organisations");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Place", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ActualAddress")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Characteristic")
-                        .IsRequired()
-                        .HasMaxLength(10000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("OrganisationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganisationId");
-
-                    b.HasIndex("WorkerId")
-                        .IsUnique();
-
-                    b.ToTable("Places");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.PositionEntities.Position", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -414,6 +342,9 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("BrokenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -433,10 +364,13 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("OrganisationId")
+                    b.Property<int?>("PlaceId")
                         .HasColumnType("int");
 
                     b.Property<int>("PositionCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("RegistrationDocument")
@@ -465,11 +399,15 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.HasIndex("BrokenId");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("FormOfOccurenceId");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("PlaceId");
 
                     b.HasIndex("PositionCategoryId");
+
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex("ServerRoomId");
 
@@ -482,7 +420,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.PositionCategory", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.PositionEntities.PositionCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -504,29 +442,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("PositionCategories");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("OrganisationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganisationId");
-
-                    b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.ServerRoom", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -543,49 +459,70 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(10000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("OrganisationId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
+
+                    b.Property<int>("WorkerForeignKey")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("WorkerForeignKey")
+                        .IsUnique();
+
+                    b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.ServerRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ActualAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Characteristic")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("WorkerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("WorkerId");
 
                     b.ToTable("ServerRooms");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.SpecialityWorker", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SpecialityWorkers");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Storage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -602,27 +539,102 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(10000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("OrganisationId")
-                        .HasColumnType("int");
 
                     b.Property<int>("WorkerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("WorkerId");
 
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Vender", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.TeamEntities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("OrgForm")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<int>("UNP")
+                        .HasMaxLength(9)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.TeamEntities.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.VenderEntities.FormOfOccurence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FormOfOccurences");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.VenderEntities.Vender", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -669,7 +681,41 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.ToTable("Venders");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Worker", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.Manager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Managers");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.SpecialityWorker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpecialityWorkers");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.Worker", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -687,6 +733,9 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("ManagerForeignKey")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -697,6 +746,10 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerForeignKey")
+                        .IsUnique()
+                        .HasFilter("[ManagerForeignKey] IS NOT NULL");
 
                     b.ToTable("Workers");
                 });
@@ -754,13 +807,13 @@ namespace ZooGuard.Infrastructure.Migrations
 
             modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.SpecialitiesOfWorkers", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.SpecialityWorker", "SpecialityWorker")
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.SpecialityWorker", "SpecialityWorker")
                         .WithMany("SpecialitiesOfWorkers")
                         .HasForeignKey("SpecialityWorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
                         .WithMany("SpecialitiesOfWorkers")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -771,34 +824,34 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInOrganisation", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInCompany", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
-                        .WithMany("WorkersInOrganisations")
-                        .HasForeignKey("OrganisationId")
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
+                        .WithMany("WorkersInCompanies")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
-                        .WithMany("WorkersInOrganisations")
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
+                        .WithMany("WorkersInCompanies")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Organisation");
+                    b.Navigation("Company");
 
                     b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInProject", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Project", "Project")
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Project", "Project")
                         .WithMany("WorkersInProjects")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
                         .WithMany("WorkersInProjects")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -809,64 +862,53 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Place", b =>
-                {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
-                        .WithMany("Places")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
-                        .WithOne("Place")
-                        .HasForeignKey("ZooGuard.Core.Entities.Place", "WorkerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organisation");
-
-                    b.Navigation("Worker");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Position", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.PositionEntities.Position", b =>
                 {
                     b.HasOne("ZooGuard.Core.Entities.Broken", "Broken")
                         .WithMany("Positions")
                         .HasForeignKey("BrokenId");
 
-                    b.HasOne("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", "FormOfOccurence")
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
+                        .WithMany("Positions")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooGuard.Core.Entities.VenderEntities.FormOfOccurence", "FormOfOccurence")
                         .WithMany("Positions")
                         .HasForeignKey("FormOfOccurenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
+                    b.HasOne("ZooGuard.Core.Entities.StorageEntities.Place", null)
                         .WithMany("Positions")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlaceId");
 
-                    b.HasOne("ZooGuard.Core.Entities.PositionCategory", "PositionCategory")
+                    b.HasOne("ZooGuard.Core.Entities.PositionEntities.PositionCategory", "PositionCategory")
                         .WithMany("Positions")
                         .HasForeignKey("PositionCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.ServerRoom", "ServerRoom")
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Project", null)
+                        .WithMany("Positions")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("ZooGuard.Core.Entities.StorageEntities.ServerRoom", "ServerRoom")
                         .WithMany("Positions")
                         .HasForeignKey("ServerRoomId");
 
-                    b.HasOne("ZooGuard.Core.Entities.Storage", "Storage")
+                    b.HasOne("ZooGuard.Core.Entities.StorageEntities.Storage", "Storage")
                         .WithMany("Positions")
                         .HasForeignKey("StorageId");
 
-                    b.HasOne("ZooGuard.Core.Entities.Vender", "Vender")
+                    b.HasOne("ZooGuard.Core.Entities.VenderEntities.Vender", "Vender")
                         .WithMany("Positions")
                         .HasForeignKey("VenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
                         .WithMany("Positions")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -874,9 +916,9 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.Navigation("Broken");
 
-                    b.Navigation("FormOfOccurence");
+                    b.Navigation("Company");
 
-                    b.Navigation("Organisation");
+                    b.Navigation("FormOfOccurence");
 
                     b.Navigation("PositionCategory");
 
@@ -889,53 +931,93 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Project", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Place", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
+                        .WithMany("Places")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Project", null)
+                        .WithMany("Places")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
+                        .WithOne("Place")
+                        .HasForeignKey("ZooGuard.Core.Entities.StorageEntities.Place", "WorkerForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.ServerRoom", b =>
+                {
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
+                        .WithMany("ServerRooms")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
+                        .WithMany("ServerRooms")
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Storage", b =>
+                {
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
+                        .WithMany("Storages")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
+                        .WithMany("Storages")
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.TeamEntities.Project", b =>
+                {
+                    b.HasOne("ZooGuard.Core.Entities.TeamEntities.Company", "Company")
                         .WithMany("Projects")
-                        .HasForeignKey("OrganisationId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Organisation");
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Manager", "Manager")
+                        .WithMany("Projects")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.ServerRoom", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.Worker", b =>
                 {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
-                        .WithMany("ServerRooms")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Manager", "Manager")
+                        .WithOne("Worker")
+                        .HasForeignKey("ZooGuard.Core.Entities.WorkerEntities.Worker", "ManagerForeignKey");
 
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
-                        .WithMany("ServerRooms")
-                        .HasForeignKey("WorkerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organisation");
-
-                    b.Navigation("Worker");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
-                {
-                    b.HasOne("ZooGuard.Core.Entities.Organisation", "Organisation")
-                        .WithMany("Storages")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ZooGuard.Core.Entities.Worker", "Worker")
-                        .WithMany("Storages")
-                        .HasForeignKey("WorkerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organisation");
-
-                    b.Navigation("Worker");
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("ZooGuard.Core.Entities.Broken", b =>
@@ -943,12 +1025,27 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.InfoAboutPos.FormOfOccurence", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.PositionEntities.PositionCategory", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Organisation", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Place", b =>
+                {
+                    b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.ServerRoom", b =>
+                {
+                    b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.StorageEntities.Storage", b =>
+                {
+                    b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.TeamEntities.Company", b =>
                 {
                     b.Navigation("Places");
 
@@ -960,40 +1057,41 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.Navigation("Storages");
 
-                    b.Navigation("WorkersInOrganisations");
+                    b.Navigation("WorkersInCompanies");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.PositionCategory", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.TeamEntities.Project", b =>
                 {
+                    b.Navigation("Places");
+
                     b.Navigation("Positions");
-                });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Project", b =>
-                {
                     b.Navigation("WorkersInProjects");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.ServerRoom", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.VenderEntities.FormOfOccurence", b =>
                 {
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.SpecialityWorker", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.VenderEntities.Vender", b =>
+                {
+                    b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.Manager", b =>
+                {
+                    b.Navigation("Projects");
+
+                    b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.SpecialityWorker", b =>
                 {
                     b.Navigation("SpecialitiesOfWorkers");
                 });
 
-            modelBuilder.Entity("ZooGuard.Core.Entities.Storage", b =>
-                {
-                    b.Navigation("Positions");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Vender", b =>
-                {
-                    b.Navigation("Positions");
-                });
-
-            modelBuilder.Entity("ZooGuard.Core.Entities.Worker", b =>
+            modelBuilder.Entity("ZooGuard.Core.Entities.WorkerEntities.Worker", b =>
                 {
                     b.Navigation("Place");
 
@@ -1005,7 +1103,7 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.Navigation("Storages");
 
-                    b.Navigation("WorkersInOrganisations");
+                    b.Navigation("WorkersInCompanies");
 
                     b.Navigation("WorkersInProjects");
                 });

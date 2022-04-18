@@ -41,5 +41,6 @@ namespace ZooGuard.Core.Entities.WorkerEntities
         #region Many-To-Many (Worker-Company)
         public ICollection<WorkersInCompany> WorkersInCompanies { get; set; }
         #endregion
+
     }
 }

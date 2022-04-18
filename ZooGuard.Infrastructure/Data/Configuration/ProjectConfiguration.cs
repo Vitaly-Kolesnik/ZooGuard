@@ -15,6 +15,9 @@ namespace ZooGuard.Infrastructure.Data.Configuration
                 .Property(x => x.Name)
                 .HasMaxLength(100)
                 .IsRequired();
+
+            builder
+                .Property(x => x.PMId);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "984c99af-0acc-4cff-bff2-f2861cbf79c9",
+                            ConcurrencyStamp = "3c99c318-037d-4529-9e0d-0ff62e7432f5",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -148,13 +148,13 @@ namespace ZooGuard.Infrastructure.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "02246753-7a69-4c5a-86f3-ddddb76a6e52",
+                            ConcurrencyStamp = "fab9e6e8-bfa9-4871-9a4c-34cbc2015897",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF4O4bCS8hLpTQvIkYb8RNx0IS7fYlAlxqcFDZwtMKo9LSnhdG3j98qedmipj3dbuA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECM51wSAoAC9EvDyqXB30xR1pqSaruwwpuKIRVPOO7Px81KFlxBkWnHyvHs116YeuA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -314,10 +314,10 @@ namespace ZooGuard.Infrastructure.Migrations
 
             modelBuilder.Entity("ZooGuard.Core.Entities.MultipleConnections.WorkersInProject", b =>
                 {
-                    b.Property<int>("WorkerId")
+                    b.Property<int?>("WorkerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("WorkerId", "ProjectId");
@@ -468,7 +468,7 @@ namespace ZooGuard.Infrastructure.Migrations
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkerId")
+                    b.Property<int>("WorkerForeignKey")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -477,7 +477,7 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("WorkerId")
+                    b.HasIndex("WorkerForeignKey")
                         .IsUnique();
 
                     b.ToTable("Places");
@@ -564,10 +564,24 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("OrgForm")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<int>("UNP")
+                        .HasMaxLength(9)
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -588,6 +602,9 @@ namespace ZooGuard.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("PMId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -905,7 +922,7 @@ namespace ZooGuard.Infrastructure.Migrations
 
                     b.HasOne("ZooGuard.Core.Entities.WorkerEntities.Worker", "Worker")
                         .WithOne("Place")
-                        .HasForeignKey("ZooGuard.Core.Entities.StorageEntities.Place", "WorkerId")
+                        .HasForeignKey("ZooGuard.Core.Entities.StorageEntities.Place", "WorkerForeignKey")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

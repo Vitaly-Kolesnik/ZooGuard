@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 using ZooGuard.Core.Interfaces.InterfaciesForTeamServicies;
+using ZooGuard.Web.Interfaces.InterfacesForCompanyViewModelServices;
+using ZooGuard.Web.Models;
 
 namespace ZooGuard.Web.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class CompanyController : Controller
     {
-        private ICompanyService companyService;
+        private readonly ICompanyService companyService;
+        private readonly ICompanyViewModelService companyViewModelService;
 
-        public CompanyController(ICompanyService companyService)
+        public CompanyController(ICompanyService companyService, ICompanyViewModelService companyViewModelService)
         {
             this.companyService = companyService;
+            this.companyViewModelService = companyViewModelService;
         }
 
         [HttpGet("com")]
@@ -32,6 +35,19 @@ namespace ZooGuard.Web.Areas.Admin.Controllers
         public IActionResult CompanyListEmpty()
         {
             return View("CompanyListEmpty");
+        }
+
+        [HttpGet("com/ad")]
+        public IActionResult GetFormAddCompany()
+        {
+            return View("GetFormAddCompany");
+        }
+
+        public async Task<IActionResult> AddCompany (CompanyViewModel companyViewModel)
+        {
+            await companyViewModelService.AddAsync(companyViewModel);
+
+            return RedirectToAction("Companies");
         }
     }
 }

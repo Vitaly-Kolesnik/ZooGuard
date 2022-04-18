@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ZooGuard.Core.Entities;
 using ZooGuard.Core.Entities.PositionEntities;
 using ZooGuard.Web.Models;
 

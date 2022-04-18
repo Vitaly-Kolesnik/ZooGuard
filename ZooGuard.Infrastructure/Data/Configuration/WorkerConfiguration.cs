@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ZooGuard.Core.Entities.StorageEntities;
 using ZooGuard.Core.Entities.WorkerEntities;
 
 namespace ZooGuard.Infrastructure.Data.Configuration
@@ -40,7 +41,7 @@ namespace ZooGuard.Infrastructure.Data.Configuration
             builder
                 .HasOne(a => a.Place)
                 .WithOne(b => b.Worker)
-                .IsRequired();
+                .HasForeignKey<Place>(b => b.WorkerForeignKey);
         }
     }
 }

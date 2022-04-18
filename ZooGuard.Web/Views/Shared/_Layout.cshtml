@@ -15,17 +15,17 @@
     {
         @await Html.PartialAsync("SideBarPatrialGuest")
     }
-    <div class="main_content container-field">
-    @if(@User.IsInRole("admin"))
-    {
-            @await Html.PartialAsync("HeaderPatrialAutoris")
-    } 
-    else
-    {
-            @await Html.PartialAsync("HeaderPatrialGuest")
-    }
-    <div class="info">
-            @RenderBody()
+    <div class="main_content">
+        @if(@User.IsInRole("admin"))
+        {
+                @await Html.PartialAsync("HeaderPatrialAutoris")
+        } 
+        else
+        {
+                @await Html.PartialAsync("HeaderPatrialGuest")
+        }
+        <div class="info">
+                @RenderBody()
         </div>
     </div>
 </body>
