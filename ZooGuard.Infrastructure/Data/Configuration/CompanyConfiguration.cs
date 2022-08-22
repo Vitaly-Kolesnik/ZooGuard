@@ -30,6 +30,11 @@ namespace ZooGuard.Infrastructure.Data.Configuration
                 .Property(x => x.Adress)
                 .HasMaxLength(512)
                 .IsRequired();
+
+            builder
+                .Property(x => x.Characteristic)
+                .HasMaxLength(512)
+                .IsRequired();
         }
     }
 }

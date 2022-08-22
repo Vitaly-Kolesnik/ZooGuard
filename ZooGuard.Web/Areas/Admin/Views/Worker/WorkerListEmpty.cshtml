@@ -1,5 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Worker Empty";
 }
+    @await Html.PartialAsync("WorkerNavBarPartial")
+
+    @await Html.PartialAsync("WorkerMarkPartial")
+
+    <h3 class="mt-5">The list is empty</h3>

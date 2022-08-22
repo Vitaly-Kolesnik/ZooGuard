@@ -5,7 +5,7 @@ namespace ZooGuard.Web.Models
 {
     public class StorageViewModel
     {
-        [HiddenInput] //Генерирование скрытого поля ввода
+        [HiddenInput]
         public int? Id { get; set; }
 
         [Required, MaxLength(50), Display(Name = "Name")]
@@ -15,8 +15,6 @@ namespace ZooGuard.Web.Models
         public string ActualAddress { get; set; }
 
         [Required, MaxLength(50), Display(Name = "Characteristic")]
-        public string Characteristic { get; set; }
-
-
-    }
+        public string Characteristic { get; set; } 
+   }
 }

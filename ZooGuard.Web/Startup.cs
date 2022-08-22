@@ -23,6 +23,9 @@ using ZooGuard.Core.Interfaces.InterfaciesForTeamServicies;
 using ZooGuard.Core.Services.TeamServices;
 using ZooGuard.Web.Interfaces.InterfacesForTeamViewModelServices;
 using ZooGuard.Web.Interfaces.InterfacesForCompanyViewModelServices;
+using ZooGuard.Web.Interfaces.InterfacesForStorageViewModelServices;
+using ZooGuard.Web.Services.StoragiesViewModelServicies;
+using ZooGuard.Web.MapProfile;
 
 namespace ZooGuard.Web
 {
@@ -33,7 +36,7 @@ namespace ZooGuard.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; } 
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -49,6 +52,8 @@ namespace ZooGuard.Web
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<PositionDbContext>().AddDefaultTokenProviders();
+
+            services.AddAutoMapper(typeof(AppMappingProfile));
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -106,6 +111,8 @@ namespace ZooGuard.Web
             services.AddScoped<IPositionViewModelService, PositionViewModelService>();
             services.AddScoped<IProjectViewModelService, ProjectViewModelService>();
             services.AddScoped<ICompanyViewModelService, CompanyViewModelService>();
+            services.AddScoped<IPlaceViewModelService, PlaceViewModelService>();
+            
             services.AddControllersWithViews(x =>
             {
                 x.Conventions.Add(new AdminAreaAuthorization("admin", "AdminArea"));

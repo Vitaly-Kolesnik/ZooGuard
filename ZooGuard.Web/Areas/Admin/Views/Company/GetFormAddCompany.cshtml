@@ -1,18 +1,19 @@
-﻿@model CompanyViewModel
+﻿@model AddCompanyViewModel
 @{
-    ViewData["Title"] = "Add Project";
+    ViewData["Title"] = "Add Company";
 }
+
+<div class="addres-link"><p><a href="~/hm">Home</a>&#47;<a href="~/com">Companies</a>&#47;</p></div>
+
 <form asp-area="admin" asp-controller="Company" asp-action="AddCompany" method="post" class="mt-5">
   <div class="form-row mb-0">
     <div class="form-group col-md-2">
       <label asp-for="OrgForm" for="inputName"></label>
       <input asp-for="OrgForm" type="text" class="form-control" id="inputOrgForm" placeholder="OOO">
-       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
     <div class="form-group col-md-5">
       <label asp-for="Name" for="inputName4"></label>
       <input asp-for="Name" type="text" class="form-control" id="inputName" placeholder="Acme">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
   <div class="form-group col-md-5">
       <label asp-for="UNP" for="inputPassword4"></label>
@@ -22,6 +23,10 @@
   <div class="form-group">
     <label asp-for="Adress" for="inputAddress"></label>
     <input asp-for="Adress" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label asp-for="Characteristic" for="inputAddress"></label>
+    <input asp-for="Characteristic" type="text" class="form-control" id="Characteristic" placeholder="about it">
   </div>
 <button type="submit" class="btn btn-info">Add Company</button>
 </form>

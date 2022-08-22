@@ -12,6 +12,7 @@ namespace ZooGuard.Core.Specifications.TeamSpecifications
         {
             $"{nameof(Project.Positions)}",
             $"{nameof(Project.Places)}",
+            $"{nameof(Project.Company)}",
             $"{nameof(Project.WorkersInProjects)}.{nameof(WorkersInProject.Worker)}",
             $"{nameof(Project.Places)}"
         };

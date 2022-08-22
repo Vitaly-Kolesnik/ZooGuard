@@ -23,7 +23,6 @@ namespace ZooGuard.Web.Areas.Admin.Controllers
             {
                 return View("WorkerListEmpty");
             }
-
             return View("Workers");
         }
     }

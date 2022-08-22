@@ -18,11 +18,17 @@ namespace ZooGuard.Core.Services.TeamServices
         {
             using (unitOfWork)
             {
-                await unitOfWork.CompanyRepository.AddAsync(company);
+                
+                if(unitOfWork.CompanyRepository.Find(new FindNameCompanySpecification(company.UNP)))
+                {
+                    await unitOfWork.CompanyRepository.AddAsync(company);
 
-                await unitOfWork.SaveAsync();
+                    await unitOfWork.SaveAsync();
 
-                return true;
+                    return true;
+                }
+                return false;
+                
             }
         }
         public async Task<bool> DeleteAsync(int id)

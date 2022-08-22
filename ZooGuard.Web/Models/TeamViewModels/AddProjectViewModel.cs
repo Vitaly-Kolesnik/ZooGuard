@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ZooGuard.Web.Models
+namespace ZooGuard.Web.Models.TeamViewModels
 {
-    public class ProjectViewModel
+    public class AddProjectViewModel
     {
         [HiddenInput]
         public int? Id { get; set; }
@@ -19,12 +19,8 @@ namespace ZooGuard.Web.Models
         public int CompanyId { get; set; }
         public IEnumerable<SelectListItem> Companies { get; set; }
 
-        [Display(Name = "Positions")]
-        public int PositionIds { get; set; }
-        public IEnumerable<SelectListItem> Positions { get; set; }
-
-        [Display(Name = "Places")]
-        public int PlaceIds { get; set; }
-        public IEnumerable<SelectListItem> Places { get; set; }
+        [Display(Name = "PM")]
+        public int PMIds { get; set; }
+        public IEnumerable<SelectListItem> PMs { get; set; }
     }
 }

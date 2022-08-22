@@ -27,6 +27,18 @@ namespace ZooGuad.Infrastructure.Data.Repositories
 
             return true;
         }
+        public async Task<bool> UpdateAsync(TEntity entity)
+        {
+            await Task.Run(() => dbSet.Update(entity));
+
+            return true;
+        }
+        public bool Find(ISpecification<TEntity> specification)
+        {
+            var result = specification.Apply(dbSet);
+
+            return !result.Any();
+        }
         public async Task <TEntity> GetAsync(int id) 
         {
             var entity = await dbSet.FindAsync(id);
@@ -43,12 +55,6 @@ namespace ZooGuad.Infrastructure.Data.Repositories
         public async Task< IList<TEntity>> ListAsync(ISpecification<TEntity> specification)
         {
             return await ApplySpecification(dbSet, specification).ToListAsync();
-        }
-        public async Task <bool> UpdateAsync(TEntity entity)
-        {
-            await Task.Run (() => dbSet.Update(entity));
-
-            return true;
         }
         private IQueryable<TEntity> ApplySpecification(IQueryable<TEntity> source, ISpecification<TEntity> specification)
         {

@@ -27,7 +27,6 @@ namespace ZooGuard.Web.Areas.Admin.Controllers
             {
                 return RedirectToAction("CompanyListEmpty");
             }
-            
             return View("Companies", list);
         }
 
@@ -43,10 +42,15 @@ namespace ZooGuard.Web.Areas.Admin.Controllers
             return View("GetFormAddCompany");
         }
 
-        public async Task<IActionResult> AddCompany (CompanyViewModel companyViewModel)
+        [HttpPost]
+        public async Task<IActionResult> AddCompany (ProfileCompanyViewModel companyViewModel)
         {
-            await companyViewModelService.AddAsync(companyViewModel);
+           if (await companyViewModelService.AddAsync(companyViewModel))
+           {
+                return RedirectToAction("Companies");
+           }
 
+            ModelState.AddModelError(nameof(ProfileCompanyViewModel.UNP), "Such data already exists");
             return RedirectToAction("Companies");
         }
     }

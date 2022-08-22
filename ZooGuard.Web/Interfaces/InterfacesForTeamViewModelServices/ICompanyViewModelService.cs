@@ -5,6 +5,8 @@ namespace ZooGuard.Web.Interfaces.InterfacesForCompanyViewModelServices
 {
     public interface ICompanyViewModelService
     {
-        Task<bool> AddAsync(CompanyViewModel companyViewModel);
+        Task<bool> AddAsync(ProfileCompanyViewModel companyViewModel);
+
+        ProfileCompanyViewModel GetEmpty();
     }
 }

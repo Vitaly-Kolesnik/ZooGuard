@@ -12,6 +12,7 @@ namespace ZooGuard.Core.Entities.TeamEntities
         public string Name { get; set; }
         public int UNP { get; set; }
         public string Adress { get; set; }
+        public string Characteristic { get; set; }
 
         #region One-To-Many (Company - Positions)
         public ICollection<Position> Positions { get; set; }

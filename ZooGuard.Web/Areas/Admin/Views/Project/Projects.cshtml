@@ -1,5 +1,55 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IList<ZooGuard.Core.Entities.TeamEntities.Project>
 @{
+    ViewData["Title"] = "Project Table";
 }
+
+@await Html.PartialAsync("ProjectNavBarPartial")
+
+<div class = "tabs">
+
+@await Html.PartialAsync("ProjectMarkPartial")
+
+<table class="table table-hover">
+
+    @await Html.PartialAsync("ProjectTheadTablePartial")
+
+  <tbody>    
+        @foreach(var line in @Model)
+        {
+            <tr class="row-table table-light">
+                <th class="border-top-0 border-info border-left"><a href="prj/del/@line.Id"><i class="fa fa-times fa-lg btn btn-danger alert-secondary"></i></a>&ensp;&ensp;<i class="fa fa-pencil fa-lg btn btn-info alert-secondary"></i></th>
+                <td><button type="submit" class="btn btn-info">@line.Name</button></td>
+                <td>@line.PMId</td>
+                <td>@line.Company.Name</td>
+
+                    @if(@line.Positions.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Positions (@line.Positions.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Positions (@line.Positions.Count())</button></td>
+                    }
+
+                    @if(@line.Places.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Places (@line.Places.Count())</button></td>
+                    }
+                    else
+                    {
+                         <td><button type="submit" class="btn btn-info">Places (@line.Places.Count())</button></td>
+                    }
+
+                    @if(@line.Places.Count() == 0)
+                    {
+                        <td class="border-info border-right"><button type="submit" class="btn btn-secondary" disabled>Worker (@line.WorkersInProjects.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td class="border-info border-right"><button type="submit" class="btn btn-info">Worker (@line.WorkersInProjects.Count())</button></td>
+                    }
+            </tr>
+        }
+</tbody>
+</table>
+</div>

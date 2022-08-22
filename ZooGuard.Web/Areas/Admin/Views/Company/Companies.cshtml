@@ -1,5 +1,4 @@
 ﻿@model IList<ZooGuard.Core.Entities.TeamEntities.Company>
-
 @{
     ViewData["Title"] = "Company Table";
 }
@@ -8,34 +7,75 @@
 
 <div class = "tabs">
 
-@await Html.PartialAsync("CompanyMarkPartial")
+    @await Html.PartialAsync("CompanyMarkPartial")
 
 <table class="table table-hover">
-  <thead>
-    <tr class="table-light">
-      <th scope="col">N</th>
-      <th scope="col">Name Company</th>
-      <th scope="col">Positions</th>
-      <th scope="col">Places</th>
-      <th scope="col">Projects</th>
-      <th scope="col">Storagies</th>
-      <th scope="col">Status</th>
-      <th scope="col">Server Rooms</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr class="row-table table-light">
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Otto</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      </tr>
+
+    @await Html.PartialAsync("CompanyTheadTablePartial")
+
+<tbody>    
+        @foreach(var line in @Model)
+        {
+            <tr class="row-table table-light">
+            <th scope="row" class="border-top-0 border-info border-left"><i class="fa fa-times fa-lg btn btn-danger alert-secondary"></i>&ensp;&ensp;<i class="fa fa-pencil fa-lg btn btn-info alert-secondary"></i></th>
+            <td><button type="submit" class="btn btn-info">@line.OrgForm @line.Name</button></td>
+            <td>@line.UNP</td>
+            <td>@line.Adress</td>
+                    @if(@line.Positions.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Positions (@line.Positions.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Positions (@line.Positions.Count())</button></td>
+                    }
+
+                    @if(@line.Places.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Places (@line.Places.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Places (@line.Places.Count())</button></td>
+                    }
+
+                    @if(@line.Projects.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Projects (@line.Projects.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Projects (@line.Projects.Count())</button></td>
+                    }
+                    
+                    @if(@line.Storages.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Storages (@line.Storages.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Storages (@line.Storages.Count())</button></td>
+                    }
+
+                    @if(@line.ServerRooms.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Server Rooms (@line.ServerRooms.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Server Rooms (@line.ServerRooms.Count())</button></td>
+                    }
+
+                    @if(@line.WorkersInCompanies.Count() == 0)
+                    {
+                        <td class="border-info border-right"><button type="submit" class="btn btn-secondary" disabled>Worker (@line.WorkersInCompanies.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td class="border-info border-right"><button type="submit" class="btn btn-info">Worker (@line.WorkersInCompanies.Count())</button></td>
+                    }
+            </tr>
+        }
 </tbody>
 </table>
 </div>

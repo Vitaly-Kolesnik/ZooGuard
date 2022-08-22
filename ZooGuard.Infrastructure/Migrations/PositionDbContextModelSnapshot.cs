@@ -49,7 +49,7 @@ namespace ZooGuard.Infrastructure.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "3c99c318-037d-4529-9e0d-0ff62e7432f5",
+                            ConcurrencyStamp = "da2e9027-75e4-4112-92af-50101becad50",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -148,13 +148,13 @@ namespace ZooGuard.Infrastructure.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fab9e6e8-bfa9-4871-9a4c-34cbc2015897",
+                            ConcurrencyStamp = "454fe75a-69a0-496b-ad89-d440c8be9406",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECM51wSAoAC9EvDyqXB30xR1pqSaruwwpuKIRVPOO7Px81KFlxBkWnHyvHs116YeuA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDSw6Rz/vvw1s02Rqz0yTVyW9cXay9QoulrE4AwdUbeiyu377euMJFgrriFegNq6dA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -565,6 +565,11 @@ namespace ZooGuard.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<string>("Characteristic")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");

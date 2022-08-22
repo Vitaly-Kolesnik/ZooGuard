@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace ZooGuard.Web
@@ -15,11 +14,11 @@ namespace ZooGuard.Web
         }
 
         //Реализация паттерна строитель
-        public static IHostBuilder CreateHostBuilder(string[] args) => //
+        public static IHostBuilder CreateHostBuilder(string[] args) => 
             Host.CreateDefaultBuilder(args) //создаем IHOSTBuilder используя конфигурацию по умолчанию (Универсальный узел для любых UI)
                 .ConfigureWebHostDefaults(webBuilder => //Настраиваем приложение для использования Kestrel и прослушивания HTTP-запросов (Web app)
                 {
-                    webBuilder.UseStartup<Startup>(); //Класс Startup определяет конфигурации проекта (внутри метода организоваа рифлексия, то есть необходимые элементы находтся при запуске)
+                    webBuilder.UseStartup<Startup>(); //Класс Startup определяет конфигурации проекта (внутри метода организована рифлексия, то есть необходимые элементы находтся при запуске)
                                                      
                 });
     }

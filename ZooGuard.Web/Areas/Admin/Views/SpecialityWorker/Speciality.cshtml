@@ -1,0 +1,36 @@
+﻿@model IList<ZooGuard.Core.Entities.WorkerEntities.SpecialityWorker>
+@{
+    ViewData["Title"] = "Speciality Table";
+}
+
+@await Html.PartialAsync("SpecialityNavBarPartial")
+
+<div class = "tabs">
+
+@await Html.PartialAsync("SpecialityMarkPartial")
+
+<table class="table table-hover">
+
+    @await Html.PartialAsync("SpecialityTheadTablePartial")
+
+  <tbody>    
+        @foreach(var line in @Model)
+        {
+            <tr class="row-table table-light">
+                <th class="border-top-0 border-info border-left"><i class="fa fa-times fa-lg btn btn-danger alert-secondary"></i>&ensp;&ensp;<i class="fa fa-pencil fa-lg btn btn-info alert-secondary"></i></th>
+                <td><button type="submit" class="btn btn-info">@line.Name</button></td>
+                <td>@line.Description</td>
+
+                    @if(@line.SpecialitiesOfWorkers.Count() == 0)
+                    {
+                        <td><button type="submit" class="btn btn-secondary" disabled>Positions (@line.SpecialitiesOfWorkers.Count())</button></td>
+                    }
+                    else
+                    {
+                        <td><button type="submit" class="btn btn-info">Positions (@line.SpecialitiesOfWorkers.Count())</button></td>
+                    }
+            </tr>
+        }
+</tbody>
+</table>
+</div>

@@ -1,0 +1,18 @@
+﻿<nav class=" second-navbar row" style="color: #f6f6f6;">  
+     <il class="nav-item col-2 pt-2 mt-1 mr-3">
+        <div class="addres-link"><p><a href="~/hm">Home</a>&#47;Speciality</p></div>
+     </il>
+     <il class="nav-item col-auto">
+     </il>
+     <il class="nav-item col-auto">
+         <nav class="row">
+         <form asp-area="admin" asp-controller="Worker" asp-action="GetFormAddWorker" method="get" class="col-auto m-0 pr-0">
+         <button type="submit" class="btn btn-info rounded-left float-left">Add Worker</button>
+         </form>
+         
+         <form asp-area="admin" asp-controller="SpecialityWorker" asp-action="GetFormAddSpiciality" method="get" class="col-auto m-0 pl-1">
+         <button class="btn btn-info rounded-left float-left" type="submit">Add Speciality</button>
+         </form>
+         </nav>
+     </il>
+</nav>

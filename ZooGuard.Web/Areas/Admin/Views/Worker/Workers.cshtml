@@ -1,51 +1,82 @@
-﻿@{
+﻿@model IList<ZooGuard.Core.Entities.WorkerEntities.Worker>
+@{
     ViewData["Title"] = "Worker Table";
 }
 
-<div class="container-fluid">
-  <div class="button-add-link row align-items-start">
-    <div class="col">
-       <div class="addres-link"><p><a href="~/hm">Home</a>&#47;Workers</p></div>
-    </div>
-    <div class="col d-flex flex-row-reverse">
-        <div class ="add-button">
-            <button class="btn btn-info rounded-left" type="button">Add Worker</button>
-            <button class="btn btn-info rounded-left" type="button">Add Speciality</button>
-        </div>
-    </div>
-  </div>
- </div>
+@await Html.PartialAsync("WorkerNavBarPartial")
 
 <div class = "tabs">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="~/wk">Workers</a>
-      </li>
-    </ul>
 
+    @await Html.PartialAsync("WorkerMarkPartial")
 
 <table class="table table-hover">
-  <thead>
-    <tr class="table-light">
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Projects</th>
-      <th scope="col">Places</th>
-      <th scope="col">Workers</th>
-      <th scope="col">Storagies</th>
-      <th scope="col">Server Romm</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="row-table table-light">
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Otto</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>Mark</td>
-    </tr>
-  </tbody>
+
+    @await Html.PartialAsync("WorkerTheadTablePartial")
+
+<tbody>    
+        @foreach(var line in @Model)
+        {
+            <tr class="row-table table-light">
+                <th scope="row" class="border-top -0 border-info border-left"><i class="fa fa-times fa-lg btn btn-danger alert-secondary"></i>&ensp;&ensp;<i class="fa fa-pencil fa-lg btn btn-info alert-secondary"></i></th>
+                <td><button type="submit" class="btn btn-info">@line.Name @line.LastName @line.Patronymic</button></td>
+            
+                if(@line.SpecialitiesOfWorkers.Count() == 1) 
+                {
+                    <td>@line.SpecialitiesOfWorkers.Select(p => p.SpecialityWorker.Name)</td>
+                }
+                else
+                {
+                    <td><button type="submit" class="btn btn-info">Speciality(@line.SpecialitiesOfWorkers.Count())</button></td>
+                }
+            
+                <td>@line.Place.Name</td>
+            
+                if(@line.WorkersInCompanies.Count() == 1) 
+                {
+                    <td><button type="submit" class="btn btn-info">@line.WorkersInCompanies.Select(p => p.Company.Name)</button></td>
+                }
+                else
+                {
+                    <td><button type="submit" class="btn btn-info">Companies(@line.WorkersInCompanies.Count())</button></td>
+                }
+            
+                if(@line.WorkersInProjects.Count() == 1) 
+                {
+                    <td><button type="submit" class="btn btn-info">@line.WorkersInProjects.Select(p => p.Project.Name)</button></td>
+                }
+                else
+                {
+                    <td><button type="submit" class="btn btn-info">Companies(@line.WorkersInProjects.Count())</button></td>
+                }
+            
+                @if(@line.Positions.Count() == 0)
+                {
+                    <td><button type="submit" class="btn btn-secondary" disabled>Positions (@line.Positions.Count())</button></td>
+                }
+                else
+                {
+                    <td><button type="submit" class="btn btn-info">Positions (@line.Positions.Count())</button></td>
+                }
+
+                @if(@line.Storages.Count() == 0)
+                {
+                    <td><button type="submit" class="btn btn-secondary" disabled>Storages (@line.Storages.Count())</button></td>
+                }
+                else
+                {
+                    <td><button type="submit" class="btn btn-info">Storages (@line.Storages.Count())</button></td>
+                }
+
+                @if(@line.ServerRooms.Count() == 0)
+                {
+                    <td class="border-info border-right"><button type="submit" class="btn btn-secondary" disabled>Server Rooms (@line.ServerRooms.Count())</button></td>
+                }
+                else
+                {
+                    <td class="border-info border-right"><button type="submit" class="btn btn-info">Server Rooms (@line.ServerRooms.Count())</button></td>
+                }
+            </tr>
+        }
+</tbody>
 </table>
 </div>

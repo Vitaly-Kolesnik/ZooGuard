@@ -1,0 +1,21 @@
+﻿@model AddCompanyViewModel
+@{
+    ViewData["Title"] = "Add Place";
+}
+<form asp-area="admin" asp-controller="Place" asp-action="AddPlace" method="post" class="mt-5">
+  <div class="form-row mb-0">
+    <div class="form-group col-md-2">
+      <label asp-for="Name" for="inputName"></label>
+      <input asp-for="Name" type="text" class="form-control" id="inputOrgForm" placeholder="OOO">
+    </div>
+    <div class="form-group col-md-5">
+      <label asp-for="Adress" for="inputName4"></label>
+      <input asp-for="Adress" type="text" class="form-control" id="inputName" placeholder="Acme">
+    </div>
+  <div class="form-group col-md-5">
+      <label asp-for="Characteristic" for="inputPassword4"></label>
+      <input asp-for="Characteristic" class="form-control" id="inputUNP" placeholder="123456789">
+    </div>
+  </div>
+<button type="submit" class="btn btn-info">Add Place</button>
+</form>
